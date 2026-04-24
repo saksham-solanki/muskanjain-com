@@ -22,7 +22,8 @@ export function BlurFade({
   blur?: number
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: inViewMargin as `-${number}px` })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inView = useInView(ref, { once: true, margin: inViewMargin as any })
 
   return (
     <motion.div
