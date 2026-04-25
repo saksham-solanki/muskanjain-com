@@ -9,7 +9,7 @@ import {
   BarChart3,
   Rocket,
   ArrowRight,
-  AlertCircle,
+  ArrowLeft,
   TrendingUp,
   Landmark,
   Layers,
@@ -17,359 +17,288 @@ import {
   Gamepad2,
   Cpu,
   Gem,
+  Sparkles,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '@/data/site-config'
 import { cn } from '@/lib/utils'
 
-/* ── Per-vertical detailed content ── */
-
 interface VerticalDetail {
   headline: string
   marketContext: string
-  painPoints: { title: string; detail: string }[]
+  buildersAsk: { title: string; detail: string }[]
   serviceSlugs: string[]
 }
 
 const verticalContent: Record<string, VerticalDetail> = {
   defi: {
-    headline: 'defi protocols are invisible in AI search, hemorrhaging users with broken funnels, and can\'t produce content fast enough.',
-    marketContext: '$129B TVL. the most competitive web3 vertical. every protocol fights for the same liquidity, same users, same mindshare.',
-    painPoints: [
-      { title: 'invisible in AI search', detail: 'when VCs ask perplexity "best defi lending protocols," your protocol doesn\'t show up. AI citations drive deal flow now.' },
-      { title: '70%+ bounce rates', detail: 'dark mode sites with "Launch App" as the only CTA. users leave before understanding what your protocol does.' },
-      { title: 'content can\'t keep up', detail: 'protocol updates, new features, competitor launches. most projects produce 2-5 posts/month when they need 52+.' },
-      { title: 'no attribution', detail: 'web analytics can\'t see on-chain behavior. 70-80% of marketing budget is a guess.' },
+    headline: 'invisible in ai search, hemorrhaging users with broken funnels, and can\'t produce content fast enough.',
+    marketContext: '$129b tvl. the most competitive web3 vertical. every protocol fights for the same liquidity, same users, same mindshare.',
+    buildersAsk: [
+      { title: 'how do i show up in ai answers?', detail: 'when vcs ask perplexity "best defi lending protocols," your protocol doesn\'t show up. ai citations drive deal flow now.' },
+      { title: 'why is bounce rate 70%+?', detail: 'dark mode sites with "launch app" as the only cta. users leave before understanding what your protocol does.' },
+      { title: 'how do i scale content?', detail: 'protocol updates, features, competitor launches. most projects produce 2–5 posts/month when they need 52+.' },
+      { title: 'where\'s the budget going?', detail: 'web analytics can\'t see on-chain behavior. 70–80% of marketing budget is a guess.' },
     ],
     serviceSlugs: ['community-engine', 'gtm-engine', 'content-system', 'growth-intelligence', 'launch-engine'],
   },
   rwa: {
-    headline: 'institutional buyers research via AI before investing. if you\'re not cited, you\'re not in the consideration set.',
-    marketContext: '$29.2B market with 185.8% YTD growth. the fastest-growing web3 vertical, bridging tradfi and crypto.',
-    painPoints: [
-      { title: 'AI-first due diligence', detail: 'institutional allocators use AI research tools before due diligence calls. zero AI citations means zero consideration.' },
-      { title: 'compliance complexity', detail: 'MiCA, VARA, and jurisdiction-specific regulations make content creation slow and expensive. you need scale without sacrificing accuracy.' },
-      { title: 'trust signals required', detail: 'institutional buyers need authority signals at every touchpoint. your content must demonstrate expertise, not just exist.' },
+    headline: 'institutional buyers research via ai before investing. if you\'re not cited, you\'re not in the consideration set.',
+    marketContext: '$29.2b market with 185.8% ytd growth. fastest-growing web3 vertical. bridge between tradfi and crypto.',
+    buildersAsk: [
+      { title: 'how do i pass ai due diligence?', detail: 'institutional allocators use ai research tools before due diligence calls. zero ai citations means zero consideration.' },
+      { title: 'how do i scale compliant content?', detail: 'mica, vara, and jurisdiction rules make content slow. you need scale without sacrificing accuracy.' },
+      { title: 'where do trust signals live?', detail: 'institutional buyers need authority signals at every touchpoint. your content must demonstrate expertise.' },
     ],
     serviceSlugs: ['content-system', 'gtm-engine', 'growth-intelligence'],
   },
   'l1-l2': {
     headline: 'chains compete on developer acquisition, ecosystem visibility, and "why build here" comparisons. growth is existential.',
-    marketContext: 'multi-trillion aggregate market. every chain fights for developers, dApps, TVL, and mindshare.',
-    painPoints: [
-      { title: 'developer acquisition', detail: 'when a developer asks "which chain should I build on?", your chain needs to be the answer. AI search is the new discovery layer.' },
-      { title: 'ecosystem visibility', detail: 'ecosystem visibility drives TVL, dApp deployment, and partnership opportunities. most chains are invisible outside crypto twitter.' },
-      { title: 'chain comparison queries', detail: '"solana vs avalanche", "base vs arbitrum" get thousands of searches monthly. nobody ranks for these.' },
-      { title: 'community at scale', detail: 'developer communities need 24/7 support across discord and telegram. human moderators can\'t scale.' },
+    marketContext: 'multi-trillion aggregate market. every chain fights for developers, dapps, tvl, and mindshare.',
+    buildersAsk: [
+      { title: 'how do i win developers?', detail: 'when a developer asks "which chain should i build on?" — your chain needs to be the answer. ai search is the new discovery layer.' },
+      { title: 'how do i grow the ecosystem?', detail: 'ecosystem visibility drives tvl, dapp deployment, partnerships. most chains are invisible outside crypto twitter.' },
+      { title: 'who ranks for chain comparisons?', detail: '"solana vs avalanche", "base vs arbitrum" — thousands of monthly searches. nobody ranks for these.' },
+      { title: 'how do i support 24/7 community?', detail: 'developer communities need round-the-clock support across discord and telegram. humans can\'t scale.' },
     ],
     serviceSlugs: ['community-engine', 'gtm-engine', 'content-system', 'growth-intelligence', 'launch-engine'],
   },
   daos: {
     headline: 'governance turnout below 10%, community costs spiraling, and treasury decisions made without enough participation.',
-    marketContext: '550+ projects. rapidly evolving governance models, AI agent integration, and community-driven coordination.',
-    painPoints: [
-      { title: 'governance participation', detail: 'less than 10% voter turnout on critical proposals. proposals fail quorum. decisions get made by a tiny minority.' },
-      { title: 'community costs', detail: 'community management costs scale linearly while budgets don\'t. $5K-$15K/month on moderators answering the same questions.' },
-      { title: 'treasury mismanagement', detail: 'no data-driven allocation. marketing spend has zero attribution. millions in treasury with no ROI tracking.' },
+    marketContext: '550+ projects. rapidly evolving governance models, ai agent integration, and community-driven coordination.',
+    buildersAsk: [
+      { title: 'why won\'t people vote?', detail: 'less than 10% voter turnout on critical proposals. proposals fail quorum. tiny minorities make decisions.' },
+      { title: 'how do i cut community spend?', detail: 'community management scales linearly while budgets don\'t. $5k–$15k/month on mods answering the same questions.' },
+      { title: 'where is the treasury going?', detail: 'no data-driven allocation. zero attribution. millions in treasury with no roi tracking.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'growth-intelligence'],
   },
   gamefi: {
     headline: 'blockchain gaming needs mainstream onboarding, content at scale, and community-driven growth to survive the next cycle.',
-    marketContext: '$17.47B market cap. DeFi mechanics integration is creating new hybrid gaming models.',
-    painPoints: [
-      { title: 'mainstream onboarding', detail: '70% of users drop off during wallet setup. mainstream gamers don\'t search crypto-native terms. bridge content is critical.' },
-      { title: 'content at launch scale', detail: 'game launches require massive content output: guides, comparisons, reviews, tutorials. most teams can\'t produce fast enough.' },
-      { title: 'community management', detail: 'gaming communities are high-volume, high-engagement. discord servers with 50K+ members need 24/7 moderation and support.' },
+    marketContext: '$17.47b market cap. defi mechanics integration is creating new hybrid gaming models.',
+    buildersAsk: [
+      { title: 'how do i onboard mainstream?', detail: '70% of users drop off during wallet setup. mainstream gamers don\'t search crypto-native terms. bridge content is critical.' },
+      { title: 'how do i ship launch content?', detail: 'game launches require massive output: guides, comparisons, reviews, tutorials. most teams can\'t produce fast enough.' },
+      { title: 'how do i support 50k+ discords?', detail: 'gaming communities are high-volume, high-engagement. 50k+ member servers need 24/7 mod and support.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'launch-engine'],
   },
   depin: {
     headline: 'explaining decentralized physical infrastructure to people who don\'t know what it means. simplicity at scale.',
     marketContext: 'emerging market with early but accelerating growth. massive potential if the story can be told simply.',
-    painPoints: [
-      { title: 'complexity translation', detail: 'your ICP includes non-crypto audiences: IoT buyers, enterprise, hardware operators. they use completely different search patterns.' },
-      { title: 'technical content gap', detail: 'content needs to be accurate enough for engineers but accessible enough for business buyers. most projects can\'t do both.' },
-      { title: 'developer relations', detail: 'building a developer ecosystem requires documentation, tutorials, and community support at scale.' },
+    buildersAsk: [
+      { title: 'how do i talk to non-crypto buyers?', detail: 'your icp includes iot buyers, enterprise, hardware operators. they use completely different search patterns.' },
+      { title: 'how do i bridge technical + business?', detail: 'content needs to be accurate enough for engineers but accessible enough for business buyers. most projects can\'t do both.' },
+      { title: 'how do i build dev relations?', detail: 'developer ecosystem requires docs, tutorials, community support — at scale.' },
     ],
     serviceSlugs: ['content-system', 'gtm-engine'],
   },
   'nft-fi': {
-    headline: 'NFT lending and fractionalization need liquidity, engagement, and market education. most potential users don\'t know these products exist.',
-    marketContext: 'growing market blending DeFi mechanics with NFT ownership. novel financial primitives need explanation.',
-    painPoints: [
-      { title: 'low liquidity chicken-and-egg', detail: 'you need users to bootstrap the liquidity flywheel. but users need liquidity to see value. education is the unlock.' },
-      { title: 'market education gap', detail: 'NFT lending and fractionalization are novel concepts. your audience needs education before they need your product.' },
-      { title: 'engagement decay', detail: 'NFT communities spike at mint and decay fast. sustaining engagement requires content, utility, and community investment.' },
+    headline: 'nft lending and fractionalization need liquidity, engagement, and market education. most potential users don\'t know these products exist.',
+    marketContext: 'growing market blending defi mechanics with nft ownership. novel financial primitives need explanation.',
+    buildersAsk: [
+      { title: 'how do i bootstrap liquidity?', detail: 'you need users to bootstrap the flywheel. but users need liquidity to see value. education is the unlock.' },
+      { title: 'how do i educate the market?', detail: 'nft lending and fractionalization are novel. your audience needs education before they need your product.' },
+      { title: 'how do i sustain engagement?', detail: 'nft communities spike at mint and decay fast. sustaining engagement requires content, utility, and investment.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'launch-engine'],
   },
 }
 
-const verticalIcons: Record<string, React.ReactNode> = {
-  defi: <TrendingUp size={32} strokeWidth={1.5} />,
-  rwa: <Landmark size={32} strokeWidth={1.5} />,
-  'l1-l2': <Layers size={32} strokeWidth={1.5} />,
-  daos: <Vote size={32} strokeWidth={1.5} />,
-  gamefi: <Gamepad2 size={32} strokeWidth={1.5} />,
-  depin: <Cpu size={32} strokeWidth={1.5} />,
-  'nft-fi': <Gem size={32} strokeWidth={1.5} />,
+const verticalIcons: Record<string, React.ElementType> = {
+  defi: TrendingUp,
+  rwa: Landmark,
+  'l1-l2': Layers,
+  daos: Vote,
+  gamefi: Gamepad2,
+  depin: Cpu,
+  'nft-fi': Gem,
 }
 
-const serviceIconMap: Record<string, React.ReactNode> = {
-  'community-engine': <Users size={20} strokeWidth={1.5} />,
-  'gtm-engine': <Radar size={20} strokeWidth={1.5} />,
-  'content-system': <PenTool size={20} strokeWidth={1.5} />,
-  'growth-intelligence': <BarChart3 size={20} strokeWidth={1.5} />,
-  'launch-engine': <Rocket size={20} strokeWidth={1.5} />,
+const serviceIconMap: Record<string, React.ElementType> = {
+  'community-engine': Users,
+  'gtm-engine': Radar,
+  'content-system': PenTool,
+  'growth-intelligence': BarChart3,
+  'launch-engine': Rocket,
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
-  },
-}
-
-const stagger = {
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
+const initiativeMap: Record<string, string> = {
+  'community-engine': 'community ops jam',
+  'gtm-engine': 'signal labs',
+  'content-system': 'content guild',
+  'growth-intelligence': 'on-chain reads',
+  'launch-engine': 'launch table',
 }
 
 export default function VerticalPage() {
   const { slug } = useParams<{ slug: string }>()
-
   const vertical = siteConfig.verticals.find((v) => v.slug === slug)
   if (!vertical) notFound()
-
   const content = verticalContent[slug]
   if (!content) notFound()
+  const Icon = verticalIcons[slug] ?? TrendingUp
 
   const applicableServices = siteConfig.services.filter((s) =>
-    content.serviceSlugs.includes(s.slug)
+    content.serviceSlugs.includes(s.slug),
   )
 
   return (
-    <main className="min-h-screen">
-      {/* ── Hero ── */}
-      <section className="bg-[#1A1A2E] section-padding pt-32 sm:pt-36">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Link
-              href="/verticals"
-              className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-[#FF6B6B] transition-colors mb-8"
-            >
-              <ArrowRight size={14} className="rotate-180" />
-              all verticals
-            </Link>
-          </motion.div>
+    <main className="min-h-screen pt-24">
+      {/* ─── Hero ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #B6CCE5 0%, #FFD0C4 38%, #FFE0DA 70%, #FFEFEB 100%)' }}>
+        <div className="absolute top-[12%] right-[14%] w-[320px] h-[320px] rounded-full bg-[#FFE6D2]/75 blur-[110px] pointer-events-none" />
+        <div className="container-width section-padding relative">
+          <Link href="/verticals" className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-coral transition-colors mb-10">
+            <ArrowLeft size={14} />
+            all fields
+          </Link>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="w-14 h-14 rounded-xl bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center mb-6"
-          >
-            {verticalIcons[slug]}
-          </motion.div>
+          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-start">
+            <div className="col-span-12 lg:col-span-8">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-[11px] tabular text-ink-muted">field · {vertical.slug}</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">{vertical.title.toUpperCase()}</span>
+              </div>
+              <div className="mt-7 w-14 h-14 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
+                <Icon size={24} className="text-coral" />
+              </div>
+              <h1 className="display-tight mt-7 text-ink" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+                <span className="block">building in</span>
+                <span className="block serif-italic text-coral lowercase">{vertical.title}.</span>
+              </h1>
+              <p className="mt-7 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
+                {content.headline}
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <span className="inline-flex items-center px-4 py-2 bg-coral/10 text-coral text-sm font-bold rounded-full tabular ring-1 ring-coral/20">
+                  {vertical.marketSize}
+                </span>
+                <span className="inline-flex items-center px-4 py-2 bg-white/65 text-ink-muted text-sm font-medium rounded-full ring-1 ring-rose-mist/55 serif-italic">
+                  {vertical.growth}
+                </span>
+              </div>
+            </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.08] mb-4"
-          >
-            ai gtm for {vertical.title.toLowerCase()}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg text-white/50 leading-relaxed mb-6"
-          >
-            {content.headline}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-3"
-          >
-            <span className="inline-flex items-center px-4 py-2 bg-[#FF6B6B]/10 text-[#FF6B6B] text-base font-semibold rounded-full">
-              {vertical.marketSize}
-            </span>
-            <span className="inline-flex items-center px-4 py-2 bg-white/5 text-white/50 text-sm font-medium rounded-full ring-1 ring-white/10">
-              {vertical.growth}
-            </span>
-          </motion.div>
+            <div className="col-span-12 lg:col-span-4">
+              <div className="rounded-[22px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55">
+                <span className="font-mono text-[10px] tabular text-ink-faint">market context</span>
+                <p className="mt-4 text-[15px] text-ink-secondary leading-[1.6] [text-wrap:pretty]">
+                  {content.marketContext}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Market Context ── */}
-      <section className="bg-[#FFE4E1] section-padding-sm">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.p
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-lg text-[#2D2D44] leading-relaxed text-center"
-          >
-            {content.marketContext}
-          </motion.p>
-        </div>
-      </section>
+      {/* ─── Builders ask ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-6 mb-10 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <span className="section-label">WHAT BUILDERS ASK IN THIS FIELD</span>
+              <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                same questions,{' '}
+                <span className="serif-italic text-coral">different rooms.</span>
+              </h2>
+            </div>
+          </div>
 
-      {/* ── Pain Points ── */}
-      <section className="bg-[#FFF0F0] section-padding">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={fadeUp}
-            className="mb-10"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] tracking-tight mb-2">
-              the pain points
-            </h2>
-            <p className="text-[#6B6B80]">
-              specific challenges {vertical.title.toLowerCase()} projects face
-              with growth and gtm.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={stagger}
-            className="space-y-4"
-          >
-            {content.painPoints.map((point) => (
+          <div className="space-y-3 max-w-3xl">
+            {content.buildersAsk.map((q, i) => (
               <motion.div
-                key={point.title}
-                variants={fadeUp}
-                className={cn(
-                  'bg-white rounded-[16px] p-6',
-                  'shadow-soft ring-1 ring-black/[0.04]'
-                )}
+                key={q.title}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="rounded-[18px] p-6 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center shrink-0 mt-0.5">
-                    <AlertCircle size={16} />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-[#1A1A2E] mb-1">
-                      {point.title}
-                    </h3>
-                    <p className="text-[#6B6B80] text-[15px] leading-relaxed">
-                      {point.detail}
-                    </p>
-                  </div>
+                <div className="flex items-baseline gap-3">
+                  <span className="font-mono text-[11px] tabular text-coral font-bold">
+                    Q.{String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-ink lowercase">
+                    {q.title}
+                  </h3>
                 </div>
+                <p className="mt-3 pl-8 text-[15px] text-ink-muted leading-[1.6] [text-wrap:pretty]">
+                  {q.detail}
+                </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── Applicable Services ── */}
-      <section className="bg-[#FFE4E1] section-padding">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={fadeUp}
-            className="mb-10"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] tracking-tight mb-2">
-              what i deploy for {vertical.title.toLowerCase()}
-            </h2>
-            <p className="text-[#6B6B80]">
-              {applicableServices.length} of 5 ai systems are directly applicable
-              to {vertical.title.toLowerCase()} projects.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={stagger}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
-          >
-            {applicableServices.map((service) => (
-              <motion.div key={service.slug} variants={fadeUp}>
+      {/* ─── Rooms that help ─── */}
+      <section className="bg-soft-pink relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-6 mb-10 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <span className="section-label">ROOMS THAT HELP</span>
+              <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                {applicableServices.length} of 5 rooms{' '}
+                <span className="serif-italic text-coral">map directly</span>{' '}
+                here.
+              </h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-5xl">
+            {applicableServices.map((service) => {
+              const SIcon = serviceIconMap[service.slug] ?? Users
+              const roomName = initiativeMap[service.slug] ?? service.title.toLowerCase()
+              return (
                 <Link
+                  key={service.slug}
                   href={`/services/${service.slug}`}
-                  className={cn(
-                    'group flex flex-col bg-white rounded-[16px] p-6 h-full',
-                    'shadow-soft ring-1 ring-black/[0.04]',
-                    'hover:shadow-medium hover:ring-[#FF6B6B]/20 hover:-translate-y-0.5',
-                    'transition-all duration-300'
-                  )}
+                  className="group rounded-[20px] p-6 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55 hover:ring-coral/40 hover:bg-white/90 hover:-translate-y-0.5 transition-all"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center mb-4">
-                    {serviceIconMap[service.slug]}
+                  <div className="flex items-start justify-between">
+                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
+                      <SIcon size={18} className="text-coral" />
+                    </div>
+                    <span className="text-[10px] font-mono tabular text-ink-faint mt-1">
+                      room
+                    </span>
                   </div>
-                  <h3 className="text-lg font-bold text-[#1A1A2E] mb-1 group-hover:text-[#FF6B6B] transition-colors">
-                    {service.title.toLowerCase()}
+                  <h3 className="mt-5 text-lg font-black text-ink lowercase tracking-tight group-hover:text-coral transition-colors">
+                    the {roomName} room
                   </h3>
-                  <p className="text-[#6B6B80] text-sm leading-relaxed mb-3 flex-1">
+                  <p className="mt-2 text-[14px] text-ink-muted leading-[1.55]">
                     {service.clientFacing}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center px-2.5 py-1 bg-[#FF6B6B]/10 text-[#FF6B6B] text-xs font-semibold rounded-full">
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="inline-flex items-center px-2.5 py-1 bg-coral-muted text-coral text-[11px] font-medium rounded-full">
                       {service.metric}
                     </span>
-                    <ArrowRight
-                      size={16}
-                      className="text-[#9B9BAD] group-hover:text-[#FF6B6B] transition-colors"
-                    />
+                    <ArrowRight size={14} className="text-ink-faint group-hover:text-coral group-hover:translate-x-0.5 transition-all" />
                   </div>
                 </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-[#1A1A2E] section-padding">
-        <div className="container-width text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              let's grow your {vertical.title.toLowerCase()} project
-            </h2>
-            <p className="text-white/50 text-lg mb-8 max-w-md mx-auto">
-              book a 30-minute call. i will map your current gtm gaps and build
-              a growth plan specific to {vertical.title.toLowerCase()}.
-            </p>
-            <Link
-              href={siteConfig.links.calendly}
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#FF6B6B] text-white font-semibold rounded-full shadow-[0_4px_16px_rgba(255,107,107,0.25)] hover:bg-[#FF5252] transition-colors"
-            >
-              book a call
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
+      {/* ─── CTA ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 50%, #C9D5E8 100%)' }}>
+        <div className="container-width section-padding relative text-center">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20">
+            <Sparkles size={11} />
+            BUILDING IN {vertical.title.toUpperCase()}?
+          </span>
+          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
+            come{' '}
+            <span className="serif-italic text-coral">build</span>{' '}
+            with the field.
+          </h2>
+          <Link href="/#join" className={cn('mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300')}>
+            request invite
+            <ArrowRight size={15} />
+          </Link>
         </div>
       </section>
     </main>

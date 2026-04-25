@@ -1,67 +1,133 @@
 import type { Metadata } from 'next'
-import { ArrowRight, Mail } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, Mail, Sparkles } from 'lucide-react'
+import { FloatingPills } from '@/components/ui/floating-pills'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: 'book a call',
+  title: 'request invite',
   description:
-    'book a 30-minute discovery call. no pitch. just strategy for getting your protocol cited by ai.',
+    "tell us what you're building. a member picks it up within a day.",
 }
+
+const avatars = [
+  { letter: 'm', from: 'from-coral to-coral-deep' },
+  { letter: 'a', from: 'from-[#F0A500] to-[#A87000]' },
+  { letter: 'p', from: 'from-[#5B8DEF] to-[#3D5FB5]' },
+  { letter: 'k', from: 'from-coral to-[#A8C9E8]' },
+  { letter: 'r', from: 'from-[#2D9D78] to-[#1A6850]' },
+  { letter: 'n', from: 'from-coral-deep to-[#1A1A2E]' },
+]
 
 export default function BookPage() {
   return (
     <main className="pt-24">
-      <section className="section-padding">
-        <div className="container-width max-w-2xl text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-ink tracking-tight">
-            let&apos;s talk about getting your protocol cited by ai
-          </h1>
-          <p className="mt-4 text-lg text-ink-muted">
-            book a 30-minute discovery call. no pitch. just strategy.
-          </p>
+      <section
+        className="relative overflow-hidden grain"
+        style={{
+          background:
+            'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 45%, #C9D5E8 100%)',
+        }}
+      >
+        {/* atmosphere */}
+        <div className="absolute top-1/4 -left-24 w-[440px] h-[440px] rounded-full bg-coral/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-24 w-[460px] h-[460px] rounded-full bg-white/40 blur-[120px] pointer-events-none" />
 
-          {/* Calendly placeholder */}
-          <div className="mt-10 rounded-[16px] border-2 border-dashed border-coral/30 bg-white p-12 sm:p-16">
-            <p className="text-ink-muted text-sm mb-4">calendly embed goes here</p>
-            <a
-              href="https://calendly.com/work-samsolanki/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover transition-colors"
-            >
-              open calendly
-              <ArrowRight size={16} />
-            </a>
-          </div>
+        <div className="container-width section-padding relative">
+          <div className="relative max-w-3xl mx-auto rounded-[28px] p-10 sm:p-14 bg-white/55 backdrop-blur-2xl ring-1 ring-white/85 shadow-[0_30px_80px_-20px_rgba(255,107,107,0.35)]">
+            {/* corner pills */}
+            <FloatingPills
+              className="absolute -top-14 -right-10 w-[200px] h-[200px] pointer-events-none hidden sm:block"
+              size="sm"
+              density="sm"
+            />
 
-          {/* Alternative CTA */}
-          <div className="mt-16 pt-10 border-t border-rose-mist">
-            <p className="text-sm font-medium text-ink-muted mb-2">
-              not ready for a call?
-            </p>
-            <h2 className="text-xl font-semibold text-ink mb-6">
-              get your free AI citation report
-            </h2>
+            {/* avatar collage */}
+            <div className="relative flex justify-center -space-x-2.5 mb-8">
+              {avatars.map((a, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    'h-10 w-10 rounded-full bg-gradient-to-br grid place-items-center text-white text-xs font-bold ring-2 ring-white shadow-md',
+                    a.from,
+                  )}
+                >
+                  {a.letter}
+                </div>
+              ))}
+              <div className="h-10 w-10 rounded-full bg-white/85 grid place-items-center text-[10px] font-bold text-ink ring-2 ring-white shadow-md tabular">
+                +1.2k
+              </div>
+            </div>
 
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <div className="relative flex-1">
-                <Mail
-                  size={16}
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-faint"
+            <div className="relative text-center">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
+                <Sparkles size={11} />
+                THE DOOR IS OPEN TODAY
+              </span>
+
+              <h1 className="display-tight mt-7 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
+                tell us what <br className="hidden sm:block" />
+                <span className="serif-italic text-coral">you&apos;re building.</span>
+              </h1>
+
+              <p className="mt-7 text-base sm:text-[17px] text-ink-secondary/85 leading-relaxed max-w-xl mx-auto [text-wrap:pretty]">
+                drop your handle, one line on the build, and an email. a member
+                picks it up within a day. no pitch decks, no calendar tetris.
+              </p>
+
+              <form className="mt-9 max-w-md mx-auto flex flex-col gap-3">
+                <input
+                  type="text"
+                  placeholder="@yourhandle"
+                  className="w-full px-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
                 />
                 <input
-                  type="email"
-                  placeholder="you@protocol.xyz"
-                  className="w-full pl-10 pr-4 py-3 text-sm rounded-full border border-rose-mist bg-white text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-coral/30 focus:border-coral transition-colors"
-                  required
+                  type="text"
+                  placeholder="what you're building (one line)"
+                  className="w-full px-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
                 />
-              </div>
-              <button
-                type="submit"
-                className="px-6 py-3 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover transition-colors whitespace-nowrap"
-              >
-                get report
-              </button>
-            </form>
+                <div className="flex flex-col sm:flex-row items-stretch gap-3">
+                  <div className="relative flex-1">
+                    <Mail
+                      size={15}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-faint"
+                    />
+                    <input
+                      type="email"
+                      placeholder="you@somewhere.xyz"
+                      className="w-full pl-11 pr-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-ink rounded-full hover:bg-ink/85 transition-colors whitespace-nowrap"
+                  >
+                    request invite
+                    <ArrowRight
+                      size={15}
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </button>
+                </div>
+              </form>
+
+              <p className="mt-5 text-xs text-ink-muted tabular">
+                no spam · no calendly · just an invite — or a soft no
+              </p>
+            </div>
+          </div>
+
+          {/* below-card divider */}
+          <div className="mt-14 max-w-3xl mx-auto flex items-center gap-4">
+            <span className="h-px flex-1 bg-ink/10" />
+            <Link
+              href="/blog"
+              className="serif-italic text-base text-ink-muted hover:text-coral transition-colors"
+            >
+              not ready? read the journal →
+            </Link>
+            <span className="h-px flex-1 bg-ink/10" />
           </div>
         </div>
       </section>

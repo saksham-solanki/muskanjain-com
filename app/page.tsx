@@ -10,18 +10,23 @@ import {
   BarChart3,
   Rocket,
   ArrowRight,
-  Check,
+  ArrowUpRight,
   ChevronDown,
-  X,
+  Sparkles,
+  MapPin,
+  Calendar,
+  MessageCircle,
+  Clock,
 } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
 import { TextRotate } from '@/components/ui/text-rotate'
 import { CountUp } from '@/components/ui/count-up'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
-import { AnimatedGridPattern } from '@/components/ui/animated-grid-pattern'
+import { MountainScene } from '@/components/ui/mountain-scene'
+import { FloatingPills } from '@/components/ui/floating-pills'
 import { cn } from '@/lib/utils'
-import { heroStagger, fadeUp, ease } from '@/lib/motion'
+import { heroStagger, fadeUp } from '@/lib/motion'
 
 const iconMap: Record<string, React.ElementType> = {
   Users,
@@ -31,128 +36,294 @@ const iconMap: Record<string, React.ElementType> = {
   Rocket,
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   1. HERO
-   ═══════════════════════════════════════════════════════════════ */
-function HeroSection() {
+/* ─── Decorative SVG annotations ──────────────────────────── */
+function ScribbleUnderline({ className }: { className?: string }) {
   return (
-    <section className="relative min-h-screen flex items-center bg-midnight text-white overflow-hidden">
-      {/* Background: animated grid */}
-      <AnimatedGridPattern
-        numSquares={40}
-        maxOpacity={0.12}
-        duration={5}
-        className="stroke-white/[0.06] fill-white/[0.03]"
+    <svg
+      viewBox="0 0 220 16"
+      className={cn('absolute left-0 -bottom-3 w-full h-3.5', className)}
+      aria-hidden
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M3 10 Q 50 2 105 8 T 217 6"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        fill="none"
       />
+      <path
+        d="M5 13 Q 60 6 110 11 T 215 9"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.55"
+      />
+    </svg>
+  )
+}
 
-      {/* Radial glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-coral/[0.06] blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-coral/[0.04] blur-[120px] pointer-events-none" />
+function CurlyArrow({
+  className,
+  flip = false,
+}: {
+  className?: string
+  flip?: boolean
+}) {
+  return (
+    <svg
+      viewBox="0 0 90 70"
+      className={cn(className, flip && '-scale-x-100')}
+      aria-hidden
+    >
+      <path
+        d="M6 10 C 22 8, 56 8, 70 26 C 80 40, 70 54, 50 56"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d="M44 50 L 50 56 L 56 48"
+        stroke="currentColor"
+        strokeWidth="2"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
-      <div className="container-width relative z-10 py-32 sm:py-40">
-        <motion.div
-          variants={heroStagger}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center text-center"
-        >
-          {/* Eyebrow pill */}
-          <motion.div variants={fadeUp}>
-            <span className="section-label">{siteConfig.hero.eyebrow}</span>
-          </motion.div>
-
-          {/* Main headline */}
-          <motion.h1
-            variants={fadeUp}
-            className="mt-8 text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] max-w-5xl"
-          >
-            ai agents that run your{' '}
-            <span className="text-coral">web3 gtm</span>{' '}
-            while you sleep
-          </motion.h1>
-
-          {/* Rotating verticals */}
-          <motion.div variants={fadeUp} className="mt-6">
-            <p className="text-lg sm:text-xl text-white/50">
-              built for{' '}
-              <TextRotate
-                texts={siteConfig.hero.rotatingPhrases as unknown as string[]}
-                className="text-coral font-semibold"
-                rotationInterval={2400}
-              />
-            </p>
-          </motion.div>
-
-          {/* Subtitle */}
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 text-base sm:text-lg text-white/40 max-w-2xl leading-relaxed"
-          >
-            {siteConfig.hero.subtitle}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col sm:flex-row items-center gap-4 mt-10"
-          >
-            <Link
-              href={siteConfig.hero.primaryCTA.href}
-              className="group inline-flex items-center gap-2.5 px-8 py-4 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover hover:shadow-[0_6px_24px_rgba(255,107,107,0.35)] transition-all duration-300"
-            >
-              {siteConfig.hero.primaryCTA.label}
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              href={siteConfig.hero.secondaryCTA.href}
-              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-white border border-white/20 rounded-full hover:border-white/40 hover:bg-white/[0.04] transition-all duration-300"
-            >
-              {siteConfig.hero.secondaryCTA.label}
-            </Link>
-          </motion.div>
-
-          {/* Stats strip */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12 w-full max-w-3xl"
-          >
-            {siteConfig.hero.stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl sm:text-3xl font-bold text-coral">{stat.value}</p>
-                <p className="text-xs text-white/35 mt-1.5 leading-snug">{stat.label}</p>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Bottom fade to blush */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blush to-transparent" />
-    </section>
+function Asterisk({
+  size = 12,
+  className,
+}: {
+  size?: number
+  className?: string
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden
+    >
+      <path
+        d="M12 2 V22 M3 7 L21 17 M3 17 L21 7"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
   )
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2. PAIN POINT MARQUEE
+   1. HERO  — asymmetric editorial composition
    ═══════════════════════════════════════════════════════════════ */
-function PainPointMarquee() {
-  const items = siteConfig.painPoints
-  const doubled = [...items, ...items]
+function HeroSection() {
+  const community = siteConfig.community
 
   return (
-    <section className="bg-blush py-6 overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20 grain">
+      {/* Pastel sky gradient */}
       <div
-        className="flex whitespace-nowrap"
+        className="absolute inset-0 -z-10"
         style={{
-          animation: 'marquee 40s linear infinite',
-          willChange: 'transform',
+          background:
+            'linear-gradient(170deg, #B6CCE5 0%, #E5C5BC 25%, #FFD0C4 50%, #FFE0DA 78%, #FFEFEB 100%)',
         }}
-      >
-        {doubled.map((point, i) => (
-          <span key={i} className="mx-6 flex items-center gap-3 text-sm shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-coral/60 shrink-0" />
-            <span className="font-bold text-coral">{point.stat}</span>
-            <span className="text-ink-muted">{point.label}</span>
+      />
+      {/* Sun */}
+      <div className="absolute top-[14%] right-[12%] w-[360px] h-[360px] rounded-full bg-[#FFE6D2]/80 blur-[110px] -z-10 pointer-events-none" />
+      {/* coral haze */}
+      <div className="absolute bottom-[-6rem] left-[-10rem] w-[520px] h-[520px] rounded-full bg-coral/15 blur-[150px] -z-10 pointer-events-none" />
+
+      <div className="container-width relative z-10 py-20 sm:py-28">
+        {/* 12-col asymmetric grid */}
+        <div className="grid grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Left gutter — section number + manifesto note */}
+          <motion.aside
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+            className="hidden lg:block lg:col-span-2 pt-6"
+          >
+            <p className="eyebrow text-ink-muted">No. 01 / community</p>
+            <p className="serif-italic text-ink-muted/80 text-base mt-6 leading-snug">
+              a tiny corner of the internet, kept warm on purpose.
+            </p>
+            <div className="mt-6 flex items-center gap-1.5">
+              <Asterisk size={9} className="text-coral/70" />
+              <Asterisk size={13} className="text-coral" />
+              <Asterisk size={8} className="text-coral/60" />
+            </div>
+          </motion.aside>
+
+          {/* Center — main headline */}
+          <motion.div
+            variants={heroStagger}
+            initial="hidden"
+            animate="visible"
+            className="col-span-12 lg:col-span-7"
+          >
+            {/* live pill */}
+            <motion.div variants={fadeUp}>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase text-coral bg-white/55 backdrop-blur-md rounded-full ring-1 ring-coral/15 shadow-[0_4px_20px_-8px_rgba(255,107,107,0.3)] tabular">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-coral opacity-70 animate-ping" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-coral" />
+                </span>
+                {community.pulse.members.toLocaleString()} builders inside
+                <span className="text-coral/40">·</span>
+                live now
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              variants={fadeUp}
+              className="display-tight mt-8 text-ink"
+              style={{
+                fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)',
+              }}
+            >
+              <span className="block">where ai × web3</span>
+              <span className="block relative leading-[0.98] mt-1">
+                <span className="serif-italic text-coral pr-3 inline-block">
+                  <TextRotate
+                    texts={community.rotatingMembers as unknown as string[]}
+                    rotationInterval={2400}
+                  />
+                </span>
+              </span>
+              <span className="block mt-1">
+                actually{' '}
+                <span className="relative inline-block">
+                  gather.
+                  <ScribbleUnderline className="text-coral/75" />
+                </span>
+              </span>
+            </motion.h1>
+
+            {/* Subhead */}
+            <motion.p
+              variants={fadeUp}
+              className="mt-12 max-w-lg text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]"
+            >
+              {community.description}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-9 flex flex-wrap items-center gap-3"
+            >
+              <Link
+                href="#join"
+                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:shadow-[0_14px_40px_-8px_rgba(26,26,46,0.6)] hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <Sparkles size={15} className="text-coral" />
+                join the club
+                <ArrowRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+              <Link
+                href="#wall"
+                className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-ink/85 bg-white/55 backdrop-blur-md rounded-full ring-1 ring-ink/10 hover:bg-white/80 hover:ring-coral/30 transition-all duration-300"
+              >
+                peek at the wall
+                <ArrowUpRight size={14} />
+              </Link>
+              <span className="serif-italic text-sm text-ink-muted/80 ml-1 hidden sm:inline">
+                — free, by invite.
+              </span>
+            </motion.div>
+
+            {/* mini-pulse */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-14 grid grid-cols-3 gap-x-6 max-w-md border-t hairline pt-5 tabular"
+            >
+              <Pulse label="cities" value={community.pulse.cities} />
+              <Pulse label="events" value={community.pulse.events} />
+              <Pulse label="ships together" value={community.pulse.ships} />
+            </motion.div>
+          </motion.div>
+
+          {/* Right column — floating pills cluster */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 lg:col-span-3 relative h-[320px] lg:h-[520px] mt-4 lg:mt-0"
+          >
+            <FloatingPills
+              className="absolute inset-0"
+              size="lg"
+              density="lg"
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-blush -z-[5]" />
+    </section>
+  )
+}
+
+function Pulse({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex flex-col">
+      <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint font-semibold">
+        {label}
+      </span>
+      <span className="text-2xl font-black text-ink mt-0.5 tabular">
+        <CountUp value={value} />
+      </span>
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. TICKER — running strip of recent activity
+   ═══════════════════════════════════════════════════════════════ */
+function TickerStrip() {
+  const items = [
+    { tag: 'shipped', text: 'muskan · scam-link bot, 80% mod work gone' },
+    { tag: 'win', text: 'aarav · first wallet conversion overnight' },
+    { tag: 'asking', text: 'priya · who knows sybil-resistant airdrops?' },
+    { tag: 'irl', text: 'dekoded dxb · 24 builders, one room' },
+    { tag: 'shipped', text: 'kavya · multi-agent content pipeline' },
+    { tag: 'real talk', text: 'rohan · last token launch lost 70% to bots' },
+    { tag: 'win', text: 'arjun · 3 collabs from delhi event' },
+    { tag: 'shipped', text: 'noor · open-sourced the wallet attribution lib' },
+  ]
+  const doubled = [...items, ...items]
+  const tagColor: Record<string, string> = {
+    shipped: 'text-[#2D9D78]',
+    win: 'text-coral',
+    asking: 'text-[#5B8DEF]',
+    'real talk': 'text-[#A87000]',
+    irl: 'text-ink',
+  }
+
+  return (
+    <section className="relative bg-ink text-white/80 overflow-hidden border-y border-white/5">
+      <div className="flex items-center py-3" style={{ animation: 'marquee 60s linear infinite', willChange: 'transform' }}>
+        {doubled.map((item, i) => (
+          <span key={i} className="mx-5 flex items-center gap-2.5 text-xs shrink-0 tabular">
+            <span className={cn('text-[10px] font-bold uppercase tracking-[0.18em]', tagColor[item.tag] ?? 'text-white')}>
+              {item.tag}
+            </span>
+            <span className="text-white/70">{item.text}</span>
+            <span className="text-white/20">◆</span>
           </span>
         ))}
       </div>
@@ -161,334 +332,486 @@ function PainPointMarquee() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   3. SERVICES
+   3. MOUNTAIN MOMENT — editorial illustration with marginalia
    ═══════════════════════════════════════════════════════════════ */
-function ServicesSection() {
-  const services = siteConfig.services
-
+function MountainMoment() {
   return (
-    <section id="services" className="bg-blush section-padding">
-      <div className="container-width">
-        <RevealOnScroll variant="blur" className="text-center mb-14">
-          <span className="section-label">WHAT I BUILD</span>
-          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight">
-            5 ai systems that replace your<br className="hidden sm:block" /> entire marketing team
-          </h2>
-        </RevealOnScroll>
-
-        {/* Creative layout: first card full-width, then 2x2 */}
-        <div className="space-y-6">
-          {/* Featured first card */}
-          <RevealOnScroll variant="slideUp" delay={0.1}>
-            <ServiceCard service={services[0]} featured />
-          </RevealOnScroll>
-
-          {/* 2x2 grid */}
-          <RevealOnScroll
-            variant="slideUp"
-            stagger={0.1}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-          >
-            {services.slice(1).map((service) => (
-              <ServiceCard key={service.slug} service={service} />
-            ))}
-          </RevealOnScroll>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function ServiceCard({
-  service,
-  featured = false,
-}: {
-  service: (typeof siteConfig.services)[number]
-  featured?: boolean
-}) {
-  const Icon = iconMap[service.icon] || Users
-
-  return (
-    <Link
-      href={`/services/${service.slug}`}
-      className={cn(
-        'group block bg-white rounded-[16px] p-8 shadow-soft ring-1 ring-rose-mist/50',
-        'hover:ring-coral/30 hover:shadow-medium hover:-translate-y-0.5 transition-all duration-300',
-        featured && 'sm:flex sm:items-start sm:gap-8',
-      )}
-    >
-      <div className={cn('shrink-0', featured && 'sm:w-16')}>
-        <div className="w-12 h-12 rounded-xl bg-coral-muted flex items-center justify-center mb-5 sm:mb-0">
-          <Icon size={22} className="text-coral" />
-        </div>
-      </div>
-      <div className="flex-1">
-        <h3 className={cn(
-          'font-bold text-ink mb-2',
-          featured ? 'text-xl sm:text-2xl' : 'text-lg',
-        )}>
-          {service.title}
-        </h3>
-        <p className={cn(
-          'text-ink-muted leading-relaxed mb-4',
-          featured ? 'text-base max-w-2xl' : 'text-sm',
-        )}>
-          {service.clientFacing}
-        </p>
-        <span className="inline-flex items-center px-3.5 py-1.5 text-xs font-medium text-coral bg-coral-muted rounded-full">
-          {service.metric}
-        </span>
-      </div>
-      <ArrowRight
-        size={18}
-        className="hidden sm:block text-ink-faint group-hover:text-coral group-hover:translate-x-1 transition-all duration-300 mt-2 shrink-0"
-      />
-    </Link>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   4. HOW IT WORKS
-   ═══════════════════════════════════════════════════════════════ */
-function HowItWorksSection() {
-  const steps = [
-    {
-      num: '01',
-      title: 'audit',
-      desc: 'we map your current GTM, identify automation opportunities, and build a 90-day roadmap',
-    },
-    {
-      num: '02',
-      title: 'build',
-      desc: 'we deploy AI agents trained on your protocol, brand, and audience. production-grade, not prototypes.',
-    },
-    {
-      num: '03',
-      title: 'scale',
-      desc: 'agents run 24/7. you get weekly reports, monthly attribution, and continuous optimization.',
-    },
-  ]
-
-  return (
-    <section className="bg-soft-pink section-padding">
-      <div className="container-width">
-        <RevealOnScroll variant="blur" className="text-center mb-16">
-          <span className="section-label">THE PROCESS</span>
-          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight">
-            three steps. zero fluff.
-          </h2>
-        </RevealOnScroll>
-
-        <div className="max-w-4xl mx-auto">
-          {/* Horizontal layout on desktop, vertical on mobile */}
-          <RevealOnScroll
-            variant="slideUp"
-            stagger={0.15}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative"
-          >
-            {steps.map((step, i) => (
-              <div key={step.num} className="relative text-center md:text-left">
-                {/* Connecting line (desktop only) */}
-                {i < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-[calc(50%+32px)] right-[calc(-50%+32px)] h-px bg-coral/20" />
-                )}
-                <div className="flex flex-col items-center md:items-start">
-                  <span className="text-5xl sm:text-6xl font-black text-coral/20 leading-none mb-4">
-                    {step.num}
-                  </span>
-                  <h3 className="text-2xl font-bold text-ink mb-3">{step.title}</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed max-w-xs">
-                    {step.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </RevealOnScroll>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   5. COMPARISON
-   ═══════════════════════════════════════════════════════════════ */
-function ComparisonSection() {
-  const traditional = [
-    '$25K-$70K/month',
-    'human teams, 9-5',
-    'manual community moderation',
-    '2-5 posts per month',
-    'vanity metrics (impressions)',
-    '4-8 week onboarding',
-  ]
-  const aiNative = [
-    '$5K-$25K/month',
-    'AI agents, 24/7',
-    '80% automated moderation',
-    '52+ posts per month',
-    'on-chain attribution',
-    '1-2 week deployment',
-  ]
-
-  return (
-    <section className="bg-blush section-padding">
-      <div className="container-width">
-        <RevealOnScroll variant="blur" className="text-center mb-14">
-          <span className="section-label">THE DIFFERENCE</span>
-          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight">
-            why this isn't another agency
-          </h2>
-        </RevealOnScroll>
-
-        <RevealOnScroll variant="slideUp" className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-[16px] shadow-soft ring-1 ring-rose-mist/50 overflow-hidden">
-            {/* Header */}
-            <div className="grid grid-cols-2 border-b border-rose-mist/30">
-              <div className="px-6 py-4 text-center">
-                <p className="text-sm font-medium text-ink-muted">traditional agencies</p>
-              </div>
-              <div className="px-6 py-4 text-center bg-coral-muted/50">
-                <p className="text-sm font-bold text-coral">ai-native gtm</p>
-              </div>
-            </div>
-
-            {/* Rows */}
-            {traditional.map((item, i) => (
-              <div
-                key={i}
-                className={cn(
-                  'grid grid-cols-2',
-                  i < traditional.length - 1 && 'border-b border-rose-mist/20',
-                )}
-              >
-                <div className="px-6 py-4 flex items-center">
-                  <span className="flex items-center gap-2.5 text-sm text-ink-muted">
-                    <X size={14} className="text-ink-faint shrink-0" />
-                    <span className="line-through decoration-ink-faint/40">{item}</span>
-                  </span>
-                </div>
-                <div className="px-6 py-4 flex items-center bg-coral-muted/30">
-                  <span className="flex items-center gap-2.5 text-sm text-ink font-medium">
-                    <Check size={14} className="text-coral shrink-0" />
-                    {aiNative[i]}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   6. STATS
-   ═══════════════════════════════════════════════════════════════ */
-function StatsSection() {
-  const stats = [
-    { value: 80, suffix: '%', label: 'queries automated' },
-    { value: 52, suffix: '+', label: 'posts per month' },
-    { value: 88, suffix: '%', label: 'airdrop failure rate we fix' },
-    { value: 70, suffix: '%', label: 'onboarding drop we prevent' },
-  ]
-
-  return (
-    <section className="bg-midnight text-white section-padding">
-      <div className="container-width">
-        <RevealOnScroll
-          variant="scaleIn"
-          stagger={0.12}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12"
-        >
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-5xl sm:text-6xl lg:text-7xl font-black text-coral leading-none">
-                <CountUp value={stat.value} suffix={stat.suffix} />
-              </p>
-              <p className="text-sm text-white/40 mt-3 leading-snug">{stat.label}</p>
-            </div>
-          ))}
-        </RevealOnScroll>
-
-        {/* Extra stat: text callout */}
-        <RevealOnScroll variant="fade" delay={0.5} className="text-center mt-12">
-          <p className="text-lg sm:text-xl text-white/30">
-            community AI payback:{' '}
-            <span className="text-coral font-bold">3-5 days</span>
-          </p>
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   7. TIERS
-   ═══════════════════════════════════════════════════════════════ */
-function TiersSection() {
-  return (
-    <section className="bg-blush section-padding">
-      <div className="container-width">
-        <RevealOnScroll variant="blur" className="text-center mb-14">
-          <span className="section-label">WORK WITH ME</span>
-          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight">
-            pick your pace
-          </h2>
-        </RevealOnScroll>
-
-        <RevealOnScroll
-          variant="slideUp"
-          stagger={0.12}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start"
-        >
-          {siteConfig.tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={cn(
-                'group bg-white rounded-[16px] p-7 sm:p-8 shadow-soft ring-1 flex flex-col relative',
-                'hover:-translate-y-1 transition-all duration-300',
-                tier.popular
-                  ? 'ring-coral ring-2 hover:shadow-[0_12px_40px_rgba(255,107,107,0.15)]'
-                  : 'ring-rose-mist/50 hover:ring-coral/20 hover:shadow-medium',
-              )}
-            >
-              {tier.popular && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1.5 text-xs font-semibold text-white bg-coral rounded-full shadow-coral">
-                  most popular
+    <section className="relative bg-blush overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
+          {/* Mountain */}
+          <BlurFade delay={0.05} yOffset={20} blur={6} className="col-span-12 lg:col-span-6">
+            <div className="relative">
+              <MountainScene signLabel="join us" />
+              {/* tiny note */}
+              <div className="absolute -top-4 -left-2 lg:-left-6 hidden md:flex items-start gap-1.5 max-w-[160px]">
+                <CurlyArrow className="w-12 h-10 text-coral/50 mt-2" />
+                <span className="serif-italic text-sm text-ink-muted/80 leading-snug pt-2">
+                  the room, illustrated.
                 </span>
-              )}
+              </div>
+            </div>
+          </BlurFade>
 
-              <h3 className="text-xl font-bold text-ink">{tier.name}</h3>
-              <span className="inline-flex items-center mt-2 px-3 py-1 text-xs font-medium text-coral bg-coral-muted rounded-full w-fit">
-                {tier.timeline}
-              </span>
-              <p className="text-sm text-ink-muted mt-4 leading-relaxed">
-                {tier.description}
+          {/* Copy */}
+          <div className="col-span-12 lg:col-span-6">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 02</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">A SOFT PLACE TO BUILD</span>
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
+                most communities online <br className="hidden sm:block" />
+                feel like a <span className="serif-italic text-ink-muted/70">feed.</span>
+                <br />
+                <span className="relative inline-block mt-2">
+                  this one feels like
+                  <span className="ml-2 serif-italic text-coral">a room.</span>
+                </span>
+              </h2>
+            </RevealOnScroll>
+
+            <RevealOnScroll variant="slideUp" delay={0.1}>
+              <p className="mt-7 text-base sm:text-[17px] text-ink-muted leading-[1.55] max-w-lg [text-wrap:pretty]">
+                no pitch decks. no growth-hacker theatre. just builders showing
+                their work in progress, asking real questions, and shipping
+                faster because someone&apos;s in the room with them.
               </p>
+            </RevealOnScroll>
 
-              <ul className="mt-6 space-y-3 flex-1">
-                {tier.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2.5 text-sm text-ink-secondary">
-                    <Check size={15} className="text-coral mt-0.5 shrink-0" />
-                    <span>{f}</span>
+            <RevealOnScroll variant="slideUp" delay={0.15}>
+              <ul className="mt-9 space-y-3.5 max-w-md">
+                {[
+                  ['invite-only', 'but generous about invites'],
+                  ['lowercase. always.', 'voice matters as much as code'],
+                  ['bots welcome', 'if you built them yourself'],
+                  ['no recordings', 'nothing leaves the room'],
+                ].map(([title, body]) => (
+                  <li
+                    key={title}
+                    className="flex items-baseline gap-3 text-[15px] leading-[1.55]"
+                  >
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-coral shrink-0 self-start translate-y-1.5" />
+                    <span>
+                      <span className="font-semibold text-ink">{title}</span>
+                      <span className="text-ink-muted"> — {body}</span>
+                    </span>
                   </li>
                 ))}
               </ul>
+            </RevealOnScroll>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-              <Link
-                href={siteConfig.links.calendly}
-                className={cn(
-                  'mt-8 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium rounded-full transition-all duration-300',
-                  tier.popular
-                    ? 'bg-coral text-white shadow-coral hover:bg-coral-hover hover:shadow-[0_6px_24px_rgba(255,107,107,0.35)]'
-                    : 'bg-coral-muted text-coral hover:bg-coral/10',
-                )}
-              >
-                book a call
-                <ArrowRight size={14} />
-              </Link>
+/* ═══════════════════════════════════════════════════════════════
+   4. COMMUNITY WALL
+   ═══════════════════════════════════════════════════════════════ */
+function CommunityWall() {
+  const wall = siteConfig.community.wall
+
+  return (
+    <section id="wall" className="relative bg-soft-pink overflow-hidden">
+      <div className="absolute -top-20 right-1/4 w-[420px] h-[420px] rounded-full bg-white/40 blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-32 -left-20 w-[380px] h-[380px] rounded-full bg-coral/10 blur-[100px] pointer-events-none" />
+
+      <div className="container-width section-padding relative">
+        {/* Header — left aligned with marginalia */}
+        <div className="grid grid-cols-12 gap-6 mb-12">
+          <div className="col-span-12 lg:col-span-7">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 03</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">THE WALL</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                what&apos;s happening{' '}
+                <span className="serif-italic text-coral">inside</span>, <br className="hidden sm:block" />
+                today.
+              </h2>
+            </RevealOnScroll>
+          </div>
+          <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-8">
+            <RevealOnScroll variant="slideUp" delay={0.1}>
+              <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+                a live snapshot. real builds, real wins, real questions —
+                nothing staged.
+              </p>
+              <div className="mt-4 flex items-center gap-2 text-xs text-ink-faint tabular">
+                <Clock size={12} />
+                refreshed 2 min ago · 47 posts today
+              </div>
+            </RevealOnScroll>
+          </div>
+        </div>
+
+        <RevealOnScroll
+          variant="slideUp"
+          stagger={0.06}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          {wall.map((post, i) => (
+            <WallCard key={i} post={post} index={i} />
+          ))}
+        </RevealOnScroll>
+      </div>
+    </section>
+  )
+}
+
+function WallCard({
+  post,
+  index,
+}: {
+  post: (typeof siteConfig.community.wall)[number]
+  index: number
+}) {
+  const tagColor: Record<string, string> = {
+    shipped: 'bg-[#2D9D78]/10 text-[#2D9D78] ring-[#2D9D78]/20',
+    win: 'bg-coral/10 text-coral ring-coral/25',
+    asking: 'bg-[#5B8DEF]/10 text-[#5B8DEF] ring-[#5B8DEF]/20',
+    'real talk': 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
+    irl: 'bg-ink/8 text-ink ring-ink/15',
+  }
+  const tilt = [-0.6, 0.4, -0.3, 0.5, -0.4, 0.3][index] ?? 0
+  const lift = [0, -8, -4, -12, -2, -6][index] ?? 0
+
+  return (
+    <motion.article
+      whileHover={{ y: lift - 6, rotate: tilt + 0.4 }}
+      initial={{ rotate: tilt, y: lift }}
+      animate={{ rotate: tilt, y: lift }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="relative group rounded-[20px] p-6 bg-white/72 backdrop-blur-md ring-1 ring-white/85 shadow-[0_12px_36px_-14px_rgba(26,26,46,0.16)] hover:shadow-[0_18px_50px_-14px_rgba(255,107,107,0.28)] hover:bg-white/90 transition-all"
+    >
+      <header className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2.5">
+          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-coral to-coral-deep grid place-items-center text-white text-xs font-bold ring-2 ring-white tabular">
+            {post.author[0].toUpperCase()}
+          </div>
+          <div className="leading-tight">
+            <p className="text-sm font-semibold text-ink">{post.author}</p>
+            <p className="text-[11px] text-ink-faint tabular">
+              {post.handle} · {post.time}
+            </p>
+          </div>
+        </div>
+        <span
+          className={cn(
+            'text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ring-1',
+            tagColor[post.tag] ?? 'bg-ink/5 text-ink-muted ring-ink/10',
+          )}
+        >
+          {post.tag}
+        </span>
+      </header>
+      <p className="text-[15px] text-ink-secondary leading-[1.55] [text-wrap:pretty]">
+        {post.body}
+      </p>
+      <footer className="mt-5 pt-4 border-t hairline flex items-center gap-4 text-[11px] text-ink-faint tabular">
+        <span className="inline-flex items-center gap-1.5">
+          <MessageCircle size={11} />
+          {(index + 3) * 4}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Sparkles size={11} className="text-coral/60" />
+          {(index + 7) * 3}
+        </span>
+        <span className="ml-auto group-hover:text-coral transition-colors">
+          read →
+        </span>
+      </footer>
+    </motion.article>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5. CITIES — DeKoded tour
+   ═══════════════════════════════════════════════════════════════ */
+function CitiesSection() {
+  const cities = siteConfig.community.cities
+
+  return (
+    <section className="relative bg-blush overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
+          <div className="col-span-12 lg:col-span-8">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 04</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">DEKODED, IRL</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[4rem]">
+                six cities across india. <br className="hidden sm:block" />
+                now <span className="serif-italic text-coral">dubai</span>.{' '}
+                <span className="text-ink-muted">singapore loading.</span>
+              </h2>
+            </RevealOnScroll>
+          </div>
+          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
+            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+              each room a tiny ecosystem. you walk in a stranger and walk out
+              with collaborators.
+            </p>
+            <p className="mt-3 text-xs text-ink-faint tabular">
+              no badges · no panels · no slides
+            </p>
+          </RevealOnScroll>
+        </div>
+
+        <RevealOnScroll
+          variant="slideUp"
+          stagger={0.05}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+        >
+          {cities.map((city, i) => (
+            <CityCard key={city.name} city={city} index={i} />
+          ))}
+        </RevealOnScroll>
+      </div>
+    </section>
+  )
+}
+
+function CityCard({
+  city,
+  index,
+}: {
+  city: (typeof siteConfig.community.cities)[number]
+  index: number
+}) {
+  const statusStyle: Record<string, string> = {
+    shipped: 'text-ink-muted',
+    live: 'text-coral',
+    soon: 'text-ink-faint',
+  }
+  const statusDot: Record<string, string> = {
+    shipped: 'bg-ink/30',
+    live: 'bg-coral animate-pulse',
+    soon: 'bg-ink/15',
+  }
+
+  return (
+    <motion.div
+      whileHover={{ y: -6, scale: 1.02 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative rounded-[18px] p-5 bg-white/65 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden"
+    >
+      {/* corner glow */}
+      <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-coral/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      <div className="relative flex items-start justify-between">
+        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-ink-faint">
+          {city.emoji}
+        </span>
+        <span
+          className={cn(
+            'inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em]',
+            statusStyle[city.status],
+          )}
+        >
+          <span className={cn('h-1.5 w-1.5 rounded-full', statusDot[city.status])} />
+          {city.status}
+        </span>
+      </div>
+
+      <span className="relative mt-5 block font-mono text-[10px] text-ink-faint tabular">
+        no.{String(index + 1).padStart(2, '0')}
+      </span>
+      <h3 className="relative mt-1 text-2xl font-black text-ink lowercase tracking-tight">
+        {city.name}
+      </h3>
+      <div className="relative mt-2 flex items-center justify-between text-[11px]">
+        <span className="text-ink-muted tabular">
+          {city.members > 0 ? `${city.members} members` : 'waitlist open'}
+        </span>
+        <MapPin size={12} className="text-coral/60 group-hover:text-coral transition-colors" />
+      </div>
+    </motion.div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. INITIATIVES
+   ═══════════════════════════════════════════════════════════════ */
+function InitiativesSection() {
+  const initiatives = siteConfig.community.initiatives
+
+  return (
+    <section className="relative bg-soft-pink overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
+          <div className="col-span-12 lg:col-span-7">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 05</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">WHAT WE BUILD TOGETHER</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                five <span className="serif-italic text-coral">rooms</span>{' '}
+                <br className="hidden sm:block" />
+                inside the room.
+              </h2>
+            </RevealOnScroll>
+          </div>
+          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
+            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+              services, but soft. cohorts you actually finish.
+            </p>
+          </RevealOnScroll>
+        </div>
+
+        <div className="space-y-5">
+          <RevealOnScroll variant="slideUp" delay={0.05}>
+            <InitiativeCard initiative={initiatives[0]} featured index={1} />
+          </RevealOnScroll>
+
+          <RevealOnScroll
+            variant="slideUp"
+            stagger={0.07}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+          >
+            {initiatives.slice(1).map((init, i) => (
+              <InitiativeCard key={init.title} initiative={init} index={i + 2} />
+            ))}
+          </RevealOnScroll>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function InitiativeCard({
+  initiative,
+  featured = false,
+  index,
+}: {
+  initiative: (typeof siteConfig.community.initiatives)[number]
+  featured?: boolean
+  index: number
+}) {
+  const Icon = iconMap[initiative.icon] ?? Users
+
+  return (
+    <motion.div
+      whileHover={{ y: -3 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        'group relative overflow-hidden rounded-[22px] p-7 sm:p-9',
+        'bg-white/78 backdrop-blur-md ring-1 ring-rose-mist/60',
+        'hover:ring-coral/40 transition-all',
+        featured && 'sm:flex sm:items-start sm:gap-9',
+      )}
+    >
+      <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      <div className={cn('relative shrink-0', featured && 'sm:w-20')}>
+        <div className="flex flex-col items-start gap-4 mb-5 sm:mb-0">
+          <span className="font-mono text-[10px] text-ink-faint tabular">
+            no.{String(index).padStart(2, '0')}
+          </span>
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
+            <Icon size={20} className="text-coral" />
+          </div>
+        </div>
+      </div>
+      <div className="relative flex-1">
+        <h3
+          className={cn(
+            'font-black text-ink mb-3 lowercase tracking-tight',
+            featured ? 'text-2xl sm:text-3xl' : 'text-xl',
+          )}
+        >
+          {initiative.title}
+        </h3>
+        <p
+          className={cn(
+            'text-ink-muted leading-[1.55] mb-5 [text-wrap:pretty]',
+            featured ? 'text-[17px] max-w-xl' : 'text-[15px]',
+          )}
+        >
+          {initiative.clientFacing}
+        </p>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-coral bg-coral-muted rounded-full tabular">
+          <Calendar size={11} />
+          {initiative.metric}
+        </span>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   7. RITUALS — week strip on dark
+   ═══════════════════════════════════════════════════════════════ */
+function RitualsSection() {
+  const rituals = siteConfig.community.rituals
+
+  return (
+    <section className="relative bg-midnight text-white overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-coral/10 blur-[150px] pointer-events-none" />
+      <div className="container-width section-padding relative">
+        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
+          <div className="col-span-12 lg:col-span-7">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-white/40">No. 06</span>
+                <span className="h-px flex-1 max-w-[80px] bg-white/10" />
+                <span className="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/10 rounded-full ring-1 ring-coral/20">
+                  EVERY WEEK
+                </span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-white text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                the <span className="serif-italic text-coral">rhythm</span>{' '}
+                of the room
+              </h2>
+            </RevealOnScroll>
+          </div>
+          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
+            <p className="serif-italic text-white/65 text-lg leading-snug">
+              five days. five small things. one big habit.
+            </p>
+          </RevealOnScroll>
+        </div>
+
+        <RevealOnScroll
+          variant="slideUp"
+          stagger={0.06}
+          className="grid grid-cols-1 md:grid-cols-5 gap-3"
+        >
+          {rituals.map((r, i) => (
+            <div
+              key={r.day}
+              className="group relative rounded-2xl p-5 bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/[0.08] hover:ring-coral/40 transition-all overflow-hidden"
+            >
+              <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-coral/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-baseline justify-between">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-coral tabular">
+                  {r.day}
+                </span>
+                <span className="font-mono text-[10px] text-white/30 tabular">
+                  0{i + 1}
+                </span>
+              </div>
+              <p className="mt-4 text-sm text-white/85 leading-[1.55]">{r.label}</p>
             </div>
           ))}
         </RevealOnScroll>
@@ -498,31 +821,198 @@ function TiersSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   8. FAQ
+   8. VOICES — testimonial collage
    ═══════════════════════════════════════════════════════════════ */
-function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(-1)
+function VoicesSection() {
+  const voices = siteConfig.community.voices
+  const tilts = [-1.4, 1.2, -0.8]
+  const bgs = ['bg-white/80', 'bg-cream-pink/90', 'bg-white/80']
 
   return (
-    <section className="bg-soft-pink section-padding">
-      <div className="container-width">
-        <RevealOnScroll variant="blur" className="text-center mb-14">
-          <span className="section-label">QUESTIONS</span>
-          <h2 className="mt-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-ink tracking-tight">
-            things people ask me
-          </h2>
+    <section className="relative bg-blush overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="grid grid-cols-12 gap-6 mb-14 items-end">
+          <div className="col-span-12 lg:col-span-7">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 07</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">VOICES FROM INSIDE</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                members say it{' '}
+                <span className="serif-italic text-coral">better.</span>
+              </h2>
+            </RevealOnScroll>
+          </div>
+        </div>
+
+        <RevealOnScroll
+          variant="slideUp"
+          stagger={0.1}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
+        >
+          {voices.map((v, i) => (
+            <motion.figure
+              key={i}
+              initial={{ rotate: tilts[i] }}
+              whileHover={{ y: -6, rotate: tilts[i] * 0.5 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className={cn(
+                'relative rounded-[22px] p-7 backdrop-blur-md ring-1 ring-rose-mist/50 shadow-[0_14px_36px_-16px_rgba(26,26,46,0.16)]',
+                bgs[i],
+              )}
+            >
+              <span
+                className="absolute -top-4 left-6 text-7xl text-coral/30 leading-none select-none font-serif"
+                aria-hidden
+              >
+                &ldquo;
+              </span>
+              <blockquote className="mt-6 text-[17px] text-ink-secondary leading-[1.55] [text-wrap:pretty]">
+                {v.body}
+              </blockquote>
+              <figcaption className="mt-7 pt-5 border-t hairline flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-coral/30 to-coral/15 ring-2 ring-white grid place-items-center text-sm font-bold text-coral">
+                  {v.name[0].toUpperCase()}
+                </div>
+                <div className="leading-tight">
+                  <p className="text-sm font-semibold text-ink">{v.name}</p>
+                  <p className="text-[11px] text-ink-muted">{v.role}</p>
+                </div>
+              </figcaption>
+            </motion.figure>
+          ))}
         </RevealOnScroll>
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   9. PULSE — community stats with annotations
+   ═══════════════════════════════════════════════════════════════ */
+function PulseSection() {
+  const stats = [
+    { value: 1247, label: 'builders inside', note: '↑ +47 this week' },
+    { value: 14, label: 'events in the wild', note: 'since 2024' },
+    { value: 312, label: 'things shipped together', note: 'and counting' },
+    { value: 6, label: 'cities · soon 8', note: 'dxb live · sin loading' },
+  ]
+
+  return (
+    <section className="relative bg-soft-pink overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="text-center mb-14 max-w-2xl mx-auto">
+          <RevealOnScroll variant="blur">
+            <span className="eyebrow text-ink-muted tabular">
+              <Asterisk size={9} className="inline mr-1.5 text-coral" />
+              MEASURED HONESTLY
+            </span>
+          </RevealOnScroll>
+          <RevealOnScroll variant="slideUp" delay={0.05}>
+            <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+              the pulse, in{' '}
+              <span className="serif-italic text-coral">numbers.</span>
+            </h2>
+          </RevealOnScroll>
+        </div>
+
+        <RevealOnScroll
+          variant="scaleIn"
+          stagger={0.1}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="text-5xl sm:text-6xl lg:text-7xl font-black text-coral leading-none tracking-[-0.045em] tabular">
+                <CountUp value={s.value} />
+              </p>
+              <p className="mt-3 text-sm text-ink leading-snug font-semibold">
+                {s.label}
+              </p>
+              <p className="mt-1 serif-italic text-xs text-ink-muted/85 tabular">
+                {s.note}
+              </p>
+            </div>
+          ))}
+        </RevealOnScroll>
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   10. FAQ
+   ═══════════════════════════════════════════════════════════════ */
+function FAQSection() {
+  const [openIndex, setOpenIndex] = useState(0)
+  const faqs = [
+    {
+      q: 'is this free?',
+      a: 'yes. invite-only but free. members get cohort access, the wall, weekly rituals, and city events. premium tracks for protocols come separately.',
+    },
+    {
+      q: 'who fits?',
+      a: 'people building at the seam of ai and web3. founders, researchers, marketers, ops folks, vibe coders. you don\'t have to be senior — you have to be shipping.',
+    },
+    {
+      q: 'how do invites work?',
+      a: 'every member gets one invite a month. we also open the doors on fridays — drop your work in the open application and a member will pick it up.',
+    },
+    {
+      q: 'do you record sessions?',
+      a: 'no. the deal is: nothing leaves the room. that\'s why people show their actual work here.',
+    },
+    {
+      q: 'where does this live?',
+      a: 'the wall lives in a private discord-meets-substack space. events are irl and on-cam. you\'ll get the link the day you\'re in.',
+    },
+  ]
+
+  return (
+    <section className="relative bg-blush overflow-hidden">
+      <div className="container-width section-padding">
+        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
+          <div className="col-span-12 lg:col-span-7">
+            <RevealOnScroll variant="blur">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 08</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">SOFTBALL QUESTIONS</span>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                things people ask <br className="hidden sm:block" />
+                <span className="serif-italic text-coral">before joining.</span>
+              </h2>
+            </RevealOnScroll>
+          </div>
+          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
+            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+              short answers. no marketing speak.
+            </p>
+          </RevealOnScroll>
+        </div>
 
         <div className="max-w-3xl mx-auto space-y-3">
-          {siteConfig.faqs.map((faq, i) => (
+          {faqs.map((faq, i) => (
             <BlurFade key={i} delay={i * 0.05} yOffset={6} blur={4}>
-              <div className="bg-white rounded-[16px] ring-1 ring-rose-mist/40 shadow-soft overflow-hidden">
+              <div className="bg-white/78 backdrop-blur-md rounded-[18px] ring-1 ring-rose-mist/50 shadow-[0_4px_20px_-10px_rgba(26,26,46,0.1)] overflow-hidden">
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
                   className="w-full flex items-center justify-between px-6 py-5 text-left group"
                 >
-                  <span className="text-sm sm:text-base font-medium text-ink pr-4 group-hover:text-coral transition-colors">
-                    {faq.q}
+                  <span className="flex items-baseline gap-3 pr-4">
+                    <span className="font-mono text-[11px] text-ink-faint tabular">
+                      0{i + 1}
+                    </span>
+                    <span className="text-base font-semibold text-ink group-hover:text-coral transition-colors">
+                      {faq.q}
+                    </span>
                   </span>
                   <motion.span
                     animate={{ rotate: openIndex === i ? 180 : 0 }}
@@ -541,7 +1031,7 @@ function FAQSection() {
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-6 text-sm text-ink-muted leading-relaxed">
+                      <p className="px-6 pb-6 pl-[3.25rem] text-[15px] text-ink-muted leading-[1.6] [text-wrap:pretty]">
                         {faq.a}
                       </p>
                     </motion.div>
@@ -557,36 +1047,99 @@ function FAQSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   9. FINAL CTA
+   11. JOIN — final glassy CTA with avatar collage
    ═══════════════════════════════════════════════════════════════ */
-function FinalCTA() {
+function JoinSection() {
+  const avatars = [
+    { letter: 'm', from: 'from-coral to-coral-deep' },
+    { letter: 'a', from: 'from-[#F0A500] to-[#A87000]' },
+    { letter: 'p', from: 'from-[#5B8DEF] to-[#3D5FB5]' },
+    { letter: 'k', from: 'from-coral to-[#A8C9E8]' },
+    { letter: 'r', from: 'from-[#2D9D78] to-[#1A6850]' },
+    { letter: 'n', from: 'from-coral-deep to-[#1A1A2E]' },
+  ]
+
   return (
-    <section className="relative bg-midnight text-white section-padding overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-coral/[0.06] blur-[140px] pointer-events-none animate-glow-pulse" />
+    <section
+      id="join"
+      className="relative overflow-hidden grain"
+      style={{
+        background:
+          'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 45%, #C9D5E8 100%)',
+      }}
+    >
+      <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] rounded-full bg-coral/20 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-[440px] h-[440px] rounded-full bg-white/35 blur-[120px] pointer-events-none" />
 
-      <div className="container-width relative z-10 text-center">
-        <BlurFade delay={0.1} yOffset={16}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight max-w-3xl mx-auto leading-tight">
-            ready to stop burning cash on manual marketing?
-          </h2>
-        </BlurFade>
+      <div className="container-width section-padding relative">
+        <BlurFade yOffset={20} blur={6}>
+          <div className="relative max-w-3xl mx-auto rounded-[32px] p-10 sm:p-14 bg-white/55 backdrop-blur-2xl ring-1 ring-white/85 shadow-[0_30px_80px_-20px_rgba(255,107,107,0.35)]">
+            {/* corner pills */}
+            <FloatingPills
+              className="absolute -top-16 -right-12 w-[220px] h-[220px] pointer-events-none hidden sm:block"
+              size="sm"
+              density="sm"
+            />
 
-        <BlurFade delay={0.25}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <Link
-              href={siteConfig.links.calendly}
-              className="group inline-flex items-center gap-2.5 px-8 py-4 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover hover:shadow-[0_6px_24px_rgba(255,107,107,0.35)] transition-all duration-300"
-            >
-              book a call
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              href="/book"
-              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-white border border-white/20 rounded-full hover:border-white/40 hover:bg-white/[0.04] transition-all duration-300"
-            >
-              get the free gtm audit
-            </Link>
+            {/* avatar collage */}
+            <div className="flex justify-center -space-x-2.5 mb-8">
+              {avatars.map((a, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ y: 8, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ delay: i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className={cn(
+                    'h-10 w-10 rounded-full bg-gradient-to-br grid place-items-center text-white text-xs font-bold ring-2 ring-white shadow-md',
+                    a.from,
+                  )}
+                >
+                  {a.letter}
+                </motion.div>
+              ))}
+              <div className="h-10 w-10 rounded-full bg-white/85 grid place-items-center text-[10px] font-bold text-ink ring-2 ring-white shadow-md tabular">
+                +1.2k
+              </div>
+            </div>
+
+            <div className="text-center">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
+                <Sparkles size={11} />
+                THE DOOR IS OPEN TODAY
+              </span>
+              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
+                come build with people who <br className="hidden sm:block" />
+                <span className="serif-italic text-coral">actually finish</span>{' '}
+                things.
+              </h2>
+              <p className="mt-7 text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] max-w-xl mx-auto [text-wrap:pretty]">
+                drop your handle. tell us what you&apos;re building. a member
+                picks it up within a day.
+              </p>
+
+              <form className="mt-9 flex flex-col sm:flex-row items-stretch gap-3 max-w-md mx-auto">
+                <input
+                  type="text"
+                  placeholder="@yourhandle"
+                  className="flex-1 px-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
+                />
+                <button
+                  type="button"
+                  className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-ink rounded-full hover:bg-ink/85 transition-colors"
+                >
+                  request invite
+                  <ArrowRight
+                    size={15}
+                    className="transition-transform group-hover:translate-x-0.5"
+                  />
+                </button>
+              </form>
+
+              <p className="mt-5 text-xs text-ink-muted tabular">
+                no spam · no newsletter · just the invite — or a soft no.
+              </p>
+            </div>
           </div>
         </BlurFade>
       </div>
@@ -601,14 +1154,16 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <PainPointMarquee />
-      <ServicesSection />
-      <HowItWorksSection />
-      <ComparisonSection />
-      <StatsSection />
-      <TiersSection />
+      <TickerStrip />
+      <MountainMoment />
+      <CommunityWall />
+      <CitiesSection />
+      <InitiativesSection />
+      <RitualsSection />
+      <VoicesSection />
+      <PulseSection />
       <FAQSection />
-      <FinalCTA />
+      <JoinSection />
     </>
   )
 }

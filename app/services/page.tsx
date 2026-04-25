@@ -9,18 +9,19 @@ import {
   Rocket,
   ArrowRight,
   Check,
-  Star,
+  Sparkles,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '@/data/site-config'
 import { cn } from '@/lib/utils'
+import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 
-const iconMap: Record<string, React.ReactNode> = {
-  Users: <Users size={28} strokeWidth={1.5} />,
-  Radar: <Radar size={28} strokeWidth={1.5} />,
-  PenTool: <PenTool size={28} strokeWidth={1.5} />,
-  BarChart3: <BarChart3 size={28} strokeWidth={1.5} />,
-  Rocket: <Rocket size={28} strokeWidth={1.5} />,
+const iconMap: Record<string, React.ElementType> = {
+  Users,
+  Radar,
+  PenTool,
+  BarChart3,
+  Rocket,
 }
 
 const fadeUp = {
@@ -29,126 +30,134 @@ const fadeUp = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.6, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] as const },
+    transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as const },
   }),
 }
 
 export default function ServicesPage() {
+  const initiatives = siteConfig.community.initiatives
+  const services = siteConfig.services
+
   return (
-    <main className="min-h-screen">
-      {/* ── Hero (Dark) ── */}
-      <section className="bg-[#1A1A2E] section-padding pt-32 sm:pt-36 pb-20">
-        <div className="container-width text-center max-w-4xl mx-auto">
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-block px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-[#FF6B6B] bg-[#FF6B6B]/10 rounded-full mb-8"
-          >
-            the full stack
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.08] mb-6"
-          >
-            5 ai systems.{' '}
-            <span className="text-[#FF6B6B]">one gtm machine.</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed"
-          >
-            community bots. signal-based outbound. 52+ posts per month. on-chain
-            attribution. sybil-resistant launches. all built by AI agents, running
-            24/7, at 1/5th the cost of traditional agencies.
-          </motion.p>
+    <main className="min-h-screen pt-24">
+      {/* ─── Hero ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #B6CCE5 0%, #FFD0C4 38%, #FFE0DA 70%, #FFEFEB 100%)' }}>
+        <div className="absolute top-[14%] right-[12%] w-[340px] h-[340px] rounded-full bg-[#FFE6D2]/75 blur-[110px] pointer-events-none" />
+        <div className="container-width section-padding relative">
+          <div className="grid grid-cols-12 gap-6">
+            <div className="col-span-12 lg:col-span-9">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 01</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">THE ROOMS</span>
+              </div>
+              <h1 className="display-tight mt-7 text-ink" style={{ fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)' }}>
+                <span className="block">five rooms</span>
+                <span className="block serif-italic text-coral mt-1">inside the room.</span>
+              </h1>
+              <p className="mt-9 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
+                services, but soft. cohorts you actually finish. each room is a
+                small group of builders working on the same problem at the same
+                time — with the bots, dashboards, and prompts shared.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── Service Cards ── */}
-      <section className="bg-[#FFF0F0] section-padding">
-        <div className="container-width">
-          <div className="text-center mb-12">
-            <span className="section-label mb-4 inline-block">services</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] tracking-tight">
-              what we deploy
-            </h2>
+      {/* ─── Rooms (initiatives) ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-6 mb-12 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 02</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">WHAT WE BUILD TOGETHER</span>
+              </div>
+              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[3.5rem]">
+                pick a room.{' '}
+                <span className="serif-italic text-coral">show up.</span>{' '}
+                ship.
+              </h2>
+            </div>
+            <div className="col-span-12 lg:col-span-4">
+              <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+                each room runs on its own cadence. join one, or stack a few.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {siteConfig.services.map((service, i) => (
-              <motion.div
-                key={service.slug}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
-                variants={fadeUp}
-              >
-                <Link
-                  href={`/services/${service.slug}`}
-                  className={cn(
-                    'group relative flex flex-col bg-white rounded-[16px] p-8 h-full',
-                    'shadow-soft ring-1 ring-black/[0.04]',
-                    'hover:shadow-medium hover:ring-[#FF6B6B]/20 hover:-translate-y-1',
-                    'transition-all duration-300'
-                  )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {initiatives.map((init, i) => {
+              const Icon = iconMap[init.icon] ?? Users
+              const matchService = services[i] // 1:1 mapping with the service slugs
+              return (
+                <motion.div
+                  key={init.title}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: '-40px' }}
+                  variants={fadeUp}
                 >
-                  {/* Icon */}
-                  <div className="w-12 h-12 rounded-xl bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center mb-5">
-                    {iconMap[service.icon]}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-[#1A1A2E] mb-2 group-hover:text-[#FF6B6B] transition-colors">
-                    {service.title.toLowerCase()}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-[#6B6B80] text-[15px] leading-relaxed mb-5 flex-1">
-                    {service.description}
-                  </p>
-
-                  {/* Metric Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FF6B6B]/10 text-[#FF6B6B] text-sm font-semibold rounded-full w-fit mb-4">
-                    {service.metric}
-                  </div>
-
-                  {/* Learn More */}
-                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#FF6B6B] group-hover:gap-2.5 transition-all">
-                    learn more
-                    <ArrowRight size={14} />
-                  </span>
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={`/services/${matchService?.slug ?? ''}`}
+                    className={cn(
+                      'group relative flex flex-col rounded-[22px] p-7 h-full overflow-hidden',
+                      'bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55',
+                      'hover:ring-coral/40 hover:bg-white/90 hover:-translate-y-1',
+                      'transition-all duration-300 shadow-[0_10px_28px_-14px_rgba(26,26,46,0.14)]',
+                    )}
+                  >
+                    <div className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="font-mono text-[10px] tabular text-ink-faint">
+                      room no.{String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className="mt-3 w-12 h-12 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
+                      <Icon size={20} className="text-coral" />
+                    </div>
+                    <h3 className="mt-5 text-xl font-black text-ink lowercase tracking-tight">
+                      {init.title}
+                    </h3>
+                    <p className="mt-3 text-[15px] text-ink-muted leading-[1.55] flex-1 [text-wrap:pretty]">
+                      {init.clientFacing}
+                    </p>
+                    <div className="mt-5 flex items-center justify-between">
+                      <span className="inline-flex items-center px-3 py-1.5 bg-coral-muted text-coral text-xs font-medium rounded-full tabular">
+                        {init.metric}
+                      </span>
+                      <ArrowRight size={16} className="text-ink-faint group-hover:text-coral group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── Engagement Tiers ── */}
-      <section className="bg-[#FFE4E1] section-padding">
-        <div className="container-width">
-          <div className="text-center mb-12">
-            <span className="section-label mb-4 inline-block">
-              engagement tiers
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1A2E] tracking-tight mb-4">
-              three ways to start
-            </h2>
-            <p className="text-[#6B6B80] text-lg max-w-xl mx-auto">
-              every engagement starts with an audit. from there, pick the depth
-              that matches your stage.
-            </p>
+      {/* ─── Tiers (membership tracks) ─── */}
+      <section className="bg-soft-pink relative">
+        <div className="container-width section-padding">
+          <div className="text-center mb-14 max-w-2xl mx-auto">
+            <RevealOnScroll variant="blur">
+              <span className="section-label">MEMBERSHIP TRACKS</span>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                three ways to{' '}
+                <span className="serif-italic text-coral">show up.</span>
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll variant="slideUp" delay={0.1}>
+              <p className="mt-6 serif-italic text-ink-muted/85 text-lg leading-snug">
+                every track starts with the audit. then you pick the depth.
+              </p>
+            </RevealOnScroll>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {siteConfig.tiers.map((tier, i) => (
               <motion.div
                 key={tier.name}
@@ -158,54 +167,46 @@ export default function ServicesPage() {
                 viewport={{ once: true, margin: '-40px' }}
                 variants={fadeUp}
                 className={cn(
-                  'relative bg-white rounded-[16px] p-8 flex flex-col',
-                  'shadow-soft ring-1 ring-black/[0.04]',
-                  tier.popular && 'ring-2 ring-[#FF6B6B] shadow-[0_4px_16px_rgba(255,107,107,0.15)]'
+                  'relative rounded-[22px] p-8 flex flex-col bg-white/78 backdrop-blur-md ring-1',
+                  tier.popular
+                    ? 'ring-2 ring-coral shadow-[0_18px_48px_-16px_rgba(255,107,107,0.3)]'
+                    : 'ring-rose-mist/55 shadow-[0_10px_28px_-14px_rgba(26,26,46,0.12)]',
                 )}
               >
                 {tier.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 bg-[#FF6B6B] text-white text-xs font-semibold rounded-full">
-                    <Star size={12} fill="currentColor" />
-                    most popular
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-3 py-1 bg-coral text-white text-[11px] font-bold uppercase tracking-[0.14em] rounded-full">
+                    <Sparkles size={11} fill="currentColor" />
+                    most picked
                   </div>
                 )}
-
-                <p className="text-xs font-semibold text-[#9B9BAD] uppercase tracking-[0.08em] mb-1">
+                <span className="font-mono text-[11px] tabular text-coral font-bold uppercase tracking-[0.16em]">
                   {tier.timeline}
-                </p>
-                <h3 className="text-xl font-bold text-[#1A1A2E] mb-3">
+                </span>
+                <h3 className="mt-3 text-2xl font-black text-ink lowercase tracking-tight">
                   {tier.name.toLowerCase()}
                 </h3>
-                <p className="text-[#6B6B80] text-[15px] leading-relaxed mb-6">
+                <p className="mt-3 text-[15px] text-ink-muted leading-[1.55] mb-6 [text-wrap:pretty]">
                   {tier.description}
                 </p>
-
                 <ul className="space-y-2.5 flex-1">
                   {tier.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2.5 text-sm text-[#2D2D44]"
-                    >
-                      <Check
-                        size={16}
-                        className="text-[#FF6B6B] mt-0.5 shrink-0"
-                      />
-                      {feature}
+                    <li key={feature} className="flex items-start gap-2.5 text-sm text-ink-secondary">
+                      <Check size={15} className="text-coral mt-0.5 shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
-
                 <Link
-                  href={siteConfig.links.calendly}
+                  href="/#join"
                   className={cn(
-                    'mt-8 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-colors',
+                    'mt-8 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all',
                     tier.popular
-                      ? 'bg-[#FF6B6B] text-white hover:bg-[#FF5252]'
-                      : 'bg-[#FF6B6B]/10 text-[#FF6B6B] hover:bg-[#FF6B6B]/20'
+                      ? 'bg-ink text-white hover:bg-ink/85'
+                      : 'bg-coral-muted text-coral hover:bg-coral/15',
                   )}
                 >
-                  get started
-                  <ArrowRight size={16} />
+                  request invite
+                  <ArrowRight size={14} />
                 </Link>
               </motion.div>
             ))}
@@ -213,28 +214,20 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-[#1A1A2E] section-padding">
-        <div className="container-width text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4"
-          >
-            ready to build your gtm machine?
-          </motion.h2>
-          <p className="text-white/50 text-lg mb-8 max-w-md mx-auto">
-            book a 30-minute call. i will map your current gtm gaps and show
-            you exactly which systems to deploy first.
-          </p>
-          <Link
-            href={siteConfig.links.calendly}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#FF6B6B] text-white font-semibold rounded-full shadow-[0_4px_16px_rgba(255,107,107,0.25)] hover:bg-[#FF5252] transition-colors"
-          >
-            book a call
-            <ArrowRight size={18} />
+      {/* ─── CTA ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 50%, #C9D5E8 100%)' }}>
+        <div className="container-width section-padding relative text-center">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20">
+            <Sparkles size={11} />
+            THE DOOR IS OPEN TODAY
+          </span>
+          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
+            ready to{' '}
+            <span className="serif-italic text-coral">show up?</span>
+          </h2>
+          <Link href="/#join" className="mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300">
+            request invite
+            <ArrowRight size={15} />
           </Link>
         </div>
       </section>

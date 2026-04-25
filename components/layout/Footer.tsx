@@ -20,46 +20,87 @@ function LinkedinIcon({ size = 18 }: { size?: number }) {
   )
 }
 
+const footerColumns = [
+  {
+    title: 'the club',
+    links: [
+      { label: 'the wall', href: '/#wall' },
+      { label: 'rituals', href: '/#rituals' },
+      { label: 'cities', href: '/#cities' },
+      { label: 'request invite', href: '/#join' },
+    ],
+  },
+  {
+    title: 'rooms',
+    links: [
+      { label: 'community ops jam', href: '/services/community-engine' },
+      { label: 'signal labs', href: '/services/gtm-engine' },
+      { label: 'content guild', href: '/services/content-system' },
+      { label: 'on-chain reads', href: '/services/growth-intelligence' },
+      { label: 'launch table', href: '/services/launch-engine' },
+    ],
+  },
+  {
+    title: 'beyond',
+    links: [
+      { label: 'about muskan', href: '/about' },
+      { label: 'build in public', href: '/build-in-public' },
+      { label: 'journal', href: '/blog' },
+    ],
+  },
+]
+
 export function Footer() {
   return (
-    <footer className="bg-midnight text-white">
-      <div className="container-width section-padding">
-        {/* Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand column */}
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="text-xl font-bold text-coral tracking-tight">
+    <footer className="bg-midnight text-white relative overflow-hidden">
+      {/* glow */}
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-coral/10 blur-[120px] pointer-events-none" />
+
+      <div className="container-width section-padding relative">
+        {/* Top — wordmark + manifesto */}
+        <div className="grid grid-cols-12 gap-8 mb-16">
+          <div className="col-span-12 md:col-span-6">
+            <Link
+              href="/"
+              className="inline-flex items-baseline gap-2 text-3xl font-black text-coral tracking-tight"
+            >
               muskan jain
+              <span className="serif-italic text-white/40 text-base">
+                · the build club
+              </span>
             </Link>
-            <p className="mt-3 text-sm text-white/60 max-w-xs leading-relaxed">
-              {siteConfig.company.description}
+            <p
+              className="mt-5 text-[17px] text-white/65 max-w-md leading-[1.55] [text-wrap:pretty]"
+              style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}
+            >
+              a soft-edged corner of the internet for builders shipping at the
+              edge of ai and web3. lowercase, by design.
             </p>
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-2 mt-6">
               <a
                 href={siteConfig.links.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-white/50 hover:text-coral hover:bg-white/5 transition-colors"
+                className="p-2.5 rounded-full text-white/55 hover:text-coral hover:bg-white/5 ring-1 ring-white/10 transition-colors"
                 aria-label="Twitter"
               >
-                <TwitterIcon size={18} />
+                <TwitterIcon size={16} />
               </a>
               <a
                 href={siteConfig.links.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-white/50 hover:text-coral hover:bg-white/5 transition-colors"
+                className="p-2.5 rounded-full text-white/55 hover:text-coral hover:bg-white/5 ring-1 ring-white/10 transition-colors"
                 aria-label="LinkedIn"
               >
-                <LinkedinIcon size={18} />
+                <LinkedinIcon size={16} />
               </a>
             </div>
           </div>
 
-          {/* Dynamic columns */}
-          {siteConfig.footer.columns.map((col) => (
-            <div key={col.title}>
-              <h4 className="text-sm font-medium text-white/40 uppercase tracking-wider mb-4">
+          {footerColumns.map((col) => (
+            <div key={col.title} className="col-span-6 md:col-span-2">
+              <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-[0.18em] mb-5 tabular">
                 {col.title}
               </h4>
               <ul className="space-y-2.5">
@@ -67,7 +108,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/60 hover:text-coral transition-colors"
+                      className="text-sm text-white/65 hover:text-coral transition-colors lowercase"
                     >
                       {link.label}
                     </Link>
@@ -78,16 +119,27 @@ export function Footer() {
           ))}
         </div>
 
+        {/* Big wordmark */}
+        <div className="border-t border-white/8 pt-10 mb-10">
+          <p
+            className="text-[14vw] sm:text-[10vw] font-black leading-[0.85] tracking-[-0.05em] text-white/[0.04] select-none"
+            aria-hidden
+          >
+            the build club
+          </p>
+        </div>
+
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-midnight-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} muskan jain. all rights reserved.
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] tabular">
+          <p className="text-white/35">
+            &copy; {new Date().getFullYear()} muskan jain · the build club ·
+            dubai → everywhere
           </p>
           <a
             href={siteConfig.links.veloice}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-ink-faint hover:text-coral transition-colors"
+            className="text-white/30 hover:text-coral transition-colors"
           >
             {siteConfig.footer.attribution}
           </a>

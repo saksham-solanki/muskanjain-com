@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Clock, Calendar } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
+import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 import { cn } from '@/lib/utils'
 
 const blogPosts = [
@@ -66,6 +68,10 @@ const blogPosts = [
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All')
 
+  useEffect(() => {
+    document.title = 'the journal'
+  }, [])
+
   const filteredPosts =
     activeCategory === 'All'
       ? blogPosts
@@ -73,80 +79,177 @@ export default function BlogPage() {
 
   return (
     <main className="pt-24">
-      {/* Hero */}
-      <section className="section-padding">
-        <div className="container-width max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-bold text-ink tracking-tight">
-            blog
-          </h1>
-          <p className="mt-4 text-lg text-ink-muted">
-            ai builds, market signals, web3 insights, and real talk
-          </p>
+      {/* ─── Hero ─── */}
+      <section
+        className="relative overflow-hidden grain"
+        style={{
+          background:
+            'linear-gradient(180deg, #B6CCE5 0%, #FFD0C4 38%, #FFE0DA 70%, #FFEFEB 100%)',
+        }}
+      >
+        <div className="absolute top-[16%] right-[14%] w-[360px] h-[360px] rounded-full bg-[#FFE6D2]/75 blur-[110px] pointer-events-none" />
+        <div className="absolute bottom-[-6rem] left-[-8rem] w-[460px] h-[460px] rounded-full bg-coral/15 blur-[140px] pointer-events-none" />
+
+        <div className="container-width section-padding relative">
+          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
+            <div className="col-span-12 lg:col-span-8">
+              <div className="flex items-center gap-3">
+                <span className="eyebrow text-ink-muted">No. 01</span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">THE JOURNAL</span>
+              </div>
+              <h1
+                className="display-tight mt-7 text-ink"
+                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+              >
+                <span className="block">field notes</span>
+                <span className="block mt-1">
+                  from{' '}
+                  <span className="serif-italic text-coral">the room.</span>
+                </span>
+              </h1>
+              <p className="mt-9 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
+                slow writing from a fast room. ai builds, market signals, web3
+                receipts, and the occasional real-talk dispatch — written by
+                members, kept lowercase on purpose.
+              </p>
+            </div>
+
+            <div className="col-span-12 lg:col-span-4">
+              <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+                ↳ no dark patterns. no thought leadership. just notes from
+                people shipping things.
+              </p>
+              <p className="mt-4 text-xs text-ink-faint tabular">
+                {blogPosts.length} entries · refreshed weekly
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Category filters */}
-      <section className="pb-8">
-        <div className="container-width max-w-3xl">
+      {/* ─── Filter pills ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width pt-12 lg:pt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="eyebrow text-ink-muted">No. 02</span>
+            <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+            <span className="section-label">SORT BY COLUMN</span>
+          </div>
           <div className="flex flex-wrap gap-2">
             {siteConfig.blogCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  'px-4 py-1.5 text-sm font-medium rounded-full transition-colors',
+                  'px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 lowercase tabular',
                   activeCategory === cat
-                    ? 'bg-coral text-white'
-                    : 'bg-coral-muted text-coral hover:bg-coral/20'
+                    ? 'bg-ink text-white ring-1 ring-ink shadow-[0_8px_20px_-8px_rgba(26,26,46,0.4)]'
+                    : 'bg-white/72 backdrop-blur-md text-ink-secondary ring-1 ring-rose-mist/55 hover:bg-white/90 hover:ring-coral/40',
                 )}
               >
-                {cat}
+                {cat === 'All' ? 'all entries' : cat.toLowerCase()}
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Blog cards */}
-      <section className="section-padding pt-0">
-        <div className="container-width">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="bg-white rounded-[16px] shadow-soft p-6 flex flex-col hover:shadow-medium transition-shadow"
-              >
-                {/* Category badge */}
-                <span className="self-start px-3 py-1 text-xs font-medium text-coral bg-coral-muted rounded-full mb-4">
-                  {post.category}
-                </span>
+      {/* ─── Entries ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width section-padding pt-10 lg:pt-12">
+          {filteredPosts.length > 0 ? (
+            <RevealOnScroll
+              variant="slideUp"
+              stagger={0.06}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            >
+              {filteredPosts.map((post, i) => (
+                <motion.article
+                  key={post.slug}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative rounded-[20px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55 hover:bg-white/90 hover:ring-coral/40 shadow-[0_10px_28px_-14px_rgba(26,26,46,0.14)] hover:shadow-[0_18px_44px_-16px_rgba(255,107,107,0.22)] transition-all flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="font-mono text-[10px] tabular text-ink-faint">
+                      no.{String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-coral bg-coral/10 rounded-full ring-1 ring-coral/20 tabular">
+                      {post.category}
+                    </span>
+                  </div>
 
-                <h2 className="text-lg font-semibold text-ink leading-snug mb-2">
-                  {post.title}
-                </h2>
-                <p className="text-sm text-ink-muted leading-relaxed mb-4 flex-1">
-                  {post.description}
-                </p>
+                  <h2 className="text-xl font-black text-ink lowercase tracking-tight leading-[1.15] [text-wrap:balance]">
+                    {post.title}
+                  </h2>
+                  <p className="mt-3 text-[14.5px] text-ink-muted leading-[1.55] flex-1 [text-wrap:pretty]">
+                    {post.description}
+                  </p>
 
-                <div className="flex items-center gap-4 text-xs text-ink-faint">
-                  <span className="flex items-center gap-1">
-                    <Calendar size={13} />
-                    {post.date}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock size={13} />
-                    {post.readingTime}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {filteredPosts.length === 0 && (
-            <p className="text-center text-ink-muted py-16">
-              no posts in this category yet. check back soon.
-            </p>
+                  <footer className="mt-6 pt-4 border-t hairline flex items-center gap-4 text-[11px] text-ink-faint tabular">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar size={11} />
+                      {post.date}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock size={11} />
+                      {post.readingTime}
+                    </span>
+                    <span className="ml-auto inline-flex items-center gap-1 text-ink-muted opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-coral transition-all duration-300">
+                      read
+                      <ArrowRight size={12} />
+                    </span>
+                  </footer>
+                </motion.article>
+              ))}
+            </RevealOnScroll>
+          ) : (
+            <div className="py-20 text-center max-w-md mx-auto">
+              <span className="font-mono text-[10px] tabular text-ink-faint uppercase tracking-[0.18em]">
+                empty column
+              </span>
+              <p className="mt-4 serif-italic text-ink-muted text-lg leading-snug">
+                no entries in this column yet. members are writing — check back
+                soon.
+              </p>
+            </div>
           )}
+        </div>
+      </section>
+
+      {/* ─── CTA ─── */}
+      <section
+        className="relative overflow-hidden grain"
+        style={{
+          background:
+            'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 50%, #C9D5E8 100%)',
+        }}
+      >
+        <div className="absolute top-1/4 -left-20 w-[420px] h-[420px] rounded-full bg-coral/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-1/4 -right-20 w-[420px] h-[420px] rounded-full bg-white/35 blur-[120px] pointer-events-none" />
+
+        <div className="container-width section-padding relative text-center">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
+            <Sparkles size={11} />
+            THE DOOR IS OPEN TODAY
+          </span>
+          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
+            want to{' '}
+            <span className="serif-italic text-coral">write</span>{' '}
+            inside the room?
+          </h2>
+          <p className="mt-7 serif-italic text-ink-muted/85 text-lg max-w-md mx-auto leading-snug">
+            members get the journal first. drafts get loving notes. nothing
+            ships before it&apos;s ready.
+          </p>
+          <Link
+            href="/#join"
+            className="mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300"
+          >
+            request invite
+            <ArrowRight size={15} />
+          </Link>
         </div>
       </section>
     </main>

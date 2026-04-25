@@ -53,10 +53,10 @@ export function Nav() {
             </Link>
           ))}
           <Link
-            href={siteConfig.links.calendly}
-            className="inline-flex items-center px-5 py-2 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover transition-colors"
+            href="/#join"
+            className="inline-flex items-center px-5 py-2 text-sm font-medium text-white bg-ink rounded-full shadow-[0_8px_24px_-8px_rgba(26,26,46,0.5)] hover:bg-ink/85 transition-colors"
           >
-            book a call
+            join the club
           </Link>
         </div>
 
@@ -92,11 +92,11 @@ export function Nav() {
                 </Link>
               ))}
               <Link
-                href={siteConfig.links.calendly}
+                href="/#join"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-coral rounded-full shadow-coral hover:bg-coral-hover transition-colors"
+                className="mt-2 inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-ink rounded-full transition-colors"
               >
-                book a call
+                join the club
               </Link>
             </div>
           </motion.div>

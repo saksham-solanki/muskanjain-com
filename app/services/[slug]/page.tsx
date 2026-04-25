@@ -9,426 +9,331 @@ import {
   BarChart3,
   Rocket,
   ArrowRight,
-  AlertTriangle,
-  Zap,
-  Wrench,
+  ArrowLeft,
+  Sparkles,
   Check,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '@/data/site-config'
 import { cn } from '@/lib/utils'
 
-/* ── Per-service detailed content ── */
-
 interface ServiceDetail {
-  problem: string
-  solution: string
-  deliverables: string[]
-  techStack: string[]
+  whyExists: string
+  howItWorks: string
+  shipsTogether: string[]
+  toolsShared: string[]
   stats: { label: string; value: string }[]
+  rituals: string[]
 }
 
 const serviceContent: Record<string, ServiceDetail> = {
   'community-engine': {
-    problem:
-      'community managers burn $5K-$15K/mo answering the same 50 questions. spam and scams slip through. no analytics. 24/7 coverage requires 3-5 people across timezones.',
-    solution:
-      'AI bots trained on your protocol docs handle 80% of queries. auto-moderate spam and scams. onboarding flows via Collab.Land/Guild.xyz. sentiment analysis dashboards. all for ~$500/month in API costs.',
-    deliverables: [
-      'Discord bot trained on your docs',
-      'Telegram bot with FAQ automation',
-      'Quest integration (Galxe/Zealy)',
-      'Community analytics dashboard',
-      'Escalation routing to human team',
-      'Spam and scam auto-moderation',
-      'Onboarding flows for new members',
-      'Sentiment analysis and alerts',
+    whyExists: 'because community managers burn $5K–$15K/mo answering the same 50 questions. spam slips through. mod coverage requires 3–5 people across timezones. nobody should have to do this manually anymore.',
+    howItWorks: 'we build and open-source ai bots together. every member ships one. trained on your protocol docs. handle 80% of queries, auto-mod scams, run onboarding flows. ~$500/month in api costs replaces a small team. payback in 3–5 days.',
+    shipsTogether: [
+      'discord bot trained on your docs',
+      'telegram bot with faq automation',
+      'quest integration (galxe / zealy)',
+      'community analytics dashboard',
+      'spam and scam auto-moderation',
+      'onboarding flows for new members',
+      'sentiment analysis with alerts',
+      'escalation routing to human team',
     ],
-    techStack: [
-      'Discord.js',
-      'Telegram Bot API',
-      'Claude API',
-      'Collab.Land',
-      'Guild.xyz',
-      'Galxe',
-      'Zealy',
-      'n8n',
-    ],
+    toolsShared: ['discord.js', 'telegram bot api', 'claude api', 'collab.land', 'guild.xyz', 'galxe', 'zealy', 'n8n'],
     stats: [
       { label: 'queries automated', value: '80%' },
       { label: 'setup cost', value: '~$250' },
-      { label: 'payback period', value: '3-5 days' },
+      { label: 'payback', value: '3–5 days' },
       { label: 'coverage', value: '24/7' },
     ],
+    rituals: ['monthly cohort kickoff', 'wednesday office hours', 'friday show & tell'],
   },
   'gtm-engine': {
-    problem:
-      'BD happens through random telegram DMs and event networking. no pipeline. no CRM. no follow-up system. $50K+ spent on events with zero tracking.',
-    solution:
-      'AI agents monitor funding rounds, new listings, hiring signals. Clay enriches leads with on-chain data. Claude writes personalized outreach. Instantly/Smartlead sends multi-channel sequences. HubSpot routes responses.',
-    deliverables: [
-      'Signal detection agents (funding, listings, hires)',
-      'Clay enrichment tables with on-chain data',
-      'AI copywriting for personalized outreach',
-      'Email + LinkedIn + Telegram sequences',
-      'CRM integration and pipeline tracking',
-      'Event intelligence and follow-up automation',
-      'Lead scoring based on on-chain activity',
-      'Weekly pipeline reports',
+    whyExists: 'because bd in web3 still happens through telegram dms and event networking. no pipeline. no crm. no follow-up. $50k+ on events with zero tracking. there\'s a better way and it\'s mostly automated.',
+    howItWorks: 'we share signal-detection agents that monitor funding rounds, listings, and hiring signals. clay enriches with on-chain data. claude writes personalized outreach. instantly sends multi-channel sequences. hubspot routes responses.',
+    shipsTogether: [
+      'signal detection agents (funding, listings, hires)',
+      'clay enrichment with on-chain data',
+      'ai copywriting for outreach',
+      'email + linkedin + telegram sequences',
+      'crm integration and pipeline tracking',
+      'event intelligence and follow-up',
+      'lead scoring on on-chain activity',
+      'weekly pipeline reports',
     ],
-    techStack: [
-      'Clay',
-      'n8n',
-      'Claude API',
-      'Instantly',
-      'Heyreach',
-      'HubSpot',
-      'Crunchbase',
-      'CoinGecko',
-    ],
+    toolsShared: ['clay', 'n8n', 'claude api', 'instantly', 'heyreach', 'hubspot', 'crunchbase', 'coingecko'],
     stats: [
-      { label: 'pipeline type', value: 'signal-based' },
+      { label: 'pipeline', value: 'signal-based' },
       { label: 'channels', value: '3+' },
       { label: 'enrichment', value: 'on-chain' },
       { label: 'follow-up', value: 'automated' },
     ],
+    rituals: ['every other tuesday', 'live sequence reviews', 'shared receipt thread'],
   },
   'content-system': {
-    problem:
-      'google classifies crypto as YMYL, enforcing strict quality. most projects produce 2-5 posts/month. no AEO optimization, invisible to AI search engines. SEO keyword difficulty 90+.',
-    solution:
-      'multi-agent content pipeline: research agent monitors trends, writer agent produces brand-voice content, editor agent fact-checks for YMYL compliance, publisher handles SEO and distribution. 52+ posts per month.',
-    deliverables: [
-      'Multi-agent content pipeline (15+ agents)',
-      'AEO optimization for AI citations',
-      'Programmatic SEO (100-500 pages)',
-      'Distribution automation (X, LinkedIn, Discord)',
-      'Citation tracking dashboard',
-      'YMYL compliance checking',
-      'Brand voice calibration',
-      'Editorial calendar automation',
+    whyExists: 'because google classifies crypto as ymyl, enforcing strict quality. most projects produce 2–5 posts/month. no aeo optimization. invisible to ai search. seo keyword difficulty 90+. you can\'t outsource your way out of this.',
+    howItWorks: 'multi-agent pipeline: research, strategy, writing, editing, publishing. aeo-optimized for ai citations. programmatic seo for 100–500 long-tail pages. distribution across x, linkedin, discord. you bring a draft, you leave with 12 posts.',
+    shipsTogether: [
+      'multi-agent content pipeline (15+ agents)',
+      'aeo optimization for ai citations',
+      'programmatic seo (100–500 pages)',
+      'distribution automation (x, linkedin, discord)',
+      'citation tracking dashboard',
+      'ymyl compliance checking',
+      'brand voice calibration',
+      'editorial calendar automation',
     ],
-    techStack: [
-      'Claude API',
-      'n8n',
-      'Next.js',
-      'MDX',
-      'Ahrefs',
-      'Perplexity',
-      'Buffer',
-      'Custom agents',
-    ],
+    toolsShared: ['claude api', 'n8n', 'next.js', 'mdx', 'ahrefs', 'perplexity', 'buffer', 'custom agents'],
     stats: [
-      { label: 'posts per month', value: '52+' },
-      { label: 'pSEO pages', value: '100-500' },
-      { label: 'agents in pipeline', value: '15+' },
-      { label: 'YMYL compliant', value: '100%' },
+      { label: 'posts / month', value: '52+' },
+      { label: 'pseo pages', value: '100–500' },
+      { label: 'agents', value: '15+' },
+      { label: 'ymyl compliant', value: '100%' },
     ],
+    rituals: ['weekly writing pods', 'monthly distribution audit', 'shared prompt library'],
   },
   'growth-intelligence': {
-    problem:
-      'web analytics can\'t see on-chain behavior. blockchain explorers can\'t attribute acquisition sources. zero unified view. 70-80% of marketing budget is a guess.',
-    solution:
-      'unified analytics connecting web traffic to wallet activity. KOL attribution. wallet segmentation. retention triggers. campaign optimization based on on-chain data.',
-    deliverables: [
-      'Formo/Spindl attribution setup',
-      'Dune/Nansen analytics dashboards',
-      'Cookie3 KOL tracking',
-      'Wallet CRM (Absolute Labs)',
-      'XMTP/Push Protocol retention triggers',
-      'Campaign ROI attribution',
-      'Wallet cohort segmentation',
-      'Monthly attribution reports',
+    whyExists: 'because web analytics can\'t see on-chain behavior. blockchain explorers can\'t attribute acquisition. zero unified view. 70–80% of marketing budget is a guess. that\'s not okay anymore.',
+    howItWorks: 'a slow book club for dune dashboards, retention curves, and the cohort math nobody else does. we share queries, segments, and triggers — together connect web traffic to wallet activity.',
+    shipsTogether: [
+      'formo / spindl attribution setup',
+      'dune / nansen analytics dashboards',
+      'cookie3 kol tracking',
+      'wallet crm (absolute labs)',
+      'xmtp / push retention triggers',
+      'campaign roi attribution',
+      'wallet cohort segmentation',
+      'monthly attribution reports',
     ],
-    techStack: [
-      'Formo',
-      'Spindl',
-      'Dune Analytics',
-      'Nansen',
-      'Cookie3',
-      'Absolute Labs',
-      'XMTP',
-      'Push Protocol',
-    ],
+    toolsShared: ['formo', 'spindl', 'dune', 'nansen', 'cookie3', 'absolute labs', 'xmtp', 'push protocol'],
     stats: [
       { label: 'attribution', value: 'full-stack' },
-      { label: 'data sources', value: 'on + off chain' },
-      { label: 'budget waste cut', value: '70-80%' },
-      { label: 'unique offering', value: 'managed service' },
+      { label: 'data', value: 'on + off chain' },
+      { label: 'budget waste cut', value: '70–80%' },
+      { label: 'reads', value: 'thursdays 9pm' },
     ],
+    rituals: ['thursday reads', 'shared dune fork', 'monthly cohort retro'],
   },
   'launch-engine': {
-    problem:
-      '88% of airdrop tokens crash within months. 70% of rewards go to sybil accounts. 93% of Uniswap airdrop recipients dumped tokens within 7 days.',
-    solution:
-      'sybil detection before distribution. task-based eligibility filtering mercenaries. quest deployment. KOL automation. post-TGE retention campaigns triggered by on-chain behavior.',
-    deliverables: [
-      'Sybil detection and filtering',
-      'Quest campaigns (Galxe/Zealy/Intract/Layer3)',
-      'KOL vetting and automation',
-      'Compliant paid ads for launch',
-      'Lifecycle marketing automation',
-      'Post-TGE retention campaigns',
-      'Token distribution optimization',
-      'Launch analytics dashboard',
+    whyExists: 'because 88% of airdrop tokens crash. 70% of rewards go to sybils. 93% of uniswap recipients dumped within 7 days. launching is the highest-stakes moment and most projects do it alone.',
+    howItWorks: 'pre-tge sanity checks. you bring your token plan, the room finds the holes. sybil detection before distribution. task-based eligibility. quest deployment. kol automation. on-chain retention triggers post-tge.',
+    shipsTogether: [
+      'sybil detection and filtering',
+      'quest campaigns (galxe / zealy / intract / layer3)',
+      'kol vetting and automation',
+      'compliant paid ads for launch',
+      'lifecycle marketing automation',
+      'post-tge retention campaigns',
+      'token distribution optimization',
+      'launch analytics dashboard',
     ],
-    techStack: [
-      'Galxe',
-      'Zealy',
-      'Intract',
-      'Layer3',
-      'Sybil detection APIs',
-      'n8n',
-      'Claude API',
-      'XMTP',
-    ],
+    toolsShared: ['galxe', 'zealy', 'intract', 'layer3', 'sybil apis', 'n8n', 'claude api', 'xmtp'],
     stats: [
-      { label: 'airdrop success rate', value: '11% industry avg' },
-      { label: 'sybil filtering', value: 'pre-distribution' },
+      { label: 'industry success', value: '11%' },
+      { label: 'sybil filter', value: 'pre-distro' },
       { label: 'quest platforms', value: '4+' },
-      { label: 'retention', value: 'on-chain triggered' },
+      { label: 'retention', value: 'on-chain' },
     ],
+    rituals: ['invite-only table', 'pre-launch dry run', 'post-tge retro'],
   },
 }
 
-const iconMap: Record<string, React.ReactNode> = {
-  Users: <Users size={32} strokeWidth={1.5} />,
-  Radar: <Radar size={32} strokeWidth={1.5} />,
-  PenTool: <PenTool size={32} strokeWidth={1.5} />,
-  BarChart3: <BarChart3 size={32} strokeWidth={1.5} />,
-  Rocket: <Rocket size={32} strokeWidth={1.5} />,
+const iconMap: Record<string, React.ElementType> = {
+  Users,
+  Radar,
+  PenTool,
+  BarChart3,
+  Rocket,
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
-  },
-}
-
-const stagger = {
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
+const initiativeMap: Record<string, string> = {
+  'community-engine': 'community ops jam',
+  'gtm-engine': 'signal labs',
+  'content-system': 'content guild',
+  'growth-intelligence': 'on-chain reads',
+  'launch-engine': 'launch table',
 }
 
 export default function ServicePage() {
   const { slug } = useParams<{ slug: string }>()
-
   const service = siteConfig.services.find((s) => s.slug === slug)
   if (!service) notFound()
-
   const content = serviceContent[slug]
   if (!content) notFound()
+  const Icon = iconMap[service.icon] ?? Users
+  const roomName = initiativeMap[slug] ?? service.title.toLowerCase()
 
   return (
-    <main className="min-h-screen">
-      {/* ── Hero ── */}
-      <section className="bg-[#1A1A2E] section-padding pt-32 sm:pt-36">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-[#FF6B6B] transition-colors mb-8"
-            >
-              <ArrowRight size={14} className="rotate-180" />
-              all services
-            </Link>
-          </motion.div>
+    <main className="min-h-screen pt-24">
+      {/* ─── Hero ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #B6CCE5 0%, #FFD0C4 38%, #FFE0DA 70%, #FFEFEB 100%)' }}>
+        <div className="absolute top-[12%] right-[14%] w-[320px] h-[320px] rounded-full bg-[#FFE6D2]/75 blur-[110px] pointer-events-none" />
+        <div className="container-width section-padding relative">
+          <Link href="/services" className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-coral transition-colors mb-10">
+            <ArrowLeft size={14} />
+            all rooms
+          </Link>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="w-14 h-14 rounded-xl bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center mb-6"
-          >
-            {iconMap[service.icon]}
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.08] mb-4"
-          >
-            {service.title.toLowerCase()}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-lg text-white/50 leading-relaxed mb-6"
-          >
-            {service.clientFacing}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF6B6B]/10 text-[#FF6B6B] text-base font-semibold rounded-full"
-          >
-            {service.metric}
-          </motion.div>
-
-          {/* Stats row */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12"
-          >
-            {content.stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={fadeUp}
-                className="bg-[#232340] rounded-xl p-4 ring-1 ring-white/[0.06]"
-              >
-                <p className="text-xl font-bold text-white mb-1">{stat.value}</p>
-                <p className="text-xs text-white/40 uppercase tracking-wider">
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── The Problem ── */}
-      <section className="bg-[#FFE4E1] section-padding">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={fadeUp}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center">
-                <AlertTriangle size={20} />
+          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-start">
+            <div className="col-span-12 lg:col-span-8">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-[11px] tabular text-ink-muted">
+                  room · {service.slug}
+                </span>
+                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                <span className="section-label">{service.shortTitle.toUpperCase()}</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] tracking-tight">
-                the problem
-              </h2>
-            </div>
-
-            <div className="bg-white rounded-[16px] p-6 sm:p-8 shadow-soft ring-1 ring-black/[0.04]">
-              <p className="text-lg text-[#2D2D44] leading-relaxed">
-                {content.problem}
+              <div className="mt-7 w-14 h-14 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
+                <Icon size={24} className="text-coral" />
+              </div>
+              <h1 className="display-tight mt-7 text-ink" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
+                <span className="block">the</span>
+                <span className="block serif-italic text-coral">{roomName}</span>
+                <span className="block">room.</span>
+              </h1>
+              <p className="mt-9 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
+                {service.clientFacing}
               </p>
             </div>
-          </motion.div>
+
+            {/* Stats card */}
+            <div className="col-span-12 lg:col-span-4">
+              <div className="rounded-[22px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55 shadow-[0_14px_36px_-16px_rgba(26,26,46,0.16)]">
+                <span className="font-mono text-[10px] tabular text-ink-faint">
+                  the room, in numbers
+                </span>
+                <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-5">
+                  {content.stats.map((s) => (
+                    <li key={s.label}>
+                      <p className="text-2xl font-black text-coral leading-none tabular tracking-[-0.04em]">{s.value}</p>
+                      <p className="mt-1.5 text-[11px] text-ink-muted uppercase tracking-[0.12em] font-semibold">{s.label}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 pt-5 border-t hairline">
+                  <p className="text-xs text-ink-muted serif-italic">rituals</p>
+                  <ul className="mt-2 space-y-1.5">
+                    {content.rituals.map((r) => (
+                      <li key={r} className="text-sm text-ink flex items-center gap-2">
+                        <span className="h-1 w-1 rounded-full bg-coral" />
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── What We Build ── */}
-      <section className="bg-[#FFF0F0] section-padding">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={fadeUp}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center">
-                <Zap size={20} />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] tracking-tight">
-                what we build
+      {/* ─── Why this room exists ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-10 max-w-5xl mx-auto">
+            <div className="col-span-12 lg:col-span-4">
+              <span className="section-label">WHY THIS ROOM EXISTS</span>
+            </div>
+            <div className="col-span-12 lg:col-span-8">
+              <p className="display-tight text-ink text-2xl sm:text-3xl lg:text-[2.2rem] leading-[1.15] [text-wrap:pretty]">
+                <span className="serif-italic text-coral">because</span> {content.whyExists}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── How it works ─── */}
+      <section className="bg-soft-pink relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-10 max-w-5xl mx-auto">
+            <div className="col-span-12 lg:col-span-4">
+              <span className="section-label">HOW IT WORKS</span>
+              <p className="mt-4 serif-italic text-ink-muted/85 leading-snug">
+                ↳ less a service, more a cohort.
+              </p>
+            </div>
+            <div className="col-span-12 lg:col-span-8">
+              <p className="text-[17px] text-ink-secondary leading-[1.6] [text-wrap:pretty]">
+                {content.howItWorks}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── What we ship together ─── */}
+      <section className="bg-blush relative">
+        <div className="container-width section-padding">
+          <div className="grid grid-cols-12 gap-6 mb-10 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <span className="section-label">WHAT WE SHIP TOGETHER</span>
+              <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+                eight things you walk out with.
               </h2>
             </div>
-
-            <p className="text-lg text-[#6B6B80] leading-relaxed mb-8">
-              {content.solution}
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={stagger}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-          >
-            {content.deliverables.map((item) => (
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-4xl">
+            {content.shipsTogether.map((item, i) => (
               <motion.div
                 key={item}
-                variants={fadeUp}
-                className="flex items-start gap-3 bg-white rounded-[12px] p-4 shadow-soft ring-1 ring-black/[0.04]"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.04, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-start gap-3 bg-white/72 backdrop-blur-md rounded-[14px] p-4 ring-1 ring-rose-mist/55"
               >
-                <Check size={16} className="text-[#FF6B6B] mt-0.5 shrink-0" />
-                <span className="text-sm text-[#2D2D44]">{item}</span>
+                <span className="font-mono text-[10px] tabular text-ink-faint pt-1">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <Check size={15} className="text-coral mt-1 shrink-0" />
+                <span className="text-[14px] text-ink-secondary leading-snug lowercase">{item}</span>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── Tech Stack ── */}
-      <section className="bg-[#FFE4E1] section-padding">
-        <div className="container-width max-w-3xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-40px' }}
-            variants={fadeUp}
-          >
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-lg bg-[#FF6B6B]/10 text-[#FF6B6B] flex items-center justify-center">
-                <Wrench size={20} />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1A1A2E] tracking-tight">
-                tech stack
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {content.techStack.map((tool) => (
-                <span
-                  key={tool}
-                  className="px-4 py-2 bg-white text-[#2D2D44] text-sm font-medium rounded-full shadow-soft ring-1 ring-black/[0.04]"
-                >
+      {/* ─── Tools shared ─── */}
+      <section className="bg-midnight text-white relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-coral/10 blur-[140px] pointer-events-none" />
+        <div className="container-width section-padding relative">
+          <div className="max-w-3xl mx-auto text-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/10 rounded-full ring-1 ring-coral/20">
+              TOOLS WE SHARE
+            </span>
+            <h2 className="display-tight mt-6 text-white text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+              the stack,{' '}
+              <span className="serif-italic text-coral">passed around.</span>
+            </h2>
+            <div className="mt-10 flex flex-wrap justify-center gap-2.5">
+              {content.toolsShared.map((tool) => (
+                <span key={tool} className="px-4 py-2 bg-white/[0.04] ring-1 ring-white/10 text-sm font-mono tabular text-white/85 rounded-full lowercase">
                   {tool}
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-[#1A1A2E] section-padding">
-        <div className="container-width text-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">
-              ready to deploy {service.shortTitle.toLowerCase()}?
-            </h2>
-            <p className="text-white/50 text-lg mb-8 max-w-md mx-auto">
-              book a 30-minute call. i will show you exactly how{' '}
-              {service.shortTitle.toLowerCase()} works for your protocol.
-            </p>
-            <Link
-              href={siteConfig.links.calendly}
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#FF6B6B] text-white font-semibold rounded-full shadow-[0_4px_16px_rgba(255,107,107,0.25)] hover:bg-[#FF5252] transition-colors"
-            >
-              book a call
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
+      {/* ─── CTA ─── */}
+      <section className="relative overflow-hidden grain" style={{ background: 'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 50%, #C9D5E8 100%)' }}>
+        <div className="container-width section-padding relative text-center">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20">
+            <Sparkles size={11} />
+            NEXT COHORT OPEN
+          </span>
+          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
+            join the{' '}
+            <span className="serif-italic text-coral">{roomName}</span>{' '}
+            room.
+          </h2>
+          <Link href="/#join" className={cn('mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300')}>
+            request invite
+            <ArrowRight size={15} />
+          </Link>
         </div>
       </section>
     </main>
