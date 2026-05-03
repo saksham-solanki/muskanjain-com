@@ -1,25 +1,24 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Users,
-  Radar,
   PenTool,
-  BarChart3,
-  Rocket,
   ArrowRight,
   ArrowUpRight,
   ChevronDown,
   Sparkles,
   MapPin,
-  Calendar,
-  MessageCircle,
-  Clock,
+  Video,
+  MessageSquare,
+  Mail,
+  Mic,
+  Send,
+  Star,
 } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
-import { TextRotate } from '@/components/ui/text-rotate'
 import { CountUp } from '@/components/ui/count-up'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
@@ -27,14 +26,6 @@ import { MountainScene } from '@/components/ui/mountain-scene'
 import { FloatingPills } from '@/components/ui/floating-pills'
 import { cn } from '@/lib/utils'
 import { heroStagger, fadeUp } from '@/lib/motion'
-
-const iconMap: Record<string, React.ElementType> = {
-  Users,
-  Radar,
-  PenTool,
-  BarChart3,
-  Rocket,
-}
 
 /* ─── Decorative SVG annotations ──────────────────────────── */
 function ScribbleUnderline({ className }: { className?: string }) {
@@ -121,6 +112,43 @@ function Asterisk({
   )
 }
 
+/* ─── Pixelated AI-robot portrait ─────────────────────────── */
+function PixelPortrait() {
+  return (
+    <div className="relative">
+      {/* coral glow behind the frame */}
+      <div className="absolute -inset-8 rounded-[44px] bg-gradient-to-br from-coral/30 via-rose-mist/30 to-[#FFE6D2]/40 blur-3xl -z-10" />
+
+      {/* tiny serif marginalia */}
+      <span className="absolute -top-4 -left-2 serif-italic text-xs text-ink-muted/70 -rotate-3 hidden sm:block">
+        Muskan, ~rendered.
+      </span>
+
+      <div
+        className="relative w-[260px] sm:w-[320px] lg:w-[380px] aspect-[4/5] rounded-[28px] overflow-hidden ring-1 ring-white/70 shadow-[0_30px_80px_-22px_rgba(255,107,107,0.45)] bg-[#FFE0DA]"
+        style={{ filter: 'saturate(1.15) contrast(1.08)' }}
+      >
+        <Image
+          src="/muskan.jpeg"
+          alt="Muskan Jain"
+          width={88}
+          height={110}
+          priority
+          sizes="88px"
+          className="w-full h-full object-cover"
+          style={{ imageRendering: 'pixelated' }}
+        />
+      </div>
+
+      {/* tiny mono caption pill */}
+      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-ink/80 bg-white/85 backdrop-blur rounded-full ring-1 ring-ink/10 shadow-sm tabular">
+        <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
+        RENDERED · V0.4
+      </div>
+    </div>
+  )
+}
+
 /* ═══════════════════════════════════════════════════════════════
    1. HERO  — asymmetric editorial composition
    ═══════════════════════════════════════════════════════════════ */
@@ -144,25 +172,7 @@ function HeroSection() {
 
       <div className="container-width relative z-10 py-20 sm:py-28">
         {/* 12-col asymmetric grid */}
-        <div className="grid grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* Left gutter — section number + manifesto note */}
-          <motion.aside
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="hidden lg:block lg:col-span-2 pt-6"
-          >
-            <p className="eyebrow text-ink-muted">No. 01 / community</p>
-            <p className="serif-italic text-ink-muted/80 text-base mt-6 leading-snug">
-              a tiny corner of the internet, kept warm on purpose.
-            </p>
-            <div className="mt-6 flex items-center gap-1.5">
-              <Asterisk size={9} className="text-coral/70" />
-              <Asterisk size={13} className="text-coral" />
-              <Asterisk size={8} className="text-coral/60" />
-            </div>
-          </motion.aside>
-
+        <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
           {/* Center — main headline */}
           <motion.div
             variants={heroStagger}
@@ -170,64 +180,53 @@ function HeroSection() {
             animate="visible"
             className="col-span-12 lg:col-span-7"
           >
-            {/* live pill */}
-            <motion.div variants={fadeUp}>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase text-coral bg-white/55 backdrop-blur-md rounded-full ring-1 ring-coral/15 shadow-[0_4px_20px_-8px_rgba(255,107,107,0.3)] tabular">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-coral opacity-70 animate-ping" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-coral" />
-                </span>
-                {community.pulse.members.toLocaleString()} builders inside
-                <span className="text-coral/40">·</span>
-                live now
-              </span>
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
               variants={fadeUp}
-              className="display-tight mt-8 text-ink"
+              className="font-black text-ink [text-wrap:balance]"
               style={{
-                fontSize: 'clamp(2.25rem, 5.5vw, 4.5rem)',
+                fontFamily: 'var(--font-satoshi)',
+                fontSize: 'clamp(1.875rem, 3.4vw, 2.875rem)',
+                lineHeight: 1.08,
+                letterSpacing: '-0.035em',
+                fontFeatureSettings: "'ss01', 'salt', 'case'",
               }}
             >
-              <span className="block">where ai × web3</span>
-              <span className="block relative leading-[0.98] mt-1">
-                <span className="serif-italic text-coral pr-3 inline-block">
-                  <TextRotate
-                    texts={community.rotatingMembers as unknown as string[]}
-                    rotationInterval={2400}
-                  />
-                </span>
+              4 Years in GTM. Now I build{' '}
+              <span className="serif-italic font-normal text-coral">
+                content engines
               </span>
-              <span className="block mt-1">
-                actually{' '}
-                <span className="relative inline-block">
-                  gather.
-                  <ScribbleUnderline className="text-coral/75" />
-                </span>
+              ,{' '}
+              <span className="serif-italic font-normal text-coral">
+                outbound flows
+              </span>
+              , and the boring middle of the funnel —{' '}
+              <span className="relative inline-block">
+                using AI.
+                <ScribbleUnderline className="text-coral/75" />
               </span>
             </motion.h1>
 
             {/* Subhead */}
             <motion.p
               variants={fadeUp}
-              className="mt-12 max-w-lg text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]"
+              className="text-lead mt-7 max-w-lg [text-wrap:pretty]"
             >
-              {community.description}
+              Now I help you do the same — without burning a year figuring it
+              out.
             </motion.p>
 
             {/* CTAs */}
             <motion.div
               variants={fadeUp}
-              className="mt-9 flex flex-wrap items-center gap-3"
+              className="mt-7 flex flex-wrap items-center gap-3"
             >
               <Link
                 href="#join"
                 className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:shadow-[0_14px_40px_-8px_rgba(26,26,46,0.6)] hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Sparkles size={15} className="text-coral" />
-                join the club
+                Join the Club
                 <ArrowRight
                   size={15}
                   className="transition-transform group-hover:translate-x-0.5"
@@ -237,7 +236,7 @@ function HeroSection() {
                 href="#wall"
                 className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-ink/85 bg-white/55 backdrop-blur-md rounded-full ring-1 ring-ink/10 hover:bg-white/80 hover:ring-coral/30 transition-all duration-300"
               >
-                peek at the wall
+                Peek at the Wall
                 <ArrowUpRight size={14} />
               </Link>
               <span className="serif-italic text-sm text-ink-muted/80 ml-1 hidden sm:inline">
@@ -248,26 +247,22 @@ function HeroSection() {
             {/* mini-pulse */}
             <motion.div
               variants={fadeUp}
-              className="mt-14 grid grid-cols-3 gap-x-6 max-w-md border-t hairline pt-5 tabular"
+              className="mt-10 grid grid-cols-3 gap-x-6 max-w-md border-t hairline pt-5 tabular"
             >
-              <Pulse label="cities" value={community.pulse.cities} />
-              <Pulse label="events" value={community.pulse.events} />
-              <Pulse label="ships together" value={community.pulse.ships} />
+              <Pulse label="Cities" value={community.pulse.cities} />
+              <Pulse label="Events" value={community.pulse.events} />
+              <Pulse label="Ships Together" value={community.pulse.ships} />
             </motion.div>
           </motion.div>
 
-          {/* Right column — floating pills cluster */}
+          {/* Right column — pixelated portrait */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="col-span-12 lg:col-span-3 relative h-[320px] lg:h-[520px] mt-4 lg:mt-0"
+            transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="col-span-12 lg:col-span-5 relative mt-4 lg:mt-0 flex justify-center lg:justify-end"
           >
-            <FloatingPills
-              className="absolute inset-0"
-              size="lg"
-              density="lg"
-            />
+            <PixelPortrait />
           </motion.div>
         </div>
       </div>
@@ -292,46 +287,6 @@ function Pulse({ label, value }: { label: string; value: number }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2. TICKER — running strip of recent activity
-   ═══════════════════════════════════════════════════════════════ */
-function TickerStrip() {
-  const items = [
-    { tag: 'shipped', text: 'muskan · scam-link bot, 80% mod work gone' },
-    { tag: 'win', text: 'aarav · first wallet conversion overnight' },
-    { tag: 'asking', text: 'priya · who knows sybil-resistant airdrops?' },
-    { tag: 'irl', text: 'dekoded dxb · 24 builders, one room' },
-    { tag: 'shipped', text: 'kavya · multi-agent content pipeline' },
-    { tag: 'real talk', text: 'rohan · last token launch lost 70% to bots' },
-    { tag: 'win', text: 'arjun · 3 collabs from delhi event' },
-    { tag: 'shipped', text: 'noor · open-sourced the wallet attribution lib' },
-  ]
-  const doubled = [...items, ...items]
-  const tagColor: Record<string, string> = {
-    shipped: 'text-[#2D9D78]',
-    win: 'text-coral',
-    asking: 'text-[#5B8DEF]',
-    'real talk': 'text-[#A87000]',
-    irl: 'text-ink',
-  }
-
-  return (
-    <section className="relative bg-ink text-white/80 overflow-hidden border-y border-white/5">
-      <div className="flex items-center py-3" style={{ animation: 'marquee 60s linear infinite', willChange: 'transform' }}>
-        {doubled.map((item, i) => (
-          <span key={i} className="mx-5 flex items-center gap-2.5 text-xs shrink-0 tabular">
-            <span className={cn('text-[10px] font-bold uppercase tracking-[0.18em]', tagColor[item.tag] ?? 'text-white')}>
-              {item.tag}
-            </span>
-            <span className="text-white/70">{item.text}</span>
-            <span className="text-white/20">◆</span>
-          </span>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
    3. MOUNTAIN MOMENT — editorial illustration with marginalia
    ═══════════════════════════════════════════════════════════════ */
 function MountainMoment() {
@@ -342,12 +297,12 @@ function MountainMoment() {
           {/* Mountain */}
           <BlurFade delay={0.05} yOffset={20} blur={6} className="col-span-12 lg:col-span-6">
             <div className="relative">
-              <MountainScene signLabel="join us" />
+              <MountainScene signLabel="Join Us" />
               {/* tiny note */}
               <div className="absolute -top-4 -left-2 lg:-left-6 hidden md:flex items-start gap-1.5 max-w-[160px]">
                 <CurlyArrow className="w-12 h-10 text-coral/50 mt-2" />
                 <span className="serif-italic text-sm text-ink-muted/80 leading-snug pt-2">
-                  the room, illustrated.
+                  The room, illustrated.
                 </span>
               </div>
             </div>
@@ -355,54 +310,24 @@ function MountainMoment() {
 
           {/* Copy */}
           <div className="col-span-12 lg:col-span-6">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 02</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">A SOFT PLACE TO BUILD</span>
-              </div>
-            </RevealOnScroll>
-
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
-                most communities online <br className="hidden sm:block" />
+              <h2 className="h-section">
+                Most communities online <br className="hidden sm:block" />
                 feel like a <span className="serif-italic text-ink-muted/70">feed.</span>
                 <br />
                 <span className="relative inline-block mt-2">
-                  this one feels like
+                  This one feels like
                   <span className="ml-2 serif-italic text-coral">a room.</span>
                 </span>
               </h2>
             </RevealOnScroll>
 
             <RevealOnScroll variant="slideUp" delay={0.1}>
-              <p className="mt-7 text-base sm:text-[17px] text-ink-muted leading-[1.55] max-w-lg [text-wrap:pretty]">
-                no pitch decks. no growth-hacker theatre. just builders showing
+              <p className="text-lead mt-7 max-w-lg [text-wrap:pretty]">
+                No pitch decks. No growth-hacker theatre. Just builders showing
                 their work in progress, asking real questions, and shipping
                 faster because someone&apos;s in the room with them.
               </p>
-            </RevealOnScroll>
-
-            <RevealOnScroll variant="slideUp" delay={0.15}>
-              <ul className="mt-9 space-y-3.5 max-w-md">
-                {[
-                  ['invite-only', 'but generous about invites'],
-                  ['lowercase. always.', 'voice matters as much as code'],
-                  ['bots welcome', 'if you built them yourself'],
-                  ['no recordings', 'nothing leaves the room'],
-                ].map(([title, body]) => (
-                  <li
-                    key={title}
-                    className="flex items-baseline gap-3 text-[15px] leading-[1.55]"
-                  >
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-coral shrink-0 self-start translate-y-1.5" />
-                    <span>
-                      <span className="font-semibold text-ink">{title}</span>
-                      <span className="text-ink-muted"> — {body}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </RevealOnScroll>
           </div>
         </div>
@@ -414,9 +339,69 @@ function MountainMoment() {
 /* ═══════════════════════════════════════════════════════════════
    4. COMMUNITY WALL
    ═══════════════════════════════════════════════════════════════ */
-function CommunityWall() {
-  const wall = siteConfig.community.wall
+type ShipService = {
+  slug: string
+  title: string
+  body: string
+  icon: React.ElementType
+  tag: string
+  tagColor: string
+  featured?: boolean
+}
 
+const shipServices: ShipService[] = [
+  {
+    slug: 'content-engines',
+    title: 'ai content engines',
+    body: 'agentic pipelines that research, draft, edit, and publish in your voice. one topic in, twelve platform-ready pieces out. you review for 30 min, the engine ships the rest.',
+    icon: PenTool,
+    tag: 'Content',
+    tagColor: 'bg-[#2D9D78]/10 text-[#2D9D78] ring-[#2D9D78]/20',
+  },
+  {
+    slug: 'ugc-video',
+    title: 'ai ugc + short-form video',
+    body: 'heygen-style avatars, ai-cloned voiceovers, and auto-edited reels. produce a month of native content for instagram, youtube shorts, and x in a weekend.',
+    icon: Video,
+    tag: 'Video',
+    tagColor: 'bg-coral/10 text-coral ring-coral/25',
+  },
+  {
+    slug: 'reddit-traffic',
+    title: 'reddit-led traffic',
+    body: 'reddit shows up in 68% of ai-generated answers across google overviews, chatgpt, and perplexity. i build the playbooks that get your brand cited there, not just ranked.',
+    icon: MessageSquare,
+    tag: 'AI SEO',
+    tagColor: 'bg-[#5B8DEF]/10 text-[#5B8DEF] ring-[#5B8DEF]/20',
+  },
+  {
+    slug: 'email-lifecycle',
+    title: 'email lifecycle, agentic',
+    body: 'i build end to end the email flows your funnel keeps forgetting. signups get welcomed. warm leads get nurtured. the ones who ghosted get pulled back. customers you’ve been ignoring get expansion plays.',
+    icon: Mail,
+    tag: 'Lifecycle',
+    tagColor: 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
+  },
+  {
+    slug: 'personal-brand',
+    title: 'personal brand, on autopilot',
+    body: 'linkedin + x + newsletter, all from one weekly recording. ai ghostwriter trained on your voice. you talk for 30 minutes. it ships for a week.',
+    icon: Mic,
+    tag: 'Most Aligned',
+    tagColor: 'bg-coral text-white ring-coral/40',
+    featured: true,
+  },
+  {
+    slug: 'outbound-gtm',
+    title: 'ai outbound + gtm engineering',
+    body: 'signal-based prospecting, ai-personalized sequences, autonomous follow-ups. clay + n8n + claude. replace two sdrs with one workflow that never sleeps.',
+    icon: Send,
+    tag: 'Outbound',
+    tagColor: 'bg-ink/[0.08] text-ink ring-ink/15',
+  },
+]
+
+function CommunityWall() {
   return (
     <section id="wall" className="relative bg-soft-pink overflow-hidden">
       <div className="absolute -top-20 right-1/4 w-[420px] h-[420px] rounded-full bg-white/40 blur-[100px] pointer-events-none" />
@@ -426,31 +411,23 @@ function CommunityWall() {
         {/* Header — left aligned with marginalia */}
         <div className="grid grid-cols-12 gap-6 mb-12">
           <div className="col-span-12 lg:col-span-7">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 03</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">THE WALL</span>
-              </div>
-            </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                what&apos;s happening{' '}
-                <span className="serif-italic text-coral">inside</span>, <br className="hidden sm:block" />
-                today.
+              <h2 className="h-section">
+                what i actually{' '}
+                <span className="relative inline-block serif-italic text-coral">
+                  ship
+                  <ScribbleUnderline className="text-coral/70" />
+                </span>
+                .
               </h2>
             </RevealOnScroll>
           </div>
-          <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-8">
+          <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-3">
             <RevealOnScroll variant="slideUp" delay={0.1}>
               <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-                a live snapshot. real builds, real wins, real questions —
-                nothing staged.
+                the stack i&apos;ve been heads-down on for months. shipped,
+                broken, fixed, shipped again.
               </p>
-              <div className="mt-4 flex items-center gap-2 text-xs text-ink-faint tabular">
-                <Clock size={12} />
-                refreshed 2 min ago · 47 posts today
-              </div>
             </RevealOnScroll>
           </div>
         </div>
@@ -460,86 +437,116 @@ function CommunityWall() {
           stagger={0.06}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {wall.map((post, i) => (
-            <WallCard key={i} post={post} index={i} />
+          {shipServices.map((service, i) => (
+            <ServiceCard key={service.slug} service={service} index={i} />
           ))}
+        </RevealOnScroll>
+
+        <RevealOnScroll variant="slideUp" delay={0.15}>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/services"
+              className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:shadow-[0_14px_40px_-8px_rgba(26,26,46,0.6)] hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <Sparkles size={15} className="text-coral" />
+              See the full workflows
+              <ArrowRight
+                size={15}
+                className="transition-transform group-hover:translate-x-0.5"
+              />
+            </Link>
+            <span className="serif-italic text-sm text-ink-muted/80">
+              — every stage, every tool, no fluff.
+            </span>
+          </div>
         </RevealOnScroll>
       </div>
     </section>
   )
 }
 
-function WallCard({
-  post,
+function ServiceCard({
+  service,
   index,
 }: {
-  post: (typeof siteConfig.community.wall)[number]
+  service: ShipService
   index: number
 }) {
-  const tagColor: Record<string, string> = {
-    shipped: 'bg-[#2D9D78]/10 text-[#2D9D78] ring-[#2D9D78]/20',
-    win: 'bg-coral/10 text-coral ring-coral/25',
-    asking: 'bg-[#5B8DEF]/10 text-[#5B8DEF] ring-[#5B8DEF]/20',
-    'real talk': 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
-    irl: 'bg-ink/8 text-ink ring-ink/15',
-  }
   const tilt = [-0.6, 0.4, -0.3, 0.5, -0.4, 0.3][index] ?? 0
   const lift = [0, -8, -4, -12, -2, -6][index] ?? 0
+  const Icon = service.icon
 
   return (
+    <Link
+      href={`/services#${service.slug}`}
+      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-soft-pink rounded-[20px]"
+      aria-label={`See the workflow for ${service.title}`}
+    >
     <motion.article
       whileHover={{ y: lift - 6, rotate: tilt + 0.4 }}
       initial={{ rotate: tilt, y: lift }}
       animate={{ rotate: tilt, y: lift }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="relative group rounded-[20px] p-6 bg-white/72 backdrop-blur-md ring-1 ring-white/85 shadow-[0_12px_36px_-14px_rgba(26,26,46,0.16)] hover:shadow-[0_18px_50px_-14px_rgba(255,107,107,0.28)] hover:bg-white/90 transition-all"
+      className={cn(
+        'relative group rounded-[20px] p-6 backdrop-blur-md ring-1 shadow-[0_12px_36px_-14px_rgba(26,26,46,0.16)] hover:shadow-[0_18px_50px_-14px_rgba(255,107,107,0.28)] transition-all',
+        service.featured
+          ? 'bg-gradient-to-br from-coral/[0.12] via-white/85 to-white/72 ring-coral/30 hover:from-coral/[0.18]'
+          : 'bg-white/72 ring-white/85 hover:bg-white/90',
+      )}
     >
-      <header className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-coral to-coral-deep grid place-items-center text-white text-xs font-bold ring-2 ring-white tabular">
-            {post.author[0].toUpperCase()}
+      {service.featured && (
+        <span className="absolute -top-2.5 -right-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-ink text-white shadow-md tabular">
+          <Star size={9} className="fill-coral text-coral" />
+          For You
+        </span>
+      )}
+      <header className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={cn(
+              'h-10 w-10 rounded-xl grid place-items-center ring-1 shrink-0',
+              service.featured
+                ? 'bg-coral text-white ring-coral/40 shadow-[0_8px_20px_-8px_rgba(255,107,107,0.5)]'
+                : 'bg-coral/10 text-coral ring-coral/20',
+            )}
+          >
+            <Icon size={18} strokeWidth={2.2} />
           </div>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold text-ink">{post.author}</p>
-            <p className="text-[11px] text-ink-faint tabular">
-              {post.handle} · {post.time}
-            </p>
-          </div>
+          <h3 className="text-[15px] font-bold text-ink leading-snug [text-wrap:balance]">
+            {service.title}
+          </h3>
         </div>
         <span
           className={cn(
-            'text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ring-1',
-            tagColor[post.tag] ?? 'bg-ink/5 text-ink-muted ring-ink/10',
+            'text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ring-1 shrink-0',
+            service.tagColor,
           )}
         >
-          {post.tag}
+          {service.tag}
         </span>
       </header>
-      <p className="text-[15px] text-ink-secondary leading-[1.55] [text-wrap:pretty]">
-        {post.body}
+      <p className="text-[14px] text-ink-secondary leading-[1.6] [text-wrap:pretty]">
+        {service.body}
       </p>
-      <footer className="mt-5 pt-4 border-t hairline flex items-center gap-4 text-[11px] text-ink-faint tabular">
+      <footer className="mt-5 pt-4 border-t hairline flex items-center text-[11px] text-ink-faint tabular">
         <span className="inline-flex items-center gap-1.5">
-          <MessageCircle size={11} />
-          {(index + 3) * 4}
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Sparkles size={11} className="text-coral/60" />
-          {(index + 7) * 3}
+          <Sparkles size={11} className="text-coral/70" />
+          ai-built · production-grade
         </span>
         <span className="ml-auto group-hover:text-coral transition-colors">
-          read →
+          See workflow →
         </span>
       </footer>
     </motion.article>
+    </Link>
   )
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   5. CITIES — DeKoded tour
+   5. EVENTS — DeKoded series, hosted end-to-end
    ═══════════════════════════════════════════════════════════════ */
 function CitiesSection() {
-  const cities = siteConfig.community.cities
+  const events = siteConfig.community.cities
 
   return (
     <section className="relative bg-blush overflow-hidden">
@@ -548,26 +555,27 @@ function CitiesSection() {
           <div className="col-span-12 lg:col-span-8">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 04</span>
+                <span className="eyebrow">No. 04</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">DEKODED, IRL</span>
+                <span className="section-label">EVENTS, HOSTED</span>
               </div>
             </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[4rem]">
-                six cities across india. <br className="hidden sm:block" />
-                now <span className="serif-italic text-coral">dubai</span>.{' '}
-                <span className="text-ink-muted">singapore loading.</span>
+              <h2 className="h-section mt-6">
+                Eight rooms.{' '}
+                <span className="serif-italic text-coral">Hundreds</span> of
+                founders. <br className="hidden sm:block" />
+                One playbook, shipped every time.
               </h2>
             </RevealOnScroll>
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
             <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-              each room a tiny ecosystem. you walk in a stranger and walk out
-              with collaborators.
+              DeKoded — strategy, content, outbound, the room itself. Here&apos;s
+              what each one shipped.
             </p>
             <p className="mt-3 text-xs text-ink-faint tabular">
-              no badges · no panels · no slides
+              No badges · No panels · Just receipts
             </p>
           </RevealOnScroll>
         </div>
@@ -575,10 +583,10 @@ function CitiesSection() {
         <RevealOnScroll
           variant="slideUp"
           stagger={0.05}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {cities.map((city, i) => (
-            <CityCard key={city.name} city={city} index={i} />
+          {events.map((event, i) => (
+            <EventCard key={event.name} event={event} index={i} />
           ))}
         </RevealOnScroll>
       </div>
@@ -586,174 +594,609 @@ function CitiesSection() {
   )
 }
 
-function CityCard({
-  city,
+function EventPoster({ code }: { code: string }) {
+  return (
+    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-coral/15 via-rose-mist/40 to-blush">
+      <span className="absolute top-2.5 left-2.5 font-mono text-xs text-coral/40 select-none">+</span>
+      <span className="absolute top-2.5 right-2.5 font-mono text-xs text-coral/40 select-none">+</span>
+      <span className="absolute bottom-2.5 left-2.5 font-mono text-xs text-coral/40 select-none">+</span>
+      <span className="absolute bottom-2.5 right-2.5 font-mono text-xs text-coral/40 select-none">+</span>
+      <div className="text-center">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-ink-faint mb-2">
+          DEKODED
+        </p>
+        <p className="font-black text-5xl tracking-tight text-ink/85 tabular">
+          {code}
+        </p>
+        <p className="font-mono text-[9px] uppercase tracking-[0.26em] text-ink-faint/70 mt-3">
+          PHOTO COMING
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function EventCard({
+  event,
   index,
 }: {
-  city: (typeof siteConfig.community.cities)[number]
+  event: (typeof siteConfig.community.cities)[number]
   index: number
 }) {
-  const statusStyle: Record<string, string> = {
-    shipped: 'text-ink-muted',
-    live: 'text-coral',
-    soon: 'text-ink-faint',
+  const statusPill: Record<string, string> = {
+    shipped: 'bg-ink/85 text-white',
+    live: 'bg-coral text-white',
+    soon: 'bg-white/90 text-ink-muted ring-1 ring-ink/10',
   }
-  const statusDot: Record<string, string> = {
-    shipped: 'bg-ink/30',
-    live: 'bg-coral animate-pulse',
-    soon: 'bg-ink/15',
+  const statusLabel: Record<string, string> = {
+    shipped: 'SHIPPED',
+    live: 'LIVE',
+    soon: 'SOON',
   }
+  const blurb = event.blurb ?? ''
+  const metrics = event.metrics ?? []
+  const image = event.image
 
   return (
-    <motion.div
-      whileHover={{ y: -6, scale: 1.02 }}
+    <motion.article
+      whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative rounded-[18px] p-5 bg-white/65 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden"
+      className="group relative rounded-[20px] bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden flex flex-col"
     >
-      {/* corner glow */}
-      <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-coral/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className="relative flex items-start justify-between">
-        <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-ink-faint">
-          {city.emoji}
-        </span>
-        <span
+      {/* image / poster */}
+      <div className="relative aspect-[4/3] overflow-hidden">
+        {image ? (
+          <Image
+            src={image}
+            alt={`Muskan at DeKoded ${event.emoji}`}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        ) : (
+          <EventPoster code={event.emoji} />
+        )}
+        {/* event code chip */}
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-mono font-bold tracking-[0.2em] text-ink shadow-sm tabular">
+          <MapPin size={10} className="text-coral" />
+          {event.emoji}
+        </div>
+        {/* status pill */}
+        <div
           className={cn(
-            'inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.12em]',
-            statusStyle[city.status],
+            'absolute top-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.16em] tabular shadow-sm',
+            statusPill[event.status],
           )}
         >
-          <span className={cn('h-1.5 w-1.5 rounded-full', statusDot[city.status])} />
-          {city.status}
-        </span>
+          {event.status === 'live' && (
+            <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+          )}
+          {statusLabel[event.status]}
+        </div>
       </div>
 
-      <span className="relative mt-5 block font-mono text-[10px] text-ink-faint tabular">
-        no.{String(index + 1).padStart(2, '0')}
-      </span>
-      <h3 className="relative mt-1 text-2xl font-black text-ink lowercase tracking-tight">
-        {city.name}
-      </h3>
-      <div className="relative mt-2 flex items-center justify-between text-[11px]">
-        <span className="text-ink-muted tabular">
-          {city.members > 0 ? `${city.members} members` : 'waitlist open'}
-        </span>
-        <MapPin size={12} className="text-coral/60 group-hover:text-coral transition-colors" />
+      {/* body */}
+      <div className="p-5 sm:p-6 flex flex-col flex-1">
+        <div className="flex items-baseline gap-2">
+          <span className="font-mono text-[10px] text-ink-faint tabular">
+            No.{String(index + 1).padStart(2, '0')}
+          </span>
+          <span className="h-px flex-1 bg-ink/8" />
+        </div>
+        <h3 className="mt-2 text-xl font-black text-ink tracking-tight">
+          DeKoded {event.emoji}
+          <span className="text-ink-muted/70 font-bold">
+            {' '}
+            · {event.name}
+          </span>
+        </h3>
+        {blurb && (
+          <p className="mt-2 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
+            {blurb}
+          </p>
+        )}
+        {metrics.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {metrics.map((m) => (
+              <span
+                key={m}
+                className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-coral bg-coral/10 ring-1 ring-coral/15 rounded-full tabular"
+              >
+                {m}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   6. INITIATIVES
+   6. CREATOR HUB — videos, podcasts, brand work
    ═══════════════════════════════════════════════════════════════ */
-function InitiativesSection() {
-  const initiatives = siteConfig.community.initiatives
+function CreatorHub() {
+  const brands = [
+    { name: 'Base', hex: '#0052FF' },
+    { name: 'Bhindi AI', hex: '#8B5CF6' },
+    { name: 'Avici', hex: '#F59E0B' },
+    { name: 'Canton', hex: '#10B981' },
+    { name: 'Aztec', hex: '#DC2626' },
+    { name: 'Cypher', hex: '#06B6D4' },
+  ]
+
+  const series = [
+    {
+      title: 'Building KRNL',
+      subtitle: 'Founder docu-series · 2 phases · 21 episodes.',
+      views: '305k',
+      tag: 'DOCU-SERIES',
+      icon: Video,
+      featured: true,
+    },
+    {
+      title: 'India Tour',
+      subtitle: 'Six cities, one camera. On-the-ground KRNL.',
+      views: '130k',
+      tag: 'TRAVEL',
+      icon: MapPin,
+    },
+    {
+      title: 'Proof of Hustle',
+      subtitle: 'Founder podcast — long-form, no fluff.',
+      views: '125k',
+      tag: 'PODCAST',
+      icon: Mic,
+      featured: true,
+    },
+    {
+      title: 'Base Fellowship',
+      subtitle: 'Day-by-day, inside the cohort.',
+      views: '94k',
+      tag: 'SPONSORED',
+      icon: Sparkles,
+    },
+    {
+      title: 'Product Reviews',
+      subtitle: 'CoinEx · Cypher · Avici · Bhindi AI.',
+      views: '110k',
+      tag: 'REVIEWS',
+      icon: Star,
+    },
+    {
+      title: 'Technical Podcasts',
+      subtitle: 'AI governance · KRNL tech · use-cases.',
+      views: '48k',
+      tag: 'TECHNICAL',
+      icon: MessageSquare,
+    },
+  ]
+
+  const podcast = {
+    blurb:
+      'Long-form founder convos. Unedited, building in public, no PR fluff.',
+    episodes: [
+      { ep: 1, views: '24K', url: 'https://x.com/Muskanjain0401/status/1895704446094426606' },
+      { ep: 2, views: '11K', url: 'https://x.com/Muskanjain0401/status/1898312289846964262' },
+      { ep: 3, views: '28K', url: 'https://x.com/Muskanjain0401/status/1902990752273092974' },
+      { ep: 4, views: '20K', url: 'https://x.com/Muskanjain0401/status/1917855355658461195' },
+      { ep: 5, views: '12K', url: 'https://x.com/Muskanjain0401/status/1919644601897648353' },
+      { ep: 6, views: '16K', url: 'https://x.com/Muskanjain0401/status/1945752483982180506' },
+      { ep: 7, views: '14K', url: 'https://x.com/Muskanjain0401/status/1945752483982180506' },
+    ],
+  }
+
+  // Placeholders — edit with real quotes from collaborators.
+  const testimonials = [
+    {
+      quote: '[Add a one-liner from your Base collaborator about working with you.]',
+      author: '[Name]',
+      role: '[Title]',
+      brand: 'Base',
+    },
+    {
+      quote: '[Add a one-liner from a KRNL teammate about what you shipped together.]',
+      author: '[Name]',
+      role: '[Title]',
+      brand: 'KRNL',
+    },
+    {
+      quote: '[Add a one-liner from a Proof of Hustle podcast guest.]',
+      author: '[Name]',
+      role: '[Title]',
+      brand: 'Proof of Hustle',
+    },
+  ]
+
+  const videoIndex = [
+    {
+      title: 'Building KRNL — Phase 1',
+      total: '167k',
+      videos: [
+        { label: 'Intro', views: '14k', url: 'https://x.com/muskanjain0401/status/1882436229188448267' },
+        { label: 'Day 1', views: '21k', url: 'https://x.com/muskanjain0401/status/1882686864345415963' },
+        { label: 'Day 2', views: '19k', url: 'https://x.com/muskanjain0401/status/1883077431709647191' },
+        { label: 'Day 3', views: '17k', url: 'https://x.com/muskanjain0401/status/1883455932304335230' },
+        { label: 'Day 4', views: '19k', url: 'https://x.com/muskanjain0401/status/1884142994850496733' },
+        { label: 'Day 5', views: '13k', url: 'https://x.com/muskanjain0401/status/1884895178525479275' },
+        { label: 'Day 6', views: '10k', url: 'https://x.com/muskanjain0401/status/1886698001793736957' },
+        { label: 'Day 7', views: '9.3k', url: 'https://x.com/muskanjain0401/status/1887769419235139913' },
+        { label: 'Day 8', views: '10k', url: 'https://x.com/muskanjain0401/status/1891020418150023490' },
+        { label: 'Day 9', views: '12k', url: 'https://x.com/muskanjain0401/status/1899005310355873946' },
+        { label: 'Day 10', views: '11k', url: 'https://x.com/muskanjain0401/status/1900093536479174945' },
+        { label: 'Day 11', views: '12k', url: 'https://x.com/muskanjain0401/status/1901185757622227453' },
+      ],
+    },
+    {
+      title: 'Building KRNL — Phase 2',
+      total: '138k',
+      videos: [
+        { label: 'Episode 1', views: '15k', url: 'https://x.com/muskanjain0401/status/1912074558238298515' },
+        { label: 'Episode 2', views: '8.5k', url: 'https://x.com/muskanjain0401/status/1913447326020153810' },
+        { label: 'Episode 3', views: '13k', url: 'https://x.com/muskanjain0401/status/1914585859405570118' },
+        { label: 'Episode 4', views: '12k', url: 'https://x.com/muskanjain0401/status/1916029506869146099' },
+        { label: 'Episode 5', views: '16k', url: 'https://x.com/muskanjain0401/status/1920738394109309241' },
+        { label: 'Episode 6', views: '9.4k', url: 'https://x.com/muskanjain0401/status/1922204067331281105' },
+        { label: 'Episode 7', views: '24k', url: 'https://x.com/muskanjain0401/status/1932697420430762297' },
+        { label: 'Episode 8', views: '24k', url: 'https://x.com/muskanjain0401/status/1937444297571181037' },
+        { label: 'Episode 9', views: '16k', url: 'https://x.com/muskanjain0401/status/1942153137965457871' },
+      ],
+    },
+    {
+      title: 'Base Fellowship',
+      total: '94k',
+      videos: [
+        { label: 'Tweet 1', views: '17k', url: 'https://x.com/muskanjain0401/status/1920021074122596786' },
+        { label: 'Tweet 2', views: '16k', url: 'https://x.com/muskanjain0401/status/1915675097119309846' },
+        { label: 'Day 1', views: '25k', url: 'https://x.com/muskanjain0401/status/1920376684894638479' },
+        { label: 'Day 2', views: '14k', url: 'https://x.com/muskanjain0401/status/1921089418300895403' },
+        { label: 'Day 3 & 4', views: '22k', url: 'https://x.com/muskanjain0401/status/1926570112712139145' },
+      ],
+    },
+    {
+      title: 'India Tour',
+      total: '130k',
+      videos: [
+        { label: 'Intro (1)', views: '13k', url: 'https://x.com/krnl_xyz/status/1922556601577218155' },
+        { label: 'Intro (2)', views: '28k', url: 'https://x.com/muskanjain0401/status/1923267016808354193' },
+        { label: 'Delhi (1)', views: '11k', url: 'https://x.com/krnl_xyz/status/1927329842548072491' },
+        { label: 'Delhi (2)', views: '41k', url: 'https://x.com/Muskanjain0401/status/1926214782656409611' },
+        { label: 'Mumbai', views: '13k', url: 'https://x.com/muskanjain0401/status/1930169617219010973' },
+        { label: 'Pune', views: '7k', url: 'https://x.com/krnl_xyz/status/1931290425119404051' },
+        { label: 'Hyderabad', views: '10k', url: 'https://x.com/muskanjain0401/status/1933795202306597095' },
+        { label: 'Vadodara', views: '8.8k', url: 'https://x.com/krnl_xyz/status/1934961649280319734' },
+      ],
+    },
+    {
+      title: 'Proof of Hustle',
+      total: '125k',
+      videos: [
+        { label: 'Pod 1', views: '24K', url: 'https://x.com/Muskanjain0401/status/1895704446094426606' },
+        { label: 'Pod 2', views: '11K', url: 'https://x.com/Muskanjain0401/status/1898312289846964262' },
+        { label: 'Pod 3', views: '28K', url: 'https://x.com/Muskanjain0401/status/1902990752273092974' },
+        { label: 'Pod 4', views: '20K', url: 'https://x.com/Muskanjain0401/status/1917855355658461195' },
+        { label: 'Pod 5', views: '12K', url: 'https://x.com/Muskanjain0401/status/1919644601897648353' },
+        { label: 'Pod 6', views: '16K', url: 'https://x.com/Muskanjain0401/status/1945752483982180506' },
+        { label: 'Pod 7', views: '14K', url: 'https://x.com/Muskanjain0401/status/1945752483982180506' },
+      ],
+    },
+    {
+      title: 'Product Reviews',
+      total: '110k',
+      videos: [
+        { label: 'CoinEx', views: '24.7k', url: 'https://x.com/muskanjain0401/status/1873609564010303583' },
+        { label: 'Cypher', views: '32k', url: 'https://x.com/muskanjain0401/status/1876179673346171010' },
+        { label: 'Avici', views: '15k', url: 'https://x.com/Muskanjain0401/status/1959154603964150045' },
+        { label: 'Bhindi AI', views: '13k', url: 'https://x.com/Muskanjain0401/status/1962414221821706640' },
+        { label: 'Bhindi AI II', views: '25k', url: 'https://x.com/Muskanjain0401/status/1978390494938792029' },
+      ],
+    },
+    {
+      title: 'Technical Podcasts',
+      total: '48k',
+      videos: [
+        { label: 'AI Governance', views: '17k', url: 'https://x.com/Muskanjain0401/status/1956991711827378485' },
+        { label: 'KRNL Tech', views: '18k', url: 'https://x.com/Muskanjain0401/status/1954805222146179208' },
+        { label: 'KRNL Use-cases', views: '13k', url: 'https://x.com/Muskanjain0401/status/1914585859405570118' },
+      ],
+    },
+    {
+      title: 'Videos for Base',
+      total: '5 videos',
+      videos: [
+        { label: 'Video 1', views: '—', url: 'https://x.com/Based_UAE/status/1990741412447445347' },
+        { label: 'Video 2', views: '—', url: 'https://x.com/Muskanjain0401/status/1965333893047091383' },
+        { label: 'Video 3', views: '—', url: 'https://x.com/Based_UAE/status/1993982948916515192' },
+        { label: 'Video 4', views: '—', url: 'https://x.com/Based_UAE/status/2002383780242391045' },
+        { label: 'Video 5', views: '—', url: 'https://x.com/Based_UAE/status/1997985861414301982' },
+      ],
+    },
+  ]
+
+  const stats = [
+    { value: '800k+', label: 'TOTAL VIEWS' },
+    { value: '55+', label: 'VIDEOS SHIPPED' },
+    { value: '6+', label: 'BRANDS WORKED WITH' },
+  ]
+  const totalVideos = videoIndex.reduce(
+    (sum, g) => sum + g.videos.length,
+    0,
+  )
 
   return (
     <section className="relative bg-soft-pink overflow-hidden">
       <div className="container-width section-padding">
+        {/* header */}
         <div className="grid grid-cols-12 gap-6 mb-12 items-end">
           <div className="col-span-12 lg:col-span-7">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 05</span>
+                <span className="eyebrow">No. 05</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">WHAT WE BUILD TOGETHER</span>
+                <span className="section-label">CREATOR HUB</span>
               </div>
             </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                five <span className="serif-italic text-coral">rooms</span>{' '}
-                <br className="hidden sm:block" />
-                inside the room.
+              <h2 className="h-section mt-6">
+                What I&apos;ve made{' '}
+                <span className="serif-italic text-coral">on camera</span>.
               </h2>
             </RevealOnScroll>
           </div>
-          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
+          <RevealOnScroll
+            variant="slideUp"
+            delay={0.1}
+            className="col-span-12 lg:col-span-5"
+          >
             <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-              services, but soft. cohorts you actually finish.
+              Series, podcasts, product reviews, brand films. Built and
+              shipped, week by week.
             </p>
           </RevealOnScroll>
         </div>
 
-        <div className="space-y-5">
-          <RevealOnScroll variant="slideUp" delay={0.05}>
-            <InitiativeCard initiative={initiatives[0]} featured index={1} />
-          </RevealOnScroll>
-
-          <RevealOnScroll
-            variant="slideUp"
-            stagger={0.07}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
-          >
-            {initiatives.slice(1).map((init, i) => (
-              <InitiativeCard key={init.title} initiative={init} index={i + 2} />
+        {/* stats */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-12 max-w-3xl">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl bg-white/65 backdrop-blur-md ring-1 ring-rose-mist/60 p-4 sm:p-6"
+              >
+                <p className="text-3xl sm:text-4xl font-black text-ink tabular tracking-tight">
+                  {s.value}
+                </p>
+                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
+                  {s.label}
+                </p>
+              </div>
             ))}
-          </RevealOnScroll>
-        </div>
+          </div>
+        </RevealOnScroll>
+
+        {/* brand wall */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="mb-14">
+            <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-ink-faint mb-4">
+              BRANDS WORKED WITH
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {brands.map((b) => (
+                <div
+                  key={b.name}
+                  className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/80 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white rounded-full transition-all"
+                >
+                  <span
+                    className="h-2 w-2 rounded-full shrink-0"
+                    style={{ backgroundColor: b.hex }}
+                  />
+                  <span className="text-sm font-bold text-ink tracking-tight">
+                    {b.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-ink-faint">
+              Drop logo SVGs in <span className="font-mono">/public/brands/</span>{' '}
+              to swap the dot for the real mark.
+            </p>
+          </div>
+        </RevealOnScroll>
+
+        {/* series cards */}
+        <RevealOnScroll
+          variant="slideUp"
+          delay={0.05}
+          stagger={0.05}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16"
+        >
+          {series.map((s) => {
+            const Icon = s.icon
+            return (
+              <motion.article
+                key={s.title}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className={cn(
+                  'group relative rounded-[20px] p-6 sm:p-7 overflow-hidden ring-1 transition-all',
+                  s.featured
+                    ? 'bg-gradient-to-br from-coral/12 to-coral/[0.04] ring-coral/25 hover:ring-coral/45'
+                    : 'bg-white/72 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90',
+                )}
+              >
+                <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <header className="relative flex items-start justify-between mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-coral/10 ring-1 ring-coral/20 grid place-items-center">
+                    <Icon size={18} className="text-coral" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-coral bg-coral/10 ring-1 ring-coral/15 px-2.5 py-1 rounded-full tabular">
+                    {s.tag}
+                  </span>
+                </header>
+                <h3 className="relative text-xl font-black text-ink tracking-tight">
+                  {s.title}
+                </h3>
+                <p className="relative mt-2 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
+                  {s.subtitle}
+                </p>
+                <footer className="relative mt-5 pt-4 border-t hairline flex items-baseline justify-between">
+                  <span className="text-2xl font-black text-coral tabular tracking-tight">
+                    {s.views}
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
+                    TOTAL VIEWS
+                  </span>
+                </footer>
+              </motion.article>
+            )
+          })}
+        </RevealOnScroll>
+
+        {/* Proof of Hustle highlight */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="relative rounded-[24px] bg-ink text-white p-7 sm:p-10 ring-1 ring-white/10 overflow-hidden mb-16">
+            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-coral/15 blur-[130px] pointer-events-none" />
+            <div className="relative grid grid-cols-12 gap-6 items-end mb-8">
+              <div className="col-span-12 md:col-span-7">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-coral bg-coral/15 rounded-full ring-1 ring-coral/30 tabular">
+                    <Mic size={10} />
+                    PODCAST
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+                    7 EPISODES · 125K VIEWS
+                  </span>
+                </div>
+                <h3 className="display-tight mt-5 text-white text-3xl sm:text-4xl">
+                  Proof of{' '}
+                  <span className="serif-italic text-coral">Hustle</span>.
+                </h3>
+                <p className="mt-3 text-white/70 leading-[1.55] max-w-lg [text-wrap:pretty]">
+                  {podcast.blurb}
+                </p>
+              </div>
+              <div className="col-span-12 md:col-span-5 md:text-right">
+                <p className="text-5xl sm:text-6xl font-black text-coral tabular tracking-tight">
+                  125k
+                </p>
+                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
+                  TOTAL VIEWS · 7 EPISODES
+                </p>
+              </div>
+            </div>
+            <div className="relative grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+              {podcast.episodes.map((ep) => (
+                <a
+                  key={ep.ep}
+                  href={ep.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-xl bg-white/[0.04] ring-1 ring-white/10 hover:ring-coral/40 hover:bg-white/[0.08] p-4 transition-all"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                    POD 0{ep.ep}
+                  </span>
+                  <p className="mt-2 text-2xl font-black text-coral tabular tracking-tight">
+                    {ep.views}
+                  </p>
+                  <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-[0.16em] text-white/50 group-hover:text-coral transition-colors">
+                    WATCH <ArrowUpRight size={10} />
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </RevealOnScroll>
+
+        {/* testimonials */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-faint">
+                WORDS FROM COLLABORATORS
+              </span>
+              <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {testimonials.map((t, i) => (
+                <figure
+                  key={i}
+                  className="relative rounded-[22px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 transition-all"
+                >
+                  <span
+                    className="absolute -top-3 left-6 text-7xl text-coral/30 leading-none select-none font-serif"
+                    aria-hidden
+                  >
+                    &ldquo;
+                  </span>
+                  <blockquote className="mt-4 text-[15px] text-ink-secondary leading-[1.6] [text-wrap:pretty] serif-italic">
+                    {t.quote}
+                  </blockquote>
+                  <figcaption className="mt-6 pt-5 border-t hairline">
+                    <p className="text-sm font-bold text-ink">{t.author}</p>
+                    <p className="mt-0.5 text-[11px] text-ink-muted">
+                      {t.role} ·{' '}
+                      <span className="text-coral font-semibold">
+                        {t.brand}
+                      </span>
+                    </p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </RevealOnScroll>
+
+        {/* full video index */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="rounded-[24px] bg-white/55 backdrop-blur-md ring-1 ring-rose-mist/60 p-6 sm:p-9">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-faint">
+                FULL VIDEO INDEX
+              </span>
+              <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+              <span className="text-[10px] font-mono text-ink-muted tabular">
+                {totalVideos} VIDEOS
+              </span>
+            </div>
+            <div className="space-y-7">
+              {videoIndex.map((group) => (
+                <div key={group.title}>
+                  <div className="flex items-baseline justify-between mb-3 pb-2 border-b hairline gap-3">
+                    <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-ink font-bold">
+                      {group.title}
+                    </h4>
+                    <span className="text-[10px] font-mono text-ink-muted tabular shrink-0">
+                      TOTAL: {group.total}
+                    </span>
+                  </div>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1">
+                    {group.videos.map((v, i) => (
+                      <li key={`${group.title}-${i}`}>
+                        <a
+                          href={v.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-coral/10 transition-colors"
+                        >
+                          <span className="text-[13px] text-ink-secondary group-hover:text-ink truncate">
+                            {v.label}
+                          </span>
+                          <span className="shrink-0 inline-flex items-center gap-1 text-[11px] font-mono text-coral tabular">
+                            {v.views}
+                            <ArrowUpRight size={10} />
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
-  )
-}
-
-function InitiativeCard({
-  initiative,
-  featured = false,
-  index,
-}: {
-  initiative: (typeof siteConfig.community.initiatives)[number]
-  featured?: boolean
-  index: number
-}) {
-  const Icon = iconMap[initiative.icon] ?? Users
-
-  return (
-    <motion.div
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(
-        'group relative overflow-hidden rounded-[22px] p-7 sm:p-9',
-        'bg-white/78 backdrop-blur-md ring-1 ring-rose-mist/60',
-        'hover:ring-coral/40 transition-all',
-        featured && 'sm:flex sm:items-start sm:gap-9',
-      )}
-    >
-      <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className={cn('relative shrink-0', featured && 'sm:w-20')}>
-        <div className="flex flex-col items-start gap-4 mb-5 sm:mb-0">
-          <span className="font-mono text-[10px] text-ink-faint tabular">
-            no.{String(index).padStart(2, '0')}
-          </span>
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
-            <Icon size={20} className="text-coral" />
-          </div>
-        </div>
-      </div>
-      <div className="relative flex-1">
-        <h3
-          className={cn(
-            'font-black text-ink mb-3 lowercase tracking-tight',
-            featured ? 'text-2xl sm:text-3xl' : 'text-xl',
-          )}
-        >
-          {initiative.title}
-        </h3>
-        <p
-          className={cn(
-            'text-ink-muted leading-[1.55] mb-5 [text-wrap:pretty]',
-            featured ? 'text-[17px] max-w-xl' : 'text-[15px]',
-          )}
-        >
-          {initiative.clientFacing}
-        </p>
-        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-coral bg-coral-muted rounded-full tabular">
-          <Calendar size={11} />
-          {initiative.metric}
-        </span>
-      </div>
-    </motion.div>
   )
 }
 
@@ -771,7 +1214,7 @@ function RitualsSection() {
           <div className="col-span-12 lg:col-span-7">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-white/40">No. 06</span>
+                <span className="eyebrow !text-white/50">No. 06</span>
                 <span className="h-px flex-1 max-w-[80px] bg-white/10" />
                 <span className="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/10 rounded-full ring-1 ring-coral/20">
                   EVERY WEEK
@@ -779,15 +1222,15 @@ function RitualsSection() {
               </div>
             </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-white text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                the <span className="serif-italic text-coral">rhythm</span>{' '}
-                of the room
+              <h2 className="h-section mt-6 text-white">
+                The <span className="serif-italic text-coral">rhythm</span>{' '}
+                of the room.
               </h2>
             </RevealOnScroll>
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
             <p className="serif-italic text-white/65 text-lg leading-snug">
-              five days. five small things. one big habit.
+              Five days. Five small things. One big habit.
             </p>
           </RevealOnScroll>
         </div>
@@ -835,14 +1278,14 @@ function VoicesSection() {
           <div className="col-span-12 lg:col-span-7">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 07</span>
+                <span className="eyebrow">No. 07</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">VOICES FROM INSIDE</span>
               </div>
             </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                members say it{' '}
+              <h2 className="h-section mt-6">
+                Members say it{' '}
                 <span className="serif-italic text-coral">better.</span>
               </h2>
             </RevealOnScroll>
@@ -896,10 +1339,10 @@ function VoicesSection() {
    ═══════════════════════════════════════════════════════════════ */
 function PulseSection() {
   const stats = [
-    { value: 1247, label: 'builders inside', note: '↑ +47 this week' },
-    { value: 14, label: 'events in the wild', note: 'since 2024' },
-    { value: 312, label: 'things shipped together', note: 'and counting' },
-    { value: 6, label: 'cities · soon 8', note: 'dxb live · sin loading' },
+    { value: 1247, label: 'Builders inside', note: '↑ +47 this week' },
+    { value: 14, label: 'Events in the wild', note: 'Since 2024' },
+    { value: 312, label: 'Things shipped together', note: 'And counting' },
+    { value: 6, label: 'Cities · soon 8', note: 'DXB live · SIN loading' },
   ]
 
   return (
@@ -907,14 +1350,14 @@ function PulseSection() {
       <div className="container-width section-padding">
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <RevealOnScroll variant="blur">
-            <span className="eyebrow text-ink-muted tabular">
+            <span className="eyebrow tabular">
               <Asterisk size={9} className="inline mr-1.5 text-coral" />
               MEASURED HONESTLY
             </span>
           </RevealOnScroll>
           <RevealOnScroll variant="slideUp" delay={0.05}>
-            <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-              the pulse, in{' '}
+            <h2 className="h-section mt-5">
+              The pulse, in{' '}
               <span className="serif-italic text-coral">numbers.</span>
             </h2>
           </RevealOnScroll>
@@ -951,24 +1394,24 @@ function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0)
   const faqs = [
     {
-      q: 'is this free?',
-      a: 'yes. invite-only but free. members get cohort access, the wall, weekly rituals, and city events. premium tracks for protocols come separately.',
+      q: 'Is this free?',
+      a: 'Yes — invite-only but free. Members get cohort access, the wall, weekly rituals, and city events. Premium tracks for protocols come separately.',
     },
     {
-      q: 'who fits?',
-      a: 'people building at the seam of ai and web3. founders, researchers, marketers, ops folks, vibe coders. you don\'t have to be senior — you have to be shipping.',
+      q: 'Who fits?',
+      a: 'People building at the seam of AI and Web3. Founders, researchers, marketers, ops folks, vibe coders. You don\'t have to be senior — you have to be shipping.',
     },
     {
-      q: 'how do invites work?',
-      a: 'every member gets one invite a month. we also open the doors on fridays — drop your work in the open application and a member will pick it up.',
+      q: 'How do invites work?',
+      a: 'Every member gets one invite a month. We also open the doors on Fridays — drop your work in the open application and a member will pick it up.',
     },
     {
-      q: 'do you record sessions?',
-      a: 'no. the deal is: nothing leaves the room. that\'s why people show their actual work here.',
+      q: 'Do you record sessions?',
+      a: 'No. The deal is: nothing leaves the room. That\'s why people show their actual work here.',
     },
     {
-      q: 'where does this live?',
-      a: 'the wall lives in a private discord-meets-substack space. events are irl and on-cam. you\'ll get the link the day you\'re in.',
+      q: 'Where does this live?',
+      a: 'The wall lives in a private Discord-meets-Substack space. Events are IRL and on-cam. You\'ll get the link the day you\'re in.',
     },
   ]
 
@@ -979,21 +1422,21 @@ function FAQSection() {
           <div className="col-span-12 lg:col-span-7">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 08</span>
+                <span className="eyebrow">No. 08</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">SOFTBALL QUESTIONS</span>
               </div>
             </RevealOnScroll>
             <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                things people ask <br className="hidden sm:block" />
+              <h2 className="h-section mt-6">
+                Things people ask <br className="hidden sm:block" />
                 <span className="serif-italic text-coral">before joining.</span>
               </h2>
             </RevealOnScroll>
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
             <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-              short answers. no marketing speak.
+              Short answers. No marketing speak.
             </p>
           </RevealOnScroll>
         </div>
@@ -1108,13 +1551,13 @@ function JoinSection() {
                 <Sparkles size={11} />
                 THE DOOR IS OPEN TODAY
               </span>
-              <h2 className="display-tight mt-6 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
-                come build with people who <br className="hidden sm:block" />
+              <h2 className="h-section mt-6">
+                Come build with people who <br className="hidden sm:block" />
                 <span className="serif-italic text-coral">actually finish</span>{' '}
                 things.
               </h2>
-              <p className="mt-7 text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] max-w-xl mx-auto [text-wrap:pretty]">
-                drop your handle. tell us what you&apos;re building. a member
+              <p className="text-lead mt-7 max-w-xl mx-auto [text-wrap:pretty]">
+                Drop your handle. Tell us what you&apos;re building. A member
                 picks it up within a day.
               </p>
 
@@ -1128,7 +1571,7 @@ function JoinSection() {
                   type="button"
                   className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-ink rounded-full hover:bg-ink/85 transition-colors"
                 >
-                  request invite
+                  Request Invite
                   <ArrowRight
                     size={15}
                     className="transition-transform group-hover:translate-x-0.5"
@@ -1137,7 +1580,7 @@ function JoinSection() {
               </form>
 
               <p className="mt-5 text-xs text-ink-muted tabular">
-                no spam · no newsletter · just the invite — or a soft no.
+                No spam · No newsletter · Just the invite — or a soft no.
               </p>
             </div>
           </div>
@@ -1154,11 +1597,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <TickerStrip />
       <MountainMoment />
       <CommunityWall />
       <CitiesSection />
-      <InitiativesSection />
+      <CreatorHub />
       <RitualsSection />
       <VoicesSection />
       <PulseSection />

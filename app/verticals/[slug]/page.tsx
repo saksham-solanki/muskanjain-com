@@ -32,74 +32,74 @@ interface VerticalDetail {
 
 const verticalContent: Record<string, VerticalDetail> = {
   defi: {
-    headline: 'invisible in ai search, hemorrhaging users with broken funnels, and can\'t produce content fast enough.',
-    marketContext: '$129b tvl. the most competitive web3 vertical. every protocol fights for the same liquidity, same users, same mindshare.',
+    headline: 'Invisible in AI search, hemorrhaging users with broken funnels, and can\'t produce content fast enough.',
+    marketContext: '$129B TVL. The most competitive Web3 vertical. Every protocol fights for the same liquidity, users, and mindshare.',
     buildersAsk: [
-      { title: 'how do i show up in ai answers?', detail: 'when vcs ask perplexity "best defi lending protocols," your protocol doesn\'t show up. ai citations drive deal flow now.' },
-      { title: 'why is bounce rate 70%+?', detail: 'dark mode sites with "launch app" as the only cta. users leave before understanding what your protocol does.' },
-      { title: 'how do i scale content?', detail: 'protocol updates, features, competitor launches. most projects produce 2–5 posts/month when they need 52+.' },
-      { title: 'where\'s the budget going?', detail: 'web analytics can\'t see on-chain behavior. 70–80% of marketing budget is a guess.' },
+      { title: 'How do I show up in AI answers?', detail: 'When VCs ask Perplexity "best DeFi lending protocols," your protocol doesn\'t show up. AI citations drive deal flow now.' },
+      { title: 'Why is bounce rate 70%+?', detail: 'Dark-mode sites with "Launch App" as the only CTA. Users leave before understanding what your protocol does.' },
+      { title: 'How do I scale content?', detail: 'Protocol updates, features, competitor launches. Most projects produce 2–5 posts/month when they need 52+.' },
+      { title: 'Where\'s the budget going?', detail: 'Web analytics can\'t see on-chain behavior. 70–80% of marketing budget is a guess.' },
     ],
     serviceSlugs: ['community-engine', 'gtm-engine', 'content-system', 'growth-intelligence', 'launch-engine'],
   },
   rwa: {
-    headline: 'institutional buyers research via ai before investing. if you\'re not cited, you\'re not in the consideration set.',
-    marketContext: '$29.2b market with 185.8% ytd growth. fastest-growing web3 vertical. bridge between tradfi and crypto.',
+    headline: 'Institutional buyers research via AI before investing. If you\'re not cited, you\'re not in the consideration set.',
+    marketContext: '$29.2B market with 185.8% YTD growth. Fastest-growing Web3 vertical. Bridge between TradFi and crypto.',
     buildersAsk: [
-      { title: 'how do i pass ai due diligence?', detail: 'institutional allocators use ai research tools before due diligence calls. zero ai citations means zero consideration.' },
-      { title: 'how do i scale compliant content?', detail: 'mica, vara, and jurisdiction rules make content slow. you need scale without sacrificing accuracy.' },
-      { title: 'where do trust signals live?', detail: 'institutional buyers need authority signals at every touchpoint. your content must demonstrate expertise.' },
+      { title: 'How do I pass AI due diligence?', detail: 'Institutional allocators use AI research tools before due-diligence calls. Zero AI citations means zero consideration.' },
+      { title: 'How do I scale compliant content?', detail: 'MiCA, VARA, and jurisdiction rules make content slow. You need scale without sacrificing accuracy.' },
+      { title: 'Where do trust signals live?', detail: 'Institutional buyers need authority signals at every touchpoint. Your content must demonstrate expertise.' },
     ],
     serviceSlugs: ['content-system', 'gtm-engine', 'growth-intelligence'],
   },
   'l1-l2': {
-    headline: 'chains compete on developer acquisition, ecosystem visibility, and "why build here" comparisons. growth is existential.',
-    marketContext: 'multi-trillion aggregate market. every chain fights for developers, dapps, tvl, and mindshare.',
+    headline: 'Chains compete on developer acquisition, ecosystem visibility, and "why build here" comparisons. Growth is existential.',
+    marketContext: 'Multi-trillion aggregate market. Every chain fights for developers, dapps, TVL, and mindshare.',
     buildersAsk: [
-      { title: 'how do i win developers?', detail: 'when a developer asks "which chain should i build on?" — your chain needs to be the answer. ai search is the new discovery layer.' },
-      { title: 'how do i grow the ecosystem?', detail: 'ecosystem visibility drives tvl, dapp deployment, partnerships. most chains are invisible outside crypto twitter.' },
-      { title: 'who ranks for chain comparisons?', detail: '"solana vs avalanche", "base vs arbitrum" — thousands of monthly searches. nobody ranks for these.' },
-      { title: 'how do i support 24/7 community?', detail: 'developer communities need round-the-clock support across discord and telegram. humans can\'t scale.' },
+      { title: 'How do I win developers?', detail: 'When a developer asks "which chain should I build on?" — your chain needs to be the answer. AI search is the new discovery layer.' },
+      { title: 'How do I grow the ecosystem?', detail: 'Ecosystem visibility drives TVL, dapp deployment, partnerships. Most chains are invisible outside crypto Twitter.' },
+      { title: 'Who ranks for chain comparisons?', detail: '"Solana vs Avalanche", "Base vs Arbitrum" — thousands of monthly searches. Nobody ranks for these.' },
+      { title: 'How do I support 24/7 community?', detail: 'Developer communities need round-the-clock support across Discord and Telegram. Humans can\'t scale.' },
     ],
     serviceSlugs: ['community-engine', 'gtm-engine', 'content-system', 'growth-intelligence', 'launch-engine'],
   },
   daos: {
-    headline: 'governance turnout below 10%, community costs spiraling, and treasury decisions made without enough participation.',
-    marketContext: '550+ projects. rapidly evolving governance models, ai agent integration, and community-driven coordination.',
+    headline: 'Governance turnout below 10%, community costs spiraling, and treasury decisions made without enough participation.',
+    marketContext: '550+ projects. Rapidly evolving governance models, AI agent integration, and community-driven coordination.',
     buildersAsk: [
-      { title: 'why won\'t people vote?', detail: 'less than 10% voter turnout on critical proposals. proposals fail quorum. tiny minorities make decisions.' },
-      { title: 'how do i cut community spend?', detail: 'community management scales linearly while budgets don\'t. $5k–$15k/month on mods answering the same questions.' },
-      { title: 'where is the treasury going?', detail: 'no data-driven allocation. zero attribution. millions in treasury with no roi tracking.' },
+      { title: 'Why won\'t people vote?', detail: 'Less than 10% voter turnout on critical proposals. Proposals fail quorum. Tiny minorities make decisions.' },
+      { title: 'How do I cut community spend?', detail: 'Community management scales linearly while budgets don\'t. $5K–$15K/month on mods answering the same questions.' },
+      { title: 'Where is the treasury going?', detail: 'No data-driven allocation. Zero attribution. Millions in treasury with no ROI tracking.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'growth-intelligence'],
   },
   gamefi: {
-    headline: 'blockchain gaming needs mainstream onboarding, content at scale, and community-driven growth to survive the next cycle.',
-    marketContext: '$17.47b market cap. defi mechanics integration is creating new hybrid gaming models.',
+    headline: 'Blockchain gaming needs mainstream onboarding, content at scale, and community-driven growth to survive the next cycle.',
+    marketContext: '$17.47B market cap. DeFi mechanics integration is creating new hybrid gaming models.',
     buildersAsk: [
-      { title: 'how do i onboard mainstream?', detail: '70% of users drop off during wallet setup. mainstream gamers don\'t search crypto-native terms. bridge content is critical.' },
-      { title: 'how do i ship launch content?', detail: 'game launches require massive output: guides, comparisons, reviews, tutorials. most teams can\'t produce fast enough.' },
-      { title: 'how do i support 50k+ discords?', detail: 'gaming communities are high-volume, high-engagement. 50k+ member servers need 24/7 mod and support.' },
+      { title: 'How do I onboard mainstream?', detail: '70% of users drop off during wallet setup. Mainstream gamers don\'t search crypto-native terms. Bridge content is critical.' },
+      { title: 'How do I ship launch content?', detail: 'Game launches require massive output: guides, comparisons, reviews, tutorials. Most teams can\'t produce fast enough.' },
+      { title: 'How do I support 50k+ Discords?', detail: 'Gaming communities are high-volume, high-engagement. 50k+ member servers need 24/7 mod and support.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'launch-engine'],
   },
   depin: {
-    headline: 'explaining decentralized physical infrastructure to people who don\'t know what it means. simplicity at scale.',
-    marketContext: 'emerging market with early but accelerating growth. massive potential if the story can be told simply.',
+    headline: 'Explaining decentralized physical infrastructure to people who don\'t know what it means. Simplicity at scale.',
+    marketContext: 'Emerging market with early but accelerating growth. Massive potential if the story can be told simply.',
     buildersAsk: [
-      { title: 'how do i talk to non-crypto buyers?', detail: 'your icp includes iot buyers, enterprise, hardware operators. they use completely different search patterns.' },
-      { title: 'how do i bridge technical + business?', detail: 'content needs to be accurate enough for engineers but accessible enough for business buyers. most projects can\'t do both.' },
-      { title: 'how do i build dev relations?', detail: 'developer ecosystem requires docs, tutorials, community support — at scale.' },
+      { title: 'How do I talk to non-crypto buyers?', detail: 'Your ICP includes IoT buyers, enterprise, hardware operators. They use completely different search patterns.' },
+      { title: 'How do I bridge technical + business?', detail: 'Content needs to be accurate enough for engineers but accessible enough for business buyers. Most projects can\'t do both.' },
+      { title: 'How do I build dev relations?', detail: 'Developer ecosystem requires docs, tutorials, community support — at scale.' },
     ],
     serviceSlugs: ['content-system', 'gtm-engine'],
   },
   'nft-fi': {
-    headline: 'nft lending and fractionalization need liquidity, engagement, and market education. most potential users don\'t know these products exist.',
-    marketContext: 'growing market blending defi mechanics with nft ownership. novel financial primitives need explanation.',
+    headline: 'NFT lending and fractionalization need liquidity, engagement, and market education. Most potential users don\'t know these products exist.',
+    marketContext: 'Growing market blending DeFi mechanics with NFT ownership. Novel financial primitives need explanation.',
     buildersAsk: [
-      { title: 'how do i bootstrap liquidity?', detail: 'you need users to bootstrap the flywheel. but users need liquidity to see value. education is the unlock.' },
-      { title: 'how do i educate the market?', detail: 'nft lending and fractionalization are novel. your audience needs education before they need your product.' },
-      { title: 'how do i sustain engagement?', detail: 'nft communities spike at mint and decay fast. sustaining engagement requires content, utility, and investment.' },
+      { title: 'How do I bootstrap liquidity?', detail: 'You need users to bootstrap the flywheel. But users need liquidity to see value. Education is the unlock.' },
+      { title: 'How do I educate the market?', detail: 'NFT lending and fractionalization are novel. Your audience needs education before they need your product.' },
+      { title: 'How do I sustain engagement?', detail: 'NFT communities spike at mint and decay fast. Sustaining engagement requires content, utility, and investment.' },
     ],
     serviceSlugs: ['community-engine', 'content-system', 'launch-engine'],
   },
@@ -124,10 +124,10 @@ const serviceIconMap: Record<string, React.ElementType> = {
 }
 
 const initiativeMap: Record<string, string> = {
-  'community-engine': 'community ops jam',
-  'gtm-engine': 'signal labs',
-  'content-system': 'content guild',
-  'growth-intelligence': 'on-chain reads',
+  'community-engine': 'Community Ops Jam',
+  'gtm-engine': 'Signal Labs',
+  'content-system': 'Content Guild',
+  'growth-intelligence': 'On-Chain Reads',
   'launch-engine': 'launch table',
 }
 
@@ -151,24 +151,24 @@ export default function VerticalPage() {
         <div className="container-width section-padding relative">
           <Link href="/verticals" className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-coral transition-colors mb-10">
             <ArrowLeft size={14} />
-            all fields
+            All Fields
           </Link>
 
           <div className="grid grid-cols-12 gap-6 lg:gap-10 items-start">
             <div className="col-span-12 lg:col-span-8">
               <div className="flex items-center gap-3">
-                <span className="font-mono text-[11px] tabular text-ink-muted">field · {vertical.slug}</span>
+                <span className="font-mono text-[11px] tabular text-ink-muted">FIELD · {vertical.slug}</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">{vertical.title.toUpperCase()}</span>
               </div>
               <div className="mt-7 w-14 h-14 rounded-2xl bg-gradient-to-br from-coral/20 to-coral/5 ring-1 ring-coral/20 grid place-items-center">
                 <Icon size={24} className="text-coral" />
               </div>
-              <h1 className="display-tight mt-7 text-ink" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}>
-                <span className="block">building in</span>
-                <span className="block serif-italic text-coral lowercase">{vertical.title}.</span>
+              <h1 className="h-display mt-7">
+                <span className="block">Building in</span>
+                <span className="block serif-italic text-coral">{vertical.title}.</span>
               </h1>
-              <p className="mt-7 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
+              <p className="text-lead mt-7 max-w-xl [text-wrap:pretty]">
                 {content.headline}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -183,7 +183,7 @@ export default function VerticalPage() {
 
             <div className="col-span-12 lg:col-span-4">
               <div className="rounded-[22px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/55">
-                <span className="font-mono text-[10px] tabular text-ink-faint">market context</span>
+                <span className="font-mono text-[10px] tabular text-ink-faint uppercase">Market context</span>
                 <p className="mt-4 text-[15px] text-ink-secondary leading-[1.6] [text-wrap:pretty]">
                   {content.marketContext}
                 </p>
@@ -199,8 +199,8 @@ export default function VerticalPage() {
           <div className="grid grid-cols-12 gap-6 mb-10 items-end">
             <div className="col-span-12 lg:col-span-7">
               <span className="section-label">WHAT BUILDERS ASK IN THIS FIELD</span>
-              <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                same questions,{' '}
+              <h2 className="h-section mt-5">
+                Same questions,{' '}
                 <span className="serif-italic text-coral">different rooms.</span>
               </h2>
             </div>
@@ -220,7 +220,7 @@ export default function VerticalPage() {
                   <span className="font-mono text-[11px] tabular text-coral font-bold">
                     Q.{String(i + 1).padStart(2, '0')}
                   </span>
-                  <h3 className="text-base sm:text-lg font-bold text-ink lowercase">
+                  <h3 className="text-base sm:text-lg font-bold text-ink">
                     {q.title}
                   </h3>
                 </div>
@@ -239,7 +239,7 @@ export default function VerticalPage() {
           <div className="grid grid-cols-12 gap-6 mb-10 items-end">
             <div className="col-span-12 lg:col-span-7">
               <span className="section-label">ROOMS THAT HELP</span>
-              <h2 className="display-tight mt-5 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
+              <h2 className="h-section mt-5">
                 {applicableServices.length} of 5 rooms{' '}
                 <span className="serif-italic text-coral">map directly</span>{' '}
                 here.
@@ -296,7 +296,7 @@ export default function VerticalPage() {
             with the field.
           </h2>
           <Link href="/#join" className={cn('mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300')}>
-            request invite
+            Request Invite
             <ArrowRight size={15} />
           </Link>
         </div>

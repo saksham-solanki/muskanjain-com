@@ -11,54 +11,54 @@ import { cn } from '@/lib/utils'
 const blogPosts = [
   {
     slug: 'ai-citation-tracker-defi-protocol',
-    title: 'how i built an ai citation tracker for a defi protocol',
+    title: 'How I Built an AI Citation Tracker for a DeFi Protocol',
     description:
-      'a step-by-step breakdown of the system architecture, data pipeline, and tracking dashboard i shipped for a top-50 defi protocol.',
+      'A step-by-step breakdown of the system architecture, data pipeline, and tracking dashboard I shipped for a top-50 DeFi protocol.',
     category: 'AI Build',
     date: 'Apr 30, 2026',
     readingTime: '12 min',
   },
   {
     slug: 'ai-agent-market-crypto',
-    title: "the $4.34B ai agent market in crypto: what's real",
+    title: "The $4.34B AI Agent Market in Crypto: What's Real",
     description:
-      'separating signal from noise in the ai agent ecosystem. which projects have real usage, and which are vaporware.',
+      'Separating signal from noise in the AI agent ecosystem. Which projects have real usage, and which are vaporware.',
     category: 'AI Signal',
     date: 'Apr 28, 2026',
     readingTime: '8 min',
   },
   {
     slug: 'ai-x-web3-definitive-guide',
-    title: 'ai x web3: the definitive guide to the intersection',
+    title: 'AI × Web3: The Definitive Guide to the Intersection',
     description:
-      'how ai and web3 converge across infrastructure, applications, and go-to-market. the opportunities most teams are missing.',
+      'How AI and Web3 converge across infrastructure, applications, and go-to-market. The opportunities most teams are missing.',
     category: 'AI x Web3',
     date: 'Apr 27, 2026',
     readingTime: '15 min',
   },
   {
     slug: 'started-crypto-at-17',
-    title: "i started in crypto at 17. here's what nobody tells you",
+    title: "I Started in Crypto at 17. Here's What Nobody Tells You",
     description:
-      'three years, five companies, six cities, and a complete pivot. the unfiltered version of building a career in web3.',
+      'Three years, five companies, six cities, and a complete pivot. The unfiltered version of building a career in Web3.',
     category: 'Real Talk',
     date: 'Apr 26, 2026',
     readingTime: '10 min',
   },
   {
     slug: 'web3-companies-aeo',
-    title: 'why <1% of web3 companies are doing aeo',
+    title: 'Why <1% of Web3 Companies Are Doing AEO',
     description:
-      'answer engine optimization is the biggest growth unlock in crypto right now. here is why almost nobody is doing it.',
+      'Answer Engine Optimization is the biggest growth unlock in crypto right now. Here is why almost nobody is doing it.',
     category: 'AI Signal',
     date: 'Apr 25, 2026',
     readingTime: '7 min',
   },
   {
     slug: 'seo-content-stack-50-pages',
-    title: 'the exact stack i use to publish 50+ seo pages per month',
+    title: 'The Exact Stack I Use to Publish 50+ SEO Pages per Month',
     description:
-      'claude code, next.js, vercel, and a programmatic pipeline that turns keyword research into live pages in under 48 hours.',
+      'Claude Code, Next.js, Vercel, and a programmatic pipeline that turns keyword research into live pages in under 48 hours.',
     category: 'AI Build',
     date: 'Apr 24, 2026',
     readingTime: '9 min',
@@ -69,7 +69,7 @@ export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All')
 
   useEffect(() => {
-    document.title = 'the journal'
+    document.title = 'The Journal'
   }, [])
 
   const filteredPosts =
@@ -94,30 +94,27 @@ export default function BlogPage() {
           <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
             <div className="col-span-12 lg:col-span-8">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 01</span>
+                <span className="eyebrow">No. 01</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">THE JOURNAL</span>
               </div>
-              <h1
-                className="display-tight mt-7 text-ink"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-              >
-                <span className="block">field notes</span>
+              <h1 className="h-display mt-7">
+                <span className="block">Field Notes</span>
                 <span className="block mt-1">
                   from{' '}
                   <span className="serif-italic text-coral">the room.</span>
                 </span>
               </h1>
-              <p className="mt-9 max-w-xl text-base sm:text-[17px] text-ink-secondary/85 leading-[1.55] [text-wrap:pretty]">
-                slow writing from a fast room. ai builds, market signals, web3
+              <p className="text-lead mt-9 max-w-xl [text-wrap:pretty]">
+                Slow writing from a fast room. AI builds, market signals, Web3
                 receipts, and the occasional real-talk dispatch — written by
-                members, kept lowercase on purpose.
+                members.
               </p>
             </div>
 
             <div className="col-span-12 lg:col-span-4">
               <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-                ↳ no dark patterns. no thought leadership. just notes from
+                ↳ No dark patterns. No thought leadership. Just notes from
                 people shipping things.
               </p>
               <p className="mt-4 text-xs text-ink-faint tabular">
@@ -132,7 +129,7 @@ export default function BlogPage() {
       <section className="bg-blush relative">
         <div className="container-width pt-12 lg:pt-16">
           <div className="flex items-center gap-3 mb-6">
-            <span className="eyebrow text-ink-muted">No. 02</span>
+            <span className="eyebrow">No. 02</span>
             <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
             <span className="section-label">SORT BY COLUMN</span>
           </div>
@@ -142,13 +139,13 @@ export default function BlogPage() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  'px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 lowercase tabular',
+                  'px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 tabular',
                   activeCategory === cat
                     ? 'bg-ink text-white ring-1 ring-ink shadow-[0_8px_20px_-8px_rgba(26,26,46,0.4)]'
                     : 'bg-white/72 backdrop-blur-md text-ink-secondary ring-1 ring-rose-mist/55 hover:bg-white/90 hover:ring-coral/40',
                 )}
               >
-                {cat === 'All' ? 'all entries' : cat.toLowerCase()}
+                {cat === 'All' ? 'All Entries' : cat}
               </button>
             ))}
           </div>
@@ -173,14 +170,14 @@ export default function BlogPage() {
                 >
                   <div className="flex items-center justify-between mb-5">
                     <span className="font-mono text-[10px] tabular text-ink-faint">
-                      no.{String(i + 1).padStart(2, '0')}
+                      No.{String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-coral bg-coral/10 rounded-full ring-1 ring-coral/20 tabular">
                       {post.category}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-black text-ink lowercase tracking-tight leading-[1.15] [text-wrap:balance]">
+                  <h2 className="h-card leading-[1.2] [text-wrap:balance]">
                     {post.title}
                   </h2>
                   <p className="mt-3 text-[14.5px] text-ink-muted leading-[1.55] flex-1 [text-wrap:pretty]">
@@ -197,7 +194,7 @@ export default function BlogPage() {
                       {post.readingTime}
                     </span>
                     <span className="ml-auto inline-flex items-center gap-1 text-ink-muted opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-coral transition-all duration-300">
-                      read
+                      Read
                       <ArrowRight size={12} />
                     </span>
                   </footer>
@@ -207,11 +204,10 @@ export default function BlogPage() {
           ) : (
             <div className="py-20 text-center max-w-md mx-auto">
               <span className="font-mono text-[10px] tabular text-ink-faint uppercase tracking-[0.18em]">
-                empty column
+                EMPTY COLUMN
               </span>
               <p className="mt-4 serif-italic text-ink-muted text-lg leading-snug">
-                no entries in this column yet. members are writing — check back
-                soon.
+                No entries in this column yet. Members are writing — check back soon.
               </p>
             </div>
           )}
@@ -234,20 +230,20 @@ export default function BlogPage() {
             <Sparkles size={11} />
             THE DOOR IS OPEN TODAY
           </span>
-          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
-            want to{' '}
+          <h2 className="h-section mt-6 max-w-3xl mx-auto">
+            Want to{' '}
             <span className="serif-italic text-coral">write</span>{' '}
             inside the room?
           </h2>
           <p className="mt-7 serif-italic text-ink-muted/85 text-lg max-w-md mx-auto leading-snug">
-            members get the journal first. drafts get loving notes. nothing
+            Members get the Journal first. Drafts get loving notes. Nothing
             ships before it&apos;s ready.
           </p>
           <Link
             href="/#join"
             className="mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            request invite
+            Request Invite
             <ArrowRight size={15} />
           </Link>
         </div>

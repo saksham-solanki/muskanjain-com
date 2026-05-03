@@ -22,30 +22,30 @@ function LinkedinIcon({ size = 18 }: { size?: number }) {
 
 const footerColumns = [
   {
-    title: 'the club',
+    title: 'The Club',
     links: [
-      { label: 'the wall', href: '/#wall' },
-      { label: 'rituals', href: '/#rituals' },
-      { label: 'cities', href: '/#cities' },
-      { label: 'request invite', href: '/#join' },
+      { label: 'The Wall', href: '/#wall' },
+      { label: 'Rituals', href: '/#rituals' },
+      { label: 'Cities', href: '/#cities' },
+      { label: 'Request Invite', href: '/#join' },
     ],
   },
   {
-    title: 'rooms',
+    title: 'Rooms',
     links: [
-      { label: 'community ops jam', href: '/services/community-engine' },
-      { label: 'signal labs', href: '/services/gtm-engine' },
-      { label: 'content guild', href: '/services/content-system' },
-      { label: 'on-chain reads', href: '/services/growth-intelligence' },
-      { label: 'launch table', href: '/services/launch-engine' },
+      { label: 'Community Ops Jam', href: '/services/community-engine' },
+      { label: 'Signal Labs', href: '/services/gtm-engine' },
+      { label: 'Content Guild', href: '/services/content-system' },
+      { label: 'On-Chain Reads', href: '/services/growth-intelligence' },
+      { label: 'Launch Table', href: '/services/launch-engine' },
     ],
   },
   {
-    title: 'beyond',
+    title: 'Beyond',
     links: [
-      { label: 'about muskan', href: '/about' },
-      { label: 'build in public', href: '/build-in-public' },
-      { label: 'journal', href: '/blog' },
+      { label: 'About Muskan', href: '/about' },
+      { label: 'Build in Public', href: '/build-in-public' },
+      { label: 'Journal', href: '/blog' },
     ],
   },
 ]
@@ -64,17 +64,17 @@ export function Footer() {
               href="/"
               className="inline-flex items-baseline gap-2 text-3xl font-black text-coral tracking-tight"
             >
-              muskan jain
+              Muskan Jain
               <span className="serif-italic text-white/40 text-base">
-                · the build club
+                · The Build Club
               </span>
             </Link>
             <p
               className="mt-5 text-[17px] text-white/65 max-w-md leading-[1.55] [text-wrap:pretty]"
               style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic' }}
             >
-              a soft-edged corner of the internet for builders shipping at the
-              edge of ai and web3. lowercase, by design.
+              A soft-edged corner of the internet for builders shipping at the
+              edge of AI and Web3.
             </p>
             <div className="flex items-center gap-2 mt-6">
               <a
@@ -108,7 +108,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/65 hover:text-coral transition-colors lowercase"
+                      className="text-sm text-white/65 hover:text-coral transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -125,15 +125,15 @@ export function Footer() {
             className="text-[14vw] sm:text-[10vw] font-black leading-[0.85] tracking-[-0.05em] text-white/[0.04] select-none"
             aria-hidden
           >
-            the build club
+            The Build Club
           </p>
         </div>
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] tabular">
           <p className="text-white/35">
-            &copy; {new Date().getFullYear()} muskan jain · the build club ·
-            dubai → everywhere
+            &copy; {new Date().getFullYear()} Muskan Jain · The Build Club ·
+            Dubai → Everywhere
           </p>
           <a
             href={siteConfig.links.veloice}

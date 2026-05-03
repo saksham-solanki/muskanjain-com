@@ -128,13 +128,70 @@ body {
 
 .tabular { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum', 'zero'; }
 
+/* ── Heading scale (Title Case headings) ── */
+.h-display {
+  font-family: var(--font-satoshi);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-feature-settings: 'ss01', 'salt', 'case';
+  text-wrap: balance;
+  color: var(--color-ink);
+}
+
+.h-section {
+  font-family: var(--font-satoshi);
+  font-weight: 800;
+  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: var(--color-ink);
+}
+
+.h-card {
+  font-family: var(--font-satoshi);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+}
+
+/* Backwards-compat alias for existing display-tight usages */
 .display-tight {
   font-family: var(--font-satoshi);
   font-weight: 900;
-  letter-spacing: -0.045em;
-  line-height: 0.92;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
   font-feature-settings: 'ss01', 'salt', 'case';
   text-wrap: balance;
+}
+
+/* ── Body scale (Sentence case) ── */
+.text-lead {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.text-body {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
+
+.text-small {
+  font-family: var(--font-satoshi);
+  font-weight: 400;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+  color: var(--color-ink-muted);
 }
 
 .serif-italic {
@@ -145,11 +202,12 @@ body {
 
 .eyebrow {
   font-family: var(--font-satoshi);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
+  color: var(--color-ink-muted);
 }
 
 .hairline {

@@ -5,9 +5,9 @@ import { FloatingPills } from '@/components/ui/floating-pills'
 import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
-  title: 'request invite',
+  title: 'Request Invite',
   description:
-    "tell us what you're building. a member picks it up within a day.",
+    "Tell us what you're building. A member picks it up within a day.",
 }
 
 const avatars = [
@@ -66,14 +66,14 @@ export default function BookPage() {
                 THE DOOR IS OPEN TODAY
               </span>
 
-              <h1 className="display-tight mt-7 text-ink text-4xl sm:text-5xl lg:text-[3.6rem]">
-                tell us what <br className="hidden sm:block" />
+              <h1 className="h-section mt-7">
+                Tell us what <br className="hidden sm:block" />
                 <span className="serif-italic text-coral">you&apos;re building.</span>
               </h1>
 
-              <p className="mt-7 text-base sm:text-[17px] text-ink-secondary/85 leading-relaxed max-w-xl mx-auto [text-wrap:pretty]">
-                drop your handle, one line on the build, and an email. a member
-                picks it up within a day. no pitch decks, no calendar tetris.
+              <p className="text-lead mt-7 max-w-xl mx-auto [text-wrap:pretty]">
+                Drop your handle, one line on the build, and an email. A member
+                picks it up within a day. No pitch decks, no calendar tetris.
               </p>
 
               <form className="mt-9 max-w-md mx-auto flex flex-col gap-3">
@@ -84,7 +84,7 @@ export default function BookPage() {
                 />
                 <input
                   type="text"
-                  placeholder="what you're building (one line)"
+                  placeholder="What you're building (one line)"
                   className="w-full px-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
                 />
                 <div className="flex flex-col sm:flex-row items-stretch gap-3">
@@ -103,7 +103,7 @@ export default function BookPage() {
                     type="button"
                     className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-ink rounded-full hover:bg-ink/85 transition-colors whitespace-nowrap"
                   >
-                    request invite
+                    Request Invite
                     <ArrowRight
                       size={15}
                       className="transition-transform group-hover:translate-x-0.5"
@@ -113,7 +113,7 @@ export default function BookPage() {
               </form>
 
               <p className="mt-5 text-xs text-ink-muted tabular">
-                no spam · no calendly · just an invite — or a soft no
+                No spam · No Calendly · Just an invite — or a soft no.
               </p>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function BookPage() {
               href="/blog"
               className="serif-italic text-base text-ink-muted hover:text-coral transition-colors"
             >
-              not ready? read the journal →
+              Not ready? Read the journal →
             </Link>
             <span className="h-px flex-1 bg-ink/10" />
           </div>

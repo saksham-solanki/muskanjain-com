@@ -21,145 +21,145 @@ interface BuildEntry {
 
 const entries: BuildEntry[] = [
   {
-    author: 'muskan',
+    author: 'Muskan',
     handle: '@muskanjain0401',
-    title: 'building muskanjain.com from scratch',
+    title: 'Building muskanjain.com from scratch',
     status: 'shipped',
     tools: ['next.js', 'tailwind', 'vercel'],
     date: 'Apr 24',
-    note: 'lowercase, soft edges, on purpose. zero templates touched.',
+    note: 'Editorial, soft edges, on purpose. Zero templates touched.',
     gradient: 'from-coral to-coral-deep',
   },
   {
-    author: 'aarav k.',
+    author: 'Aarav K.',
     handle: '@aarav_builds',
-    title: 'first wallet conversion overnight on pseo pages',
+    title: 'First wallet conversion overnight on pSEO pages',
     status: 'shipped',
     tools: ['next.js', 'dune', 'vercel'],
     date: 'Apr 25',
-    note: 'long-tail web3 queries are wide open. canton thesis holding up.',
+    note: 'Long-tail Web3 queries are wide open. Canton thesis holding up.',
     gradient: 'from-[#F0A500] to-[#A87000]',
   },
   {
-    author: 'kavya t.',
+    author: 'Kavya T.',
     handle: '@kavyatarun',
-    title: 'multi-agent content pipeline, weekend build',
+    title: 'Multi-agent content pipeline, weekend build',
     status: 'shipped',
     tools: ['claude-code', 'n8n', 'notion'],
     date: 'Apr 26',
-    note: '14 posts queued, all on-brand. dropping the prompts on friday.',
+    note: '14 posts queued, all on-brand. Dropping the prompts on Friday.',
     gradient: 'from-coral to-[#A8C9E8]',
   },
   {
-    author: 'noor',
+    author: 'Noor',
     handle: '@noor_codes',
-    title: 'open-sourcing the wallet attribution lib',
+    title: 'Open-sourcing the wallet attribution lib',
     status: 'wip',
     tools: ['typescript', 'cookie3', 'spindl'],
     date: 'Apr 28',
-    note: 'finally connecting ad spend to first tx. mvp by sunday.',
+    note: 'Finally connecting ad spend to first tx. MVP by Sunday.',
     gradient: 'from-coral-deep to-[#1A1A2E]',
   },
   {
-    author: 'muskan',
+    author: 'Muskan',
     handle: '@muskanjain0401',
-    title: 'shipping the ai citation tracker',
+    title: 'Shipping the AI citation tracker',
     status: 'wip',
     tools: ['claude-code', 'next.js', 'supabase'],
     date: 'Apr 30',
-    note: 'who\'s citing whom. a leaderboard for the post-search internet.',
+    note: 'Who\'s citing whom. A leaderboard for the post-search internet.',
     gradient: 'from-coral to-coral-deep',
   },
   {
-    author: 'priya s.',
+    author: 'Priya S.',
     handle: '@priyaaaa',
-    title: 'sybil-resistant airdrop sim, draft one',
+    title: 'Sybil-resistant airdrop sim, draft one',
     status: 'wip',
     tools: ['python', 'dune', 'nansen'],
     date: 'May 1',
-    note: 'modeling 70% bot leak before token goes live. need eyes on it.',
+    note: 'Modeling 70% bot leak before token goes live. Need eyes on it.',
     gradient: 'from-[#5B8DEF] to-[#3D5FB5]',
   },
   {
-    author: 'muskan',
+    author: 'Muskan',
     handle: '@muskanjain0401',
-    title: 'setting up programmatic seo for a defi protocol',
+    title: 'Setting up programmatic SEO for a DeFi protocol',
     status: 'planned',
     tools: ['next.js', 'vercel'],
     date: 'May 2',
     gradient: 'from-coral to-coral-deep',
   },
   {
-    author: 'rohan m.',
+    author: 'Rohan M.',
     handle: '@rohan_eth',
-    title: 'pre-tge sanity check for a l2 launch',
+    title: 'Pre-TGE sanity check for an L2 launch',
     status: 'planned',
     tools: ['galxe', 'zealy', 'cookie3'],
     date: 'May 3',
-    note: 'last launch lost 70% to bots. not doing that again.',
+    note: 'Last launch lost 70% to bots. Not doing that again.',
     gradient: 'from-[#2D9D78] to-[#1A6850]',
   },
   {
-    author: 'muskan',
+    author: 'Muskan',
     handle: '@muskanjain0401',
-    title: 'first aeo audit for a web3 client',
+    title: 'First AEO audit for a Web3 client',
     status: 'planned',
     tools: ['claude', 'perplexity'],
     date: 'May 5',
     gradient: 'from-coral to-coral-deep',
   },
   {
-    author: 'arjun v.',
+    author: 'Arjun V.',
     handle: '@arjunvibes',
-    title: 'community ops bot for a rwa protocol',
+    title: 'Community ops bot for an RWA protocol',
     status: 'planned',
     tools: ['discord.js', 'claude', 'supabase'],
     date: 'May 7',
-    note: 'the dxb meetup found the use case. shipping in public.',
+    note: 'The DXB meetup found the use case. Shipping in public.',
     gradient: 'from-coral to-[#F0A500]',
   },
   {
-    author: 'muskan',
+    author: 'Muskan',
     handle: '@muskanjain0401',
-    title: 'the content system that writes 50+ posts per month',
+    title: 'The content system that writes 50+ posts per month',
     status: 'wip',
     tools: ['claude-code', 'n8n'],
     date: 'May 8',
     gradient: 'from-coral to-coral-deep',
   },
   {
-    author: 'kavya t.',
+    author: 'Kavya T.',
     handle: '@kavyatarun',
-    title: 'open-sourcing the writing-pod prompts',
+    title: 'Open-sourcing the writing-pod prompts',
     status: 'planned',
     tools: ['github', 'claude', 'notion'],
     date: 'May 12',
-    note: 'so the content guild can fork from day one.',
+    note: 'So the Content Guild can fork from day one.',
     gradient: 'from-coral to-[#A8C9E8]',
   },
   {
-    author: 'aarav k.',
+    author: 'Aarav K.',
     handle: '@aarav_builds',
-    title: 'on-chain retention dashboard, v0',
+    title: 'On-chain retention dashboard, v0',
     status: 'planned',
     tools: ['dune', 'nansen', 'vercel'],
     date: 'May 15',
-    note: 'cohort math nobody else is doing. thursday reads, locked in.',
+    note: 'Cohort math nobody else is doing. Thursday reads, locked in.',
     gradient: 'from-[#F0A500] to-[#A87000]',
   },
 ]
 
 const statusConfig: Record<Status, { label: string; classes: string }> = {
   shipped: {
-    label: 'shipped',
+    label: 'Shipped',
     classes: 'bg-[#2D9D78]/10 text-[#2D9D78] ring-[#2D9D78]/20',
   },
   wip: {
-    label: 'wip',
+    label: 'WIP',
     classes: 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
   },
   planned: {
-    label: 'planned',
+    label: 'Planned',
     classes: 'bg-ink/8 text-ink-muted ring-ink/15',
   },
 }
@@ -169,20 +169,20 @@ const statusConfig: Record<Status, { label: string; classes: string }> = {
    ═══════════════════════════════════════════════════════════════ */
 function TickerStrip() {
   const items = [
-    { tag: 'shipped', text: 'muskan · muskanjain.com live' },
-    { tag: 'shipped', text: 'aarav · first wallet conversion overnight' },
-    { tag: 'wip', text: 'noor · wallet attribution lib, mvp sunday' },
-    { tag: 'wip', text: 'priya · sybil-resistant airdrop sim' },
-    { tag: 'shipped', text: 'kavya · multi-agent content pipeline' },
-    { tag: 'planned', text: 'rohan · pre-tge sanity check, l2' },
-    { tag: 'planned', text: 'arjun · community ops bot, rwa' },
-    { tag: 'wip', text: 'muskan · ai citation tracker' },
+    { tag: 'SHIPPED', text: 'Muskan · muskanjain.com live' },
+    { tag: 'SHIPPED', text: 'Aarav · first wallet conversion overnight' },
+    { tag: 'WIP', text: 'Noor · wallet attribution lib, MVP Sunday' },
+    { tag: 'WIP', text: 'Priya · sybil-resistant airdrop sim' },
+    { tag: 'SHIPPED', text: 'Kavya · multi-agent content pipeline' },
+    { tag: 'PLANNED', text: 'Rohan · pre-TGE sanity check, L2' },
+    { tag: 'PLANNED', text: 'Arjun · community ops bot, RWA' },
+    { tag: 'WIP', text: 'Muskan · AI citation tracker' },
   ]
   const doubled = [...items, ...items]
   const tagColor: Record<string, string> = {
-    shipped: 'text-[#2D9D78]',
-    wip: 'text-[#F0A500]',
-    planned: 'text-white/50',
+    SHIPPED: 'text-[#2D9D78]',
+    WIP: 'text-[#F0A500]',
+    PLANNED: 'text-white/50',
   }
 
   return (
@@ -232,36 +232,33 @@ export default function BuildInPublicPage() {
             {/* Left gutter — section number + manifesto note */}
             <aside className="hidden lg:block lg:col-span-2 pt-6">
               <p className="serif-italic text-ink-muted/80 text-base mt-2 leading-snug">
-                a public log. everyone&apos;s receipts, in one place.
+                A public log. Everyone&apos;s receipts, in one place.
               </p>
-              <div className="mt-6 flex items-center gap-1.5 text-xs text-coral/80 tabular">
+              <div className="mt-6 flex items-center gap-1.5 text-xs text-coral/80 tabular uppercase tracking-[0.18em] font-bold">
                 <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
-                live
+                Live
               </div>
             </aside>
 
             {/* Center — main headline */}
             <div className="col-span-12 lg:col-span-8">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 01</span>
+                <span className="eyebrow">No. 01</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">THE BUILD FEED</span>
               </div>
 
-              <h1
-                className="display-tight mt-7 text-ink"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-              >
-                <span className="block">everything we ship,</span>
+              <h1 className="h-display mt-7">
+                <span className="block">Everything We Ship,</span>
                 <span className="block serif-italic text-coral mt-1">
                   in public.
                 </span>
-                <span className="block mt-1">unpolished. on purpose.</span>
+                <span className="block mt-1">Unpolished. On purpose.</span>
               </h1>
 
               <p className="mt-9 max-w-xl serif-italic text-ink-muted/90 text-lg sm:text-xl leading-snug [text-wrap:pretty]">
-                no launch threads, no glossy demos. just the room&apos;s actual
-                work — wips, half-bugs, shipped wins — posted as it happens.
+                No launch threads, no glossy demos. Just the room&apos;s actual
+                work — WIPs, half-bugs, shipped wins — posted as it happens.
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -270,7 +267,7 @@ export default function BuildInPublicPage() {
                   className="group inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <Radio size={15} className="text-coral" />
-                  open the feed
+                  Open the Feed
                   <ArrowRight
                     size={15}
                     className="transition-transform group-hover:translate-x-0.5"
@@ -280,14 +277,14 @@ export default function BuildInPublicPage() {
                   href="/#join"
                   className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-ink/85 bg-white/55 backdrop-blur-md rounded-full ring-1 ring-ink/10 hover:bg-white/80 hover:ring-coral/30 transition-all duration-300"
                 >
-                  ship with us ↗
+                  Ship with Us ↗
                 </Link>
               </div>
 
               <div className="mt-12 grid grid-cols-3 gap-x-6 max-w-md border-t hairline pt-5 tabular">
-                <Stat label="shipped" value="5" />
-                <Stat label="in flight" value="4" />
-                <Stat label="planned" value="4" />
+                <Stat label="Shipped" value="5" />
+                <Stat label="In Flight" value="4" />
+                <Stat label="Planned" value="4" />
               </div>
             </div>
           </div>
@@ -303,23 +300,23 @@ export default function BuildInPublicPage() {
           <div className="grid grid-cols-12 gap-6 mb-12 items-end">
             <div className="col-span-12 lg:col-span-7">
               <div className="flex items-center gap-3">
-                <span className="eyebrow text-ink-muted">No. 02</span>
+                <span className="eyebrow">No. 02</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">THE LOG</span>
               </div>
-              <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem]">
-                what the room is{' '}
+              <h2 className="h-section mt-6">
+                What the room is{' '}
                 <span className="serif-italic text-coral">cooking</span> this
                 week.
               </h2>
             </div>
             <div className="col-span-12 lg:col-span-4">
               <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-                one feed. many builders. zero polish — that&apos;s the whole
+                One feed. Many builders. Zero polish — that&apos;s the whole
                 point.
               </p>
               <p className="mt-3 text-xs text-ink-faint tabular">
-                apr 24 → may 15 · {entries.length} entries
+                Apr 24 → May 15 · {entries.length} entries
               </p>
             </div>
           </div>
@@ -388,11 +385,11 @@ export default function BuildInPublicPage() {
                     <div className="flex items-center gap-2 font-mono text-[10px] tabular text-ink-faint uppercase tracking-[0.18em]">
                       <span className="text-coral font-bold">{entry.date}</span>
                       <span className="text-ink-faint/50">·</span>
-                      <span>entry no.{String(i + 1).padStart(2, '0')}</span>
+                      <span>ENTRY NO.{String(i + 1).padStart(2, '0')}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="mt-2 text-base sm:text-lg font-bold text-ink leading-snug lowercase">
+                    <h3 className="mt-2 text-base sm:text-lg font-bold text-ink leading-snug">
                       {entry.title}
                     </h3>
 
@@ -408,7 +405,7 @@ export default function BuildInPublicPage() {
                       {entry.tools.map((tool) => (
                         <span
                           key={tool}
-                          className="px-2.5 py-0.5 rounded-full bg-coral-muted text-coral text-xs lowercase font-mono tabular"
+                          className="px-2.5 py-0.5 rounded-full bg-coral-muted text-coral text-xs font-mono tabular"
                         >
                           {tool}
                         </span>
@@ -438,19 +435,18 @@ export default function BuildInPublicPage() {
             <Sparkles size={11} />
             YOUR TURN
           </span>
-          <h2 className="display-tight mt-6 text-ink text-[1.7rem] sm:text-4xl lg:text-[2.75rem] max-w-3xl mx-auto">
-            ship something{' '}
+          <h2 className="h-section mt-6 max-w-3xl mx-auto">
+            Ship something{' '}
             <span className="serif-italic text-coral">next.</span>
           </h2>
           <p className="mt-7 max-w-xl mx-auto serif-italic text-ink-muted/90 text-lg leading-snug [text-wrap:pretty]">
-            the feed gets warmer when you post in it. wip is welcome. half-bugs
-            too.
+            The feed gets warmer when you post in it. WIPs are welcome. Half-bugs too.
           </p>
           <Link
             href="/#join"
             className="group mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300"
           >
-            request invite
+            Request Invite
             <ArrowRight
               size={15}
               className="transition-transform group-hover:translate-x-0.5"

@@ -38,7 +38,7 @@ export function Nav() {
       <nav className="container-width flex items-center justify-between h-16 sm:h-18">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-coral tracking-tight">
-          muskan jain
+          Muskan Jain
         </Link>
 
         {/* Desktop links */}
@@ -56,7 +56,7 @@ export function Nav() {
             href="/#join"
             className="inline-flex items-center px-5 py-2 text-sm font-medium text-white bg-ink rounded-full shadow-[0_8px_24px_-8px_rgba(26,26,46,0.5)] hover:bg-ink/85 transition-colors"
           >
-            join the club
+            Join the Club
           </Link>
         </div>
 
@@ -96,7 +96,7 @@ export function Nav() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-2 inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-white bg-ink rounded-full transition-colors"
               >
-                join the club
+                Join the Club
               </Link>
             </div>
           </motion.div>
