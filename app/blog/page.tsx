@@ -1,85 +1,97 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Clock, Calendar, ArrowRight, Sparkles } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
+import { BlurFade } from '@/components/ui/blur-fade'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
+import { NewsletterForm } from '@/components/forms/NewsletterForm'
 import { cn } from '@/lib/utils'
 
-const blogPosts = [
+/* ═══════════════════════════════════════════════════════
+   POST DATA
+   ═══════════════════════════════════════════════════════ */
+const featuredPost = {
+  slug: 'reddit-ai-answers-web3-gtm',
+  title: 'Why Reddit Now Owns 68% of AI-Generated Answers (And What That Means For Web3 GTM)',
+  description:
+    'AI citation patterns have shifted dramatically in 12 months. Reddit threads and community-driven content now dominate LLM training sets — and most Web3 marketing stacks are completely unprepared for it. Here is the breakdown, the data, and the playbook.',
+  category: 'AI x Web3',
+  date: 'May 4, 2026',
+  readingTime: '14 min read',
+}
+
+const secondaryPosts = [
   {
-    slug: 'ai-citation-tracker-defi-protocol',
-    title: 'How I Built an AI Citation Tracker for a DeFi Protocol',
+    slug: 'aeo-for-web3-protocols',
+    title: 'AEO for Web3: How to Make Your Protocol the Answer, Not Just a Result',
     description:
-      'A step-by-step breakdown of the system architecture, data pipeline, and tracking dashboard I shipped for a top-50 DeFi protocol.',
-    category: 'AI Build',
-    date: 'Apr 30, 2026',
-    readingTime: '12 min',
-  },
-  {
-    slug: 'ai-agent-market-crypto',
-    title: "The $4.34B AI Agent Market in Crypto: What's Real",
-    description:
-      'Separating signal from noise in the AI agent ecosystem. Which projects have real usage, and which are vaporware.',
+      'Answer Engine Optimization is not SEO. Here is what changes when your audience is asking AI, not Google.',
     category: 'AI Signal',
-    date: 'Apr 28, 2026',
+    date: 'May 2, 2026',
     readingTime: '8 min',
   },
   {
-    slug: 'ai-x-web3-definitive-guide',
-    title: 'AI × Web3: The Definitive Guide to the Intersection',
+    slug: 'sybil-resistant-launches',
+    title: 'The Sybil-Resistant Launch Playbook: Stop Bots Before Token Day One',
     description:
-      'How AI and Web3 converge across infrastructure, applications, and go-to-market. The opportunities most teams are missing.',
+      'How to model bot leakage before your TGE, and the tools that actually work (Nansen, Dune, Galxe behavioral gates).',
     category: 'AI x Web3',
+    date: 'Apr 30, 2026',
+    readingTime: '11 min',
+  },
+  {
+    slug: 'ai-ghostwriting-founder-voice',
+    title: 'AI Ghostwriting Your Founder Voice: Where It Works and Where It Breaks',
+    description:
+      'A practical audit of multi-agent content pipelines after 6 months of running them at scale. What reads as human. What does not.',
+    category: 'AI Build',
     date: 'Apr 27, 2026',
-    readingTime: '15 min',
+    readingTime: '9 min',
   },
   {
-    slug: 'started-crypto-at-17',
-    title: "I Started in Crypto at 17. Here's What Nobody Tells You",
+    slug: 'on-chain-attribution-playbook',
+    title: 'The On-Chain Attribution Playbook: From Ad Impression to First Transaction',
     description:
-      'Three years, five companies, six cities, and a complete pivot. The unfiltered version of building a career in Web3.',
+      'Connecting web analytics to wallet activity is the unsolved problem in Web3 GTM. This is how we are solving it.',
+    category: 'AI Build',
+    date: 'Apr 24, 2026',
+    readingTime: '12 min',
+  },
+  {
+    slug: 'why-web3-marketing-fails',
+    title: 'Why Most Web3 Marketing Fails (And It Is Not the Team)',
+    description:
+      'The structural problems — attribution gaps, incentive misalignment, bot noise — that make standard GTM playbooks useless in Web3.',
     category: 'Real Talk',
-    date: 'Apr 26, 2026',
-    readingTime: '10 min',
-  },
-  {
-    slug: 'web3-companies-aeo',
-    title: 'Why <1% of Web3 Companies Are Doing AEO',
-    description:
-      'Answer Engine Optimization is the biggest growth unlock in crypto right now. Here is why almost nobody is doing it.',
-    category: 'AI Signal',
-    date: 'Apr 25, 2026',
+    date: 'Apr 21, 2026',
     readingTime: '7 min',
   },
   {
-    slug: 'seo-content-stack-50-pages',
-    title: 'The Exact Stack I Use to Publish 50+ SEO Pages per Month',
+    slug: 'ai-web3-stack-worth-running',
+    title: 'The AI×Web3 Stack Worth Running in 2026',
     description:
-      'Claude Code, Next.js, Vercel, and a programmatic pipeline that turns keyword research into live pages in under 48 hours.',
+      'After shipping for 12+ protocols: the tools, agent configurations, and integrations that actually move numbers.',
     category: 'AI Build',
-    date: 'Apr 24, 2026',
-    readingTime: '9 min',
+    date: 'Apr 18, 2026',
+    readingTime: '10 min',
   },
 ]
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All')
 
-  useEffect(() => {
-    document.title = 'The Journal'
-  }, [])
-
   const filteredPosts =
     activeCategory === 'All'
-      ? blogPosts
-      : blogPosts.filter((p) => p.category === activeCategory)
+      ? secondaryPosts
+      : secondaryPosts.filter((p) => p.category === activeCategory)
 
   return (
     <main className="pt-24">
-      {/* ─── Hero ─── */}
+
+      {/* ─── Editorial Hero ─── */}
       <section
         className="relative overflow-hidden grain"
         style={{
@@ -91,75 +103,127 @@ export default function BlogPage() {
         <div className="absolute bottom-[-6rem] left-[-8rem] w-[460px] h-[460px] rounded-full bg-coral/15 blur-[140px] pointer-events-none" />
 
         <div className="container-width section-padding relative">
-          <div className="grid grid-cols-12 gap-6 lg:gap-10 items-end">
-            <div className="col-span-12 lg:col-span-8">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow">No. 01</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">THE JOURNAL</span>
-              </div>
-              <h1 className="h-display mt-7">
-                <span className="block">Field Notes</span>
-                <span className="block mt-1">
-                  from{' '}
-                  <span className="serif-italic text-coral">the room.</span>
-                </span>
-              </h1>
-              <p className="text-lead mt-9 max-w-xl [text-wrap:pretty]">
-                Slow writing from a fast room. AI builds, market signals, Web3
-                receipts, and the occasional real-talk dispatch — written by
-                members.
-              </p>
+          <BlurFade delay={0.05}>
+            <div className="flex items-center gap-3">
+              <span className="eyebrow">No. 01</span>
+              <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+              <span className="section-label">THE JOURNAL</span>
             </div>
+          </BlurFade>
 
-            <div className="col-span-12 lg:col-span-4">
-              <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-                ↳ No dark patterns. No thought leadership. Just notes from
-                people shipping things.
-              </p>
-              <p className="mt-4 text-xs text-ink-faint tabular">
-                {blogPosts.length} entries · refreshed weekly
-              </p>
-            </div>
-          </div>
+          <BlurFade delay={0.12}>
+            <h1 className="h-display mt-7">
+              <span className="block">the journal.</span>
+            </h1>
+          </BlurFade>
+
+          <BlurFade delay={0.2}>
+            <p className="mt-7 max-w-xl text-lead [text-wrap:pretty]">
+              longer pieces. essays. teardowns. the receipts behind the work.
+            </p>
+          </BlurFade>
+
+          <BlurFade delay={0.26}>
+            <p className="mt-6 serif-italic text-ink-muted/80 text-lg max-w-lg leading-snug">
+              ↳ no dark patterns. no thought leadership. just notes from people shipping things.
+            </p>
+          </BlurFade>
         </div>
       </section>
 
-      {/* ─── Filter pills ─── */}
-      <section className="bg-blush relative">
+      {/* ─── Category Filter ─── */}
+      <section className="bg-blush">
         <div className="container-width pt-12 lg:pt-16">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="eyebrow">No. 02</span>
-            <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-            <span className="section-label">SORT BY COLUMN</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {siteConfig.blogCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  'px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 tabular',
-                  activeCategory === cat
-                    ? 'bg-ink text-white ring-1 ring-ink shadow-[0_8px_20px_-8px_rgba(26,26,46,0.4)]'
-                    : 'bg-white/72 backdrop-blur-md text-ink-secondary ring-1 ring-rose-mist/55 hover:bg-white/90 hover:ring-coral/40',
-                )}
-              >
-                {cat === 'All' ? 'All Entries' : cat}
-              </button>
-            ))}
-          </div>
+          <BlurFade delay={0.05}>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="eyebrow">No. 02</span>
+              <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+              <span className="section-label">FILTER BY COLUMN</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {siteConfig.blogCategories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setActiveCategory(cat)}
+                  className={cn(
+                    'px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 tabular',
+                    activeCategory === cat
+                      ? 'bg-ink text-white ring-1 ring-ink shadow-[0_8px_20px_-8px_rgba(26,26,46,0.4)]'
+                      : 'bg-white/72 backdrop-blur-md text-ink-muted ring-1 ring-rose-mist/55 hover:bg-white/90 hover:ring-coral/40',
+                  )}
+                >
+                  {cat === 'All' ? 'All Entries' : cat}
+                </button>
+              ))}
+            </div>
+          </BlurFade>
         </div>
       </section>
 
-      {/* ─── Entries ─── */}
-      <section className="bg-blush relative">
-        <div className="container-width section-padding pt-10 lg:pt-12">
+      {/* ─── Featured Post Hero ─── */}
+      <section className="bg-blush">
+        <div className="container-width pt-10 lg:pt-12 pb-0">
+          <BlurFade delay={0.05}>
+            <Link href={`/blog/${featuredPost.slug}`}>
+              <motion.article
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-[24px] overflow-hidden p-8 sm:p-12 bg-ink text-white ring-1 ring-ink/80 shadow-[0_20px_60px_-20px_rgba(26,26,46,0.5)] hover:shadow-[0_28px_70px_-20px_rgba(255,107,107,0.3)] transition-all cursor-pointer"
+              >
+                {/* Subtle gradient glow */}
+                <div className="absolute inset-0 bg-gradient-to-br from-coral/10 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-coral/5 blur-[120px] pointer-events-none" />
+
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-coral/20 text-coral text-[10px] font-bold uppercase tracking-[0.16em] ring-1 ring-coral/30 tabular">
+                      {featuredPost.category}
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/40 tabular">
+                      FEATURED
+                    </span>
+                  </div>
+
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.1] max-w-3xl [text-wrap:balance]">
+                    {featuredPost.title}
+                  </h2>
+
+                  <p className="mt-5 text-[15px] text-white/65 leading-[1.65] max-w-2xl [text-wrap:pretty]">
+                    {featuredPost.description}
+                  </p>
+
+                  <div className="mt-8 flex items-center gap-6">
+                    <div className="flex items-center gap-4 text-[11px] text-white/40 tabular">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar size={11} />
+                        {featuredPost.date}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock size={11} />
+                        {featuredPost.readingTime}
+                      </span>
+                    </div>
+                    <span className="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-coral opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      Read
+                      <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </div>
+              </motion.article>
+            </Link>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* ─── Secondary Posts Grid ─── */}
+      <section className="bg-blush">
+        <div className="container-width section-padding pt-8 lg:pt-10">
           {filteredPosts.length > 0 ? (
             <RevealOnScroll
               variant="slideUp"
-              stagger={0.06}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              stagger={0.07}
+              className="grid sm:grid-cols-2 gap-5"
             >
               {filteredPosts.map((post, i) => (
                 <motion.article
@@ -177,9 +241,7 @@ export default function BlogPage() {
                     </span>
                   </div>
 
-                  <h2 className="h-card leading-[1.2] [text-wrap:balance]">
-                    {post.title}
-                  </h2>
+                  <h2 className="h-card leading-[1.2] [text-wrap:balance]">{post.title}</h2>
                   <p className="mt-3 text-[14.5px] text-ink-muted leading-[1.55] flex-1 [text-wrap:pretty]">
                     {post.description}
                   </p>
@@ -207,14 +269,14 @@ export default function BlogPage() {
                 EMPTY COLUMN
               </span>
               <p className="mt-4 serif-italic text-ink-muted text-lg leading-snug">
-                No entries in this column yet. Members are writing — check back soon.
+                no entries in this column yet. check back soon.
               </p>
             </div>
           )}
         </div>
       </section>
 
-      {/* ─── CTA ─── */}
+      {/* ─── Newsletter Subscribe ─── */}
       <section
         className="relative overflow-hidden grain"
         style={{
@@ -226,28 +288,28 @@ export default function BlogPage() {
         <div className="absolute bottom-1/4 -right-20 w-[420px] h-[420px] rounded-full bg-white/35 blur-[120px] pointer-events-none" />
 
         <div className="container-width section-padding relative text-center">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
-            <Sparkles size={11} />
-            THE DOOR IS OPEN TODAY
-          </span>
-          <h2 className="h-section mt-6 max-w-3xl mx-auto">
-            Want to{' '}
-            <span className="serif-italic text-coral">write</span>{' '}
-            inside the room?
-          </h2>
-          <p className="mt-7 serif-italic text-ink-muted/85 text-lg max-w-md mx-auto leading-snug">
-            Members get the Journal first. Drafts get loving notes. Nothing
-            ships before it&apos;s ready.
-          </p>
-          <Link
-            href="/#join"
-            className="mt-10 inline-flex items-center gap-2.5 px-8 py-4 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:-translate-y-0.5 transition-all duration-300"
-          >
-            Request Invite
-            <ArrowRight size={15} />
-          </Link>
+          <BlurFade delay={0.05}>
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
+              <Sparkles size={11} />
+              THE JOURNAL — SUBSCRIBE
+            </span>
+
+            <h2 className="h-section mt-6 max-w-3xl mx-auto">
+              subscribe to{' '}
+              <span className="serif-italic text-coral">the journal.</span>
+            </h2>
+
+            <p className="mt-6 max-w-md mx-auto serif-italic text-ink-muted/85 text-lg leading-snug [text-wrap:pretty]">
+              longer pieces, teardowns, and receipts — straight to your inbox. no noise.
+            </p>
+
+            <div className="mt-10 max-w-md mx-auto">
+              <NewsletterForm />
+            </div>
+          </BlurFade>
         </div>
       </section>
+
     </main>
   )
 }
