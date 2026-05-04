@@ -604,55 +604,272 @@ function CreatorHub() {
   return (
     <section className="relative bg-soft-pink overflow-hidden">
       <div className="container-width section-padding">
-        {/* header */}
-        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
-          <div className="col-span-12 lg:col-span-7">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow">No. 05</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">CREATOR HUB</span>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section mt-6">
-                What I&apos;ve made{' '}
-                <span className="serif-italic text-coral">on camera</span>.
-              </h2>
+        {/* editorial header band, headline + inline metrics */}
+        <div className="mb-12">
+          <div className="grid grid-cols-12 gap-6 items-end">
+            <div className="col-span-12 lg:col-span-7">
+              <RevealOnScroll variant="blur">
+                <div className="flex items-center gap-3">
+                  <span className="eyebrow">No. 05</span>
+                  <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+                  <span className="section-label">CREATOR HUB</span>
+                </div>
+              </RevealOnScroll>
+              <RevealOnScroll variant="slideUp" delay={0.05}>
+                <h2 className="h-section mt-6">
+                  What I&apos;ve made{' '}
+                  <span className="serif-italic text-coral">on camera</span>.
+                </h2>
+              </RevealOnScroll>
+            </div>
+            <RevealOnScroll
+              variant="slideUp"
+              delay={0.1}
+              className="col-span-12 lg:col-span-5"
+            >
+              <p className="text-ink-muted/85 text-lg leading-snug">
+                Series, podcasts, product reviews, brand films. Built and
+                shipped, week by week.
+              </p>
             </RevealOnScroll>
           </div>
-          <RevealOnScroll
-            variant="slideUp"
-            delay={0.1}
-            className="col-span-12 lg:col-span-5"
-          >
-            <p className="text-ink-muted/85 text-lg leading-snug">
-              Series, podcasts, product reviews, brand films. Built and
-              shipped, week by week.
-            </p>
+
+          {/* inline metrics row, no boxes */}
+          <RevealOnScroll variant="slideUp" delay={0.12}>
+            <div className="mt-8 pt-6 border-t hairline">
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-3 text-ink">
+                {stats.map((s, i) => (
+                  <div
+                    key={s.label}
+                    className="inline-flex items-baseline gap-2.5"
+                  >
+                    {i > 0 && (
+                      <span
+                        aria-hidden
+                        className="text-ink-faint/60 text-2xl leading-none px-2 sm:px-4 select-none"
+                      >
+                        ·
+                      </span>
+                    )}
+                    <span className="text-3xl sm:text-4xl font-black tabular tracking-tight leading-none">
+                      {s.value}
+                    </span>
+                    <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] text-ink-faint">
+                      {s.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </RevealOnScroll>
         </div>
 
-        {/* stats */}
-        <RevealOnScroll variant="slideUp" delay={0.05}>
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-12 max-w-3xl">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl bg-white/65 backdrop-blur-md ring-1 ring-rose-mist/60 p-4 sm:p-6"
+        {/* series, asymmetric bento, view-count weighted */}
+        <RevealOnScroll
+          variant="slideUp"
+          delay={0.05}
+          stagger={0.05}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(180px,auto)] gap-4 lg:gap-5 mb-16"
+        >
+          {series.map((s) => {
+            const Icon = s.icon
+            const isKrnl = s.title === 'Building KRNL'
+            const isIndia = s.title === 'India Tour'
+            const isPoH = s.title === 'Proof of Hustle'
+            const isBase = s.title === 'Base Fellowship'
+            const isReviews = s.title === 'Product Reviews'
+            const isTechPod = s.title === 'Technical Podcasts'
+
+            // Bento spans (lg+); md = 2-col with KRNL full-width; mobile = stacked
+            const span = isKrnl
+              ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[340px] lg:min-h-0'
+              : isIndia
+                ? 'lg:col-span-5 lg:row-span-1 min-h-[200px]'
+                : isPoH
+                  ? 'lg:col-span-5 lg:row-span-1 min-h-[200px]'
+                  : isReviews
+                    ? 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
+                    : isBase
+                      ? 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
+                      : 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
+
+            // Visual treatment per tile
+            const surface = isKrnl
+              ? 'bg-ink text-white ring-white/10 hover:ring-white/20'
+              : isPoH
+                ? 'bg-gradient-to-br from-coral/15 to-coral/[0.04] ring-coral/25 hover:ring-coral/45'
+                : isReviews
+                  ? 'bg-ink text-white ring-white/10 hover:ring-white/25'
+                  : isBase
+                    ? 'bg-white/80 backdrop-blur-md ring-coral/30 hover:ring-coral/55'
+                    : isTechPod
+                      ? 'bg-transparent ring-ink/15 hover:ring-ink/30 hover:bg-white/40'
+                      : 'bg-white/75 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90'
+
+            const isDark = isKrnl || isReviews
+            const titleSize = isKrnl
+              ? 'text-3xl sm:text-4xl lg:text-5xl'
+              : 'text-xl'
+            const viewsSize = isKrnl
+              ? 'text-5xl sm:text-6xl'
+              : 'text-2xl'
+
+            return (
+              <motion.article
+                key={s.title}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className={cn(
+                  'group relative rounded-[20px] overflow-hidden ring-1 transition-all flex flex-col',
+                  span,
+                  surface,
+                )}
               >
-                <p className="text-3xl sm:text-4xl font-black text-ink tabular tracking-tight">
-                  {s.value}
-                </p>
-                <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </div>
+                {/* Backdrop image, KRNL hero */}
+                {isKrnl && (
+                  <div className="absolute inset-0 -z-0">
+                    <Image
+                      src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&q=80&auto=format&fit=crop"
+                      alt="Late-night code monitor"
+                      fill
+                      sizes="(min-width: 1024px) 60vw, 100vw"
+                      className="object-cover opacity-25"
+                    />
+                    <div className="absolute inset-0 bg-ink/60" />
+                    <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-coral/20 blur-[130px]" />
+                  </div>
+                )}
+                {/* Backdrop image, India Tour */}
+                {isIndia && (
+                  <div className="absolute inset-0 -z-0">
+                    <Image
+                      src="https://images.unsplash.com/photo-1666843527155-14ec5f016802?w=1600&q=80&auto=format&fit=crop"
+                      alt="Mumbai Marine Drive at dusk"
+                      fill
+                      sizes="(min-width: 1024px) 42vw, 100vw"
+                      className="object-cover opacity-60"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/90 via-white/55 to-transparent" />
+                  </div>
+                )}
+
+                <div
+                  className={cn(
+                    'relative z-10 flex flex-col h-full',
+                    isKrnl ? 'p-7 sm:p-9' : 'p-6 sm:p-7',
+                  )}
+                >
+                  <header className="flex items-start justify-between gap-3 mb-4">
+                    <div
+                      className={cn(
+                        'w-10 h-10 rounded-xl grid place-items-center ring-1',
+                        isDark
+                          ? 'bg-white/10 ring-white/15 text-coral'
+                          : isPoH
+                            ? 'bg-coral/15 ring-coral/30 text-coral'
+                            : 'bg-coral/10 ring-coral/20 text-coral',
+                      )}
+                    >
+                      <Icon size={isKrnl ? 20 : 16} />
+                    </div>
+                    <span
+                      className={cn(
+                        'text-[10px] font-mono font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full tabular ring-1',
+                        isDark
+                          ? 'text-coral bg-coral/15 ring-coral/30'
+                          : 'text-coral bg-coral/10 ring-coral/15',
+                      )}
+                    >
+                      {s.tag}
+                    </span>
+                  </header>
+
+                  <h3
+                    className={cn(
+                      'font-black tracking-tight [text-wrap:balance]',
+                      titleSize,
+                      isDark ? 'text-white' : 'text-ink',
+                    )}
+                  >
+                    {isKrnl ? (
+                      <>
+                        Building{' '}
+                        <span className="serif-italic text-coral">KRNL</span>
+                      </>
+                    ) : (
+                      s.title
+                    )}
+                  </h3>
+                  <p
+                    className={cn(
+                      'mt-2 leading-[1.55] [text-wrap:pretty]',
+                      isKrnl
+                        ? 'text-white/70 text-base sm:text-lg max-w-md'
+                        : isDark
+                          ? 'text-white/65 text-[14px]'
+                          : 'text-ink-muted text-[14px]',
+                    )}
+                  >
+                    {s.subtitle}
+                  </p>
+
+                  {isKrnl && (
+                    <div className="mt-auto pt-8">
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <p
+                            className={cn(
+                              'font-black text-coral tabular tracking-tight leading-none',
+                              viewsSize,
+                            )}
+                          >
+                            {s.views}
+                          </p>
+                          <p className="mt-2 text-[10px] font-mono uppercase tracking-[0.2em] text-white/45">
+                            21 EPISODES · TOTAL VIEWS
+                          </p>
+                        </div>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.16em] text-white/70 group-hover:text-coral transition-colors">
+                          Watch the docu-series
+                          <ArrowUpRight size={14} />
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {!isKrnl && (
+                    <footer
+                      className={cn(
+                        'mt-auto pt-5 border-t flex items-baseline justify-between',
+                        isDark ? 'border-white/10' : 'hairline',
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          'font-black tabular tracking-tight',
+                          viewsSize,
+                          'text-coral',
+                        )}
+                      >
+                        {s.views}
+                      </span>
+                      <span
+                        className={cn(
+                          'text-[10px] font-mono uppercase tracking-[0.16em]',
+                          isDark ? 'text-white/45' : 'text-ink-faint',
+                        )}
+                      >
+                        TOTAL VIEWS
+                      </span>
+                    </footer>
+                  )}
+                </div>
+              </motion.article>
+            )
+          })}
         </RevealOnScroll>
 
-        {/* brand wall */}
+        {/* brand wall, monochrome editorial credit line */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
           <div className="mb-14">
             <div className="flex items-center gap-3 mb-5">
@@ -664,80 +881,39 @@ function CreatorHub() {
                 Paid · Sponsored · Owned
               </span>
             </div>
-            <div className="flex flex-wrap gap-2.5">
-              {brands.map((b) => (
-                <motion.div
+            <div className="flex flex-wrap items-center gap-x-1 gap-y-2">
+              {brands.map((b, i) => (
+                <span
                   key={b.name}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                  className="group inline-flex items-center gap-3 pl-3 pr-5 py-3 bg-white/85 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white rounded-full transition-all shadow-[0_4px_14px_-8px_rgba(26,26,46,0.1)]"
+                  className="inline-flex items-center"
                 >
+                  {i > 0 && (
+                    <span
+                      aria-hidden
+                      className="px-3 text-ink-faint/60 select-none"
+                    >
+                      ·
+                    </span>
+                  )}
                   <span
-                    className="grid place-items-center h-7 w-7 rounded-full text-white font-black text-[11px] shrink-0 ring-1 ring-white/30 shadow-sm tabular"
-                    style={{ backgroundColor: b.hex }}
+                    className="text-[12px] sm:text-[13px] font-mono font-bold uppercase tracking-[0.22em] text-ink/70 transition-colors duration-200 cursor-default"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = b.hex
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = ''
+                    }}
                   >
-                    {b.name[0].toUpperCase()}
-                  </span>
-                  <span className="text-sm font-bold text-ink tracking-tight">
                     {b.name}
                   </span>
-                </motion.div>
+                </span>
               ))}
             </div>
-            <p className="mt-4 text-xs text-ink-muted/85">
+            <p className="mt-5 text-xs text-ink-muted/85 max-w-xl">
               Hands-on collabs across AI, Web3, and the messy middle. Each one
               shipped with metrics, not pitch decks.
             </p>
           </div>
-        </RevealOnScroll>
-
-        {/* series cards */}
-        <RevealOnScroll
-          variant="slideUp"
-          delay={0.05}
-          stagger={0.05}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16"
-        >
-          {series.map((s) => {
-            const Icon = s.icon
-            return (
-              <motion.article
-                key={s.title}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(
-                  'group relative rounded-[20px] p-6 sm:p-7 overflow-hidden ring-1 transition-all',
-                  s.featured
-                    ? 'bg-gradient-to-br from-coral/12 to-coral/[0.04] ring-coral/25 hover:ring-coral/45'
-                    : 'bg-white/72 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90',
-                )}
-              >
-                <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <header className="relative flex items-start justify-between mb-5">
-                  <div className="w-11 h-11 rounded-xl bg-coral/10 ring-1 ring-coral/20 grid place-items-center">
-                    <Icon size={18} className="text-coral" />
-                  </div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-coral bg-coral/10 ring-1 ring-coral/15 px-2.5 py-1 rounded-full tabular">
-                    {s.tag}
-                  </span>
-                </header>
-                <h3 className="relative text-xl font-black text-ink tracking-tight">
-                  {s.title}
-                </h3>
-                <p className="relative mt-2 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
-                  {s.subtitle}
-                </p>
-                <footer className="relative mt-5 pt-4 border-t hairline flex items-baseline justify-between">
-                  <span className="text-2xl font-black text-coral tabular tracking-tight">
-                    {s.views}
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
-                    TOTAL VIEWS
-                  </span>
-                </footer>
-              </motion.article>
-            )
-          })}
         </RevealOnScroll>
 
         {/* Proof of Hustle highlight */}

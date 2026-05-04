@@ -15,6 +15,12 @@ import { Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
+/** Deterministic seeded PRNG — keeps render pure (no Math.random in render path). */
+function seededRand(seed: number): number {
+  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453
+  return x - Math.floor(x)
+}
+
 function Dust({ count = 280 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null!)
   const mouse = useRef({ x: 0, y: 0 })
@@ -23,10 +29,10 @@ function Dust({ count = 280 }: { count?: number }) {
     const positions = new Float32Array(count * 3)
     const sizes = new Float32Array(count)
     for (let i = 0; i < count; i++) {
-      positions[i * 3 + 0] = (Math.random() - 0.5) * 14
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 8
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 6
-      sizes[i] = 0.025 + Math.random() * 0.06
+      positions[i * 3 + 0] = (seededRand(i * 4 + 1) - 0.5) * 14
+      positions[i * 3 + 1] = (seededRand(i * 4 + 2) - 0.5) * 8
+      positions[i * 3 + 2] = (seededRand(i * 4 + 3) - 0.5) * 6
+      sizes[i] = 0.025 + seededRand(i * 4 + 4) * 0.06
     }
     return { positions, sizes }
   }, [count])
@@ -86,7 +92,10 @@ function Lantern({
   speed?: number
 }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const offset = useMemo(() => Math.random() * Math.PI * 2, [])
+  const offset = useMemo(
+    () => seededRand(position[0] * 7.13 + position[1] * 3.17 + position[2] * 1.91) * Math.PI * 2,
+    [position],
+  )
 
   useFrame((state) => {
     if (!ref.current) return

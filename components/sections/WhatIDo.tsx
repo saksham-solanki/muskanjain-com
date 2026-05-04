@@ -36,25 +36,46 @@ const services: Service[] = [
 function WhatIDo() {
   return (
     <section className="relative bg-soft-pink overflow-hidden">
-      <div className="container-width section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 lg:mb-16">
-          <div className="lg:col-span-7">
-            <p className="text-xs font-mono tracking-[0.2em] text-ink-faint mb-4">
-              WHAT I DO
-            </p>
-            <h2 className="h-section text-ink tracking-tight">
+      {/* soft coral ambient halo behind the header */}
+      <div
+        aria-hidden
+        className="absolute top-10 left-1/2 -translate-x-1/2 w-[720px] h-[360px] rounded-full bg-coral/8 blur-[140px] pointer-events-none"
+      />
+
+      <div className="container-width section-padding relative">
+        {/* centered editorial header */}
+        <RevealOnScroll variant="blur">
+          <header className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
+            {/* top register — eyebrow with ornament rules */}
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-px w-10 sm:w-16 bg-coral/40" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-coral tabular">
+                No. 03 · WHAT I DO
+              </span>
+              <span className="h-px w-10 sm:w-16 bg-coral/40" />
+            </div>
+
+            {/* headline */}
+            <h2 className="h-section text-ink tracking-tight mt-7">
               three things,{' '}
               <span className="serif-italic text-coral">all the same problem</span>.
             </h2>
-          </div>
-          <div className="lg:col-span-5 lg:pt-2">
-            <p className="text-[15px] text-ink-muted leading-[1.6] lg:mt-auto [text-wrap:pretty]">
-              go-to-market is a series of repeatable loops dressed up as creative
-              work. i build the systems that run the loops, so the team can do the
-              parts only humans should.
+
+            {/* serif italic deck — feels like a magazine subtitle */}
+            <p className="serif-italic text-lg sm:text-xl text-ink-muted/85 leading-[1.45] max-w-2xl mx-auto mt-7 [text-wrap:balance]">
+              go-to-market is a series of repeatable loops dressed up as
+              creative work. i build the systems that run the loops, so the
+              team can do the parts only humans should.
             </p>
-          </div>
-        </div>
+
+            {/* tiny coral asterisk trio as a closing flourish */}
+            <div className="flex items-center justify-center gap-1.5 mt-7" aria-hidden>
+              <span className="h-1 w-1 rounded-full bg-coral/40" />
+              <span className="h-1.5 w-1.5 rounded-full bg-coral" />
+              <span className="h-1 w-1 rounded-full bg-coral/40" />
+            </div>
+          </header>
+        </RevealOnScroll>
 
         <RevealOnScroll variant="slideUp" stagger={0.07}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
