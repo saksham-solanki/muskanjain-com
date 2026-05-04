@@ -221,19 +221,19 @@ export const siteConfig = {
         name: 'Bangalore', members: 312, status: 'shipped', emoji: 'BLR',
         blurb: 'Hosted the kickoff, Web3 GTM teardowns over biryani.',
         metrics: ['120+ in the room', '23 GTM teardowns', '47 follow-up calls'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1687158266872-fd2773fa76c6?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Delhi', members: 224, status: 'shipped', emoji: 'DEL',
         blurb: 'Pre-Devcon meetup, 8 protocols pitched their GTM live.',
         metrics: ['95+ founders', '8 live teardowns', '12 partner intros'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1610153602032-5f2c6133b8ac?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Mumbai', members: 198, status: 'shipped', emoji: 'BOM',
         blurb: 'Outbound clinic, built and shipped a sequence on stage.',
         metrics: ['80+ marketers', 'Live cold-email build', '210 leads sourced'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1666843527155-14ec5f016802?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Hyderabad', members: 156, status: 'shipped', emoji: 'HYD',
@@ -257,13 +257,13 @@ export const siteConfig = {
         name: 'Dubai', members: 147, status: 'live', emoji: 'DXB',
         blurb: 'First international room, outbound playbook for the GCC.',
         metrics: ['140+ founders', 'GCC market entry', 'Cohort 02 live'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1753029111752-f12018752cd3?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Singapore', members: 0, status: 'soon', emoji: 'SIN',
         blurb: 'Loading. Drop a note if you want a seat at the first one.',
         metrics: ['Waitlist open', 'Q3 2026'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1472148439583-1f4cf81b80e0?w=1600&q=80&auto=format&fit=crop',
       },
     ],
     wall: [

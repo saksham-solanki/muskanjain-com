@@ -181,6 +181,8 @@ function CitiesSection() {
   const live = events.find((e) => e.status === 'live')
   const soon = events.find((e) => e.status === 'soon')
   const shipped = events.filter((e) => e.status === 'shipped')
+  const goa = shipped.find((e) => e.emoji === 'GOI')
+  const restShipped = shipped.filter((e) => e.emoji !== 'GOI')
 
   return (
     <section id="cities" className="relative bg-blush overflow-hidden">
@@ -249,7 +251,7 @@ function CitiesSection() {
           </RevealOnScroll>
         )}
 
-        {/* Shipped grid */}
+        {/* Shipped grid: GOI hero (col-span-2) above a 3-col row of the rest */}
         {shipped.length > 0 && (
           <>
             <div className="mb-5 flex items-center gap-3">
@@ -261,12 +263,54 @@ function CitiesSection() {
                 {shipped.length} CITIES · INDIA TOUR
               </span>
             </div>
+
+            {goa && (
+              <RevealOnScroll variant="slideUp" delay={0.02}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
+                  <div className="sm:col-span-2 lg:col-span-2 relative">
+                    <div
+                      aria-hidden
+                      className="absolute -inset-3 rounded-[28px] bg-coral/10 blur-2xl pointer-events-none -z-10"
+                    />
+                    <EventCard
+                      event={goa}
+                      index={events.indexOf(goa)}
+                      featured
+                    />
+                  </div>
+                  {/* Ghost CTA tile filling the remaining slot on lg */}
+                  <div className="hidden lg:flex flex-col justify-between rounded-[20px] ring-1 ring-dashed ring-coral/30 bg-white/40 backdrop-blur-md p-6 text-ink-muted">
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-coral tabular">
+                        NEXT ROOM
+                      </p>
+                      <p className="mt-3 text-2xl font-black text-ink tracking-tight leading-tight">
+                        Your city,{' '}
+                        <span className="serif-italic text-coral">next</span>?
+                      </p>
+                      <p className="mt-3 text-small text-ink-muted/85 leading-[1.55]">
+                        Drop a note if you want DeKoded in your town. We pick
+                        one new city every quarter.
+                      </p>
+                    </div>
+                    <Link
+                      href="#join"
+                      className="mt-6 inline-flex items-center gap-1.5 self-start text-[11px] font-mono uppercase tracking-[0.18em] text-coral hover:text-coral-deep transition-colors tabular"
+                    >
+                      Pitch your city
+                      <ArrowUpRight size={12} />
+                    </Link>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            )}
+
             <RevealOnScroll
               variant="slideUp"
               stagger={0.05}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
             >
-              {shipped.map((event) => (
+              {restShipped.map((event) => (
                 <EventCard
                   key={event.name}
                   event={event}
@@ -281,8 +325,16 @@ function CitiesSection() {
   )
 }
 
-function EventPoster({ code, status }: { code: string; status?: string }) {
-  // Per-city accent gradient, keeps each card visually distinct without photos
+function EventPoster({
+  code,
+  status,
+  headline,
+}: {
+  code: string
+  status?: string
+  headline?: string
+}) {
+  // Per-city accent gradient, kept as a quiet color swatch (not a poster)
   const gradients: Record<string, string> = {
     BLR: 'from-[#FFD0C4] via-coral/30 to-[#E5C5BC]',
     DEL: 'from-[#E5C5BC] via-rose-mist/50 to-[#FFD0C4]',
@@ -294,38 +346,72 @@ function EventPoster({ code, status }: { code: string; status?: string }) {
     SIN: 'from-[#B6CCE5] via-[#E5C5BC] to-[#FFE0DA]',
   }
   const grad = gradients[code] ?? 'from-coral/15 via-rose-mist/40 to-blush'
-  return (
-    <div className={`absolute inset-0 grid place-items-center bg-gradient-to-br ${grad}`}>
-      {/* Corner crops, editorial poster framing */}
-      <span className="absolute top-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
-      <span className="absolute top-2.5 right-2.5 font-mono text-xs text-coral/50 select-none">+</span>
-      <span className="absolute bottom-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
-      <span className="absolute bottom-2.5 right-2.5 font-mono text-xs text-coral/50 select-none">+</span>
+  const statusLabel =
+    status === 'live'
+      ? 'COHORT LIVE'
+      : status === 'soon'
+        ? 'OPENING SOON'
+        : 'SHIPPED'
 
-      {/* Subtle grain overlay for poster texture */}
+  return (
+    <div
+      className={`absolute inset-0 flex flex-col justify-between bg-gradient-to-br ${grad} p-5`}
+    >
+      {/* Quieter corner crop marks */}
+      <span className="absolute top-2 left-2 font-mono text-[9px] text-coral/30 select-none">
+        +
+      </span>
+      <span className="absolute top-2 right-2 font-mono text-[9px] text-coral/30 select-none">
+        +
+      </span>
+      <span className="absolute bottom-2 left-2 font-mono text-[9px] text-coral/30 select-none">
+        +
+      </span>
+      <span className="absolute bottom-2 right-2 font-mono text-[9px] text-coral/30 select-none">
+        +
+      </span>
+
+      {/* Subtle grain overlay */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-30 mix-blend-multiply"
+        className="absolute inset-0 pointer-events-none opacity-25 mix-blend-multiply"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.18 0 0 0 0 0.22 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
         }}
       />
 
-      <div className="relative text-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-ink/70 mb-2">
-          DEKODED ROOM
-        </p>
-        <p className="font-black text-6xl tracking-[-0.04em] text-ink tabular leading-none">
+      {/* Top: small mono city code + status, demoted from text-6xl to text-2xl */}
+      <div className="relative flex items-center justify-between">
+        <p className="font-mono text-2xl font-black tracking-[-0.02em] text-ink/85 tabular leading-none">
           {code}
         </p>
-        <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 backdrop-blur ring-1 ring-white/70">
+        <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/55 backdrop-blur ring-1 ring-white/60">
           <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
           <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink/70 tabular">
-            {status === 'live' ? 'COHORT LIVE' : status === 'soon' ? 'OPENING SOON' : 'SHIPPED'}
+            {statusLabel}
           </span>
-        </div>
+        </span>
       </div>
+
+      {/* Center: headline metric becomes the visual anchor */}
+      <div className="relative text-center px-2">
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink/55 mb-2">
+          DEKODED ROOM
+        </p>
+        {headline ? (
+          <p className="font-black text-2xl sm:text-3xl tracking-[-0.02em] text-ink tabular leading-tight [text-wrap:balance]">
+            {headline}
+          </p>
+        ) : (
+          <p className="font-black text-2xl tracking-[-0.02em] text-ink tabular leading-tight">
+            Receipts shipped.
+          </p>
+        )}
+      </div>
+
+      {/* Bottom: minimal spacer line */}
+      <div className="relative h-px w-12 bg-coral/40" />
     </div>
   )
 }
@@ -333,14 +419,16 @@ function EventPoster({ code, status }: { code: string; status?: string }) {
 function EventCard({
   event,
   index,
+  featured = false,
 }: {
   event: (typeof siteConfig.community.cities)[number]
   index: number
+  featured?: boolean
 }) {
-  const statusPill: Record<string, string> = {
-    shipped: 'bg-ink/85 text-white',
-    live: 'bg-coral text-white',
-    soon: 'bg-white/90 text-ink-muted ring-1 ring-ink/10',
+  const statusDot: Record<string, string> = {
+    shipped: 'bg-ink/70',
+    live: 'bg-coral animate-pulse',
+    soon: 'bg-ink-faint',
   }
   const statusLabel: Record<string, string> = {
     shipped: 'SHIPPED',
@@ -350,71 +438,128 @@ function EventCard({
   const blurb = event.blurb ?? ''
   const metrics = event.metrics ?? []
   const image = event.image
+  const headline = metrics[0]
+  const restMetrics = metrics.slice(1, 3) // cap at 2 to avoid crowding
 
   return (
     <motion.article
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative rounded-[20px] bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden flex flex-col"
+      className={cn(
+        'group relative rounded-[20px] bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden flex flex-col h-full',
+        featured && 'ring-coral/35 bg-white/85',
+      )}
     >
-      {/* image / poster */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        {image ? (
-          <Image
-            src={image}
-            alt={`Muskan at DeKoded ${event.emoji}`}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          />
-        ) : (
-          <EventPoster code={event.emoji} status={event.status} />
+      {/* image / poster, slightly taller for featured */}
+      <div
+        className={cn(
+          'relative overflow-hidden',
+          featured ? 'aspect-[16/9]' : 'aspect-[4/3]',
         )}
-        {/* event code chip */}
-        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-mono font-bold tracking-[0.2em] text-ink shadow-sm tabular">
+      >
+        {image ? (
+          <>
+            <Image
+              src={image}
+              alt={`Muskan at DeKoded ${event.emoji}`}
+              fill
+              sizes={
+                featured
+                  ? '(min-width: 1024px) 66vw, 100vw'
+                  : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
+              }
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            />
+            {/* Legibility wash for the small city-code chip on top-left */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-tr from-ink/40 via-transparent to-transparent pointer-events-none"
+            />
+          </>
+        ) : (
+          <EventPoster
+            code={event.emoji}
+            status={event.status}
+            headline={headline}
+          />
+        )}
+
+        {/* Quiet city-code chip, top-left only (status moves into body) */}
+        <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/85 backdrop-blur text-[10px] font-mono font-bold tracking-[0.2em] text-ink shadow-sm tabular">
           <MapPin size={10} className="text-coral" />
           {event.emoji}
         </div>
-        {/* status pill */}
-        <div
-          className={cn(
-            'absolute top-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.16em] tabular shadow-sm',
-            statusPill[event.status],
-          )}
-        >
-          {event.status === 'live' && (
-            <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-          )}
-          {statusLabel[event.status]}
-        </div>
       </div>
 
-      {/* body */}
-      <div className="p-5 sm:p-6 flex flex-col flex-1">
-        <div className="flex items-baseline gap-2">
+      {/* body, new hierarchy: code+dot, big headline metric, h-card, blurb, small metric pills */}
+      <div
+        className={cn(
+          'flex flex-col flex-1',
+          featured ? 'p-6 sm:p-8' : 'p-5 sm:p-6',
+        )}
+      >
+        {/* Top: small mono city code + status dot */}
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[10px] tracking-[0.2em] text-ink-faint tabular font-bold">
+            {event.emoji}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span
+              className={cn(
+                'h-1.5 w-1.5 rounded-full',
+                statusDot[event.status],
+              )}
+            />
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-ink-faint tabular">
+              {statusLabel[event.status]}
+            </span>
+          </span>
+          <span className="h-px flex-1 bg-ink/8" />
           <span className="font-mono text-[10px] text-ink-faint tabular">
             No.{String(index + 1).padStart(2, '0')}
           </span>
-          <span className="h-px flex-1 bg-ink/8" />
         </div>
-        <h3 className="mt-2 text-xl font-black text-ink tracking-tight">
+
+        {/* Big: headline outcome, the visual anchor */}
+        {headline && (
+          <p
+            className={cn(
+              'mt-3 font-black text-coral tabular tracking-[-0.02em] leading-[1.05] [text-wrap:balance]',
+              featured ? 'text-4xl sm:text-5xl' : 'text-3xl',
+            )}
+          >
+            {headline}
+          </p>
+        )}
+
+        {/* h-card: city name + DeKoded prefix */}
+        <h3
+          className={cn(
+            'h-card mt-3 text-ink tracking-tight',
+            featured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
+          )}
+        >
           DeKoded {event.emoji}
-          <span className="text-ink-muted/70 font-bold">
+          <span className="text-ink-muted/70 font-semibold">
             {' '}
             · {event.name}
           </span>
         </h3>
+
+        {/* Subtitle blurb */}
         {blurb && (
-          <p className="mt-2 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
+          <p className="mt-2 text-small text-ink-muted leading-[1.55] [text-wrap:pretty]">
             {blurb}
           </p>
         )}
-        {metrics.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {metrics.map((m) => (
+
+        {/* Bottom: remaining 1-2 metrics as small mono pills */}
+        {restMetrics.length > 0 && (
+          <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
+            {restMetrics.map((m) => (
               <span
                 key={m}
-                className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-coral bg-coral/10 ring-1 ring-coral/15 rounded-full tabular"
+                className="inline-flex items-center px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-muted bg-ink/[0.04] ring-1 ring-ink/8 rounded-full tabular"
               >
                 {m}
               </span>
@@ -712,119 +857,107 @@ function CreatorHub() {
           </RevealOnScroll>
         </div>
 
-        {/* series, asymmetric bento, view-count weighted */}
-        <RevealOnScroll
-          variant="slideUp"
-          delay={0.05}
-          stagger={0.05}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(180px,auto)] gap-4 lg:gap-5 mb-16"
-        >
-          {series.map((s) => {
+        {/* Series bento — one unified card design, hierarchy from size only.
+            Plain <div> grid (NOT RevealOnScroll) so col-span classes survive. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(200px,auto)] gap-4 lg:gap-5 mb-16">
+          {series.map((s, i) => {
             const Icon = s.icon
-            const isKrnl = s.title === 'Building KRNL'
-            const isIndia = s.title === 'India Tour'
-            const isPoH = s.title === 'Proof of Hustle'
-            const isBase = s.title === 'Base Fellowship'
-            const isReviews = s.title === 'Product Reviews'
-            const isTechPod = s.title === 'Technical Podcasts'
+            const isFeatured = s.title === 'Building KRNL'
 
-            // Bento spans (lg+); md = 2-col with KRNL full-width; mobile = stacked
-            const span = isKrnl
-              ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[340px] lg:min-h-0'
-              : isIndia
-                ? 'lg:col-span-5 lg:row-span-1 min-h-[200px]'
-                : isPoH
-                  ? 'lg:col-span-5 lg:row-span-1 min-h-[200px]'
-                  : isReviews
-                    ? 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
-                    : isBase
-                      ? 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
-                      : 'lg:col-span-4 lg:row-span-1 min-h-[200px]'
-
-            // Visual treatment per tile
-            const surface = isKrnl
-              ? 'bg-ink text-white ring-white/10 hover:ring-white/20'
-              : isPoH
-                ? 'bg-gradient-to-br from-coral/15 to-coral/[0.04] ring-coral/25 hover:ring-coral/45'
-                : isReviews
-                  ? 'bg-ink text-white ring-white/10 hover:ring-white/25'
-                  : isBase
-                    ? 'bg-white/80 backdrop-blur-md ring-coral/30 hover:ring-coral/55'
-                    : isTechPod
-                      ? 'bg-transparent ring-ink/15 hover:ring-ink/30 hover:bg-white/40'
-                      : 'bg-white/75 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90'
-
-            const isDark = isKrnl || isReviews
-            const titleSize = isKrnl
-              ? 'text-3xl sm:text-4xl lg:text-5xl'
-              : 'text-xl'
-            const viewsSize = isKrnl
-              ? 'text-5xl sm:text-6xl'
-              : 'text-2xl'
+            // Size — featured spans 7×2, large secondaries span 5, rest span 4
+            const isLarge =
+              s.title === 'India Tour' || s.title === 'Proof of Hustle'
+            const span = isFeatured
+              ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[380px] lg:min-h-0'
+              : isLarge
+                ? 'lg:col-span-5'
+                : 'lg:col-span-4'
 
             return (
               <motion.article
                 key={s.title}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.5,
+                    delay: i * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                }}
+                viewport={{ once: true, margin: '-60px' }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+                }}
                 className={cn(
-                  'group relative rounded-[20px] overflow-hidden ring-1 transition-all flex flex-col',
+                  'group relative rounded-[22px] overflow-hidden ring-1 transition-all flex flex-col',
                   span,
-                  surface,
+                  isFeatured
+                    ? 'text-white ring-coral/30 hover:ring-coral/50 shadow-[0_24px_60px_-24px_rgba(255,107,107,0.45)]'
+                    : 'bg-white/78 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/92',
                 )}
               >
-                {/* Backdrop image, KRNL hero */}
-                {isKrnl && (
-                  <div className="absolute inset-0 -z-0">
-                    <Image
-                      src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&q=80&auto=format&fit=crop"
-                      alt="Late-night code monitor"
-                      fill
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="object-cover opacity-25"
+                {/* Featured tile — coral gradient + soft dot pattern (no image) */}
+                {isFeatured && (
+                  <>
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 -z-10"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, #FF6B6B 0%, #E84545 55%, #1A1A2E 130%)',
+                      }}
                     />
-                    <div className="absolute inset-0 bg-ink/60" />
-                    <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-coral/20 blur-[130px]" />
-                  </div>
+                    {/* Subtle dot pattern */}
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 -z-10 opacity-[0.18] mix-blend-overlay"
+                      style={{
+                        backgroundImage:
+                          'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.7) 1px, transparent 0)',
+                        backgroundSize: '14px 14px',
+                      }}
+                    />
+                    {/* Corner glow */}
+                    <div
+                      aria-hidden
+                      className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full bg-coral/40 blur-[140px] -z-10 pointer-events-none"
+                    />
+                  </>
                 )}
-                {/* Backdrop image, India Tour */}
-                {isIndia && (
-                  <div className="absolute inset-0 -z-0">
-                    <Image
-                      src="https://images.unsplash.com/photo-1666843527155-14ec5f016802?w=1600&q=80&auto=format&fit=crop"
-                      alt="Mumbai Marine Drive at dusk"
-                      fill
-                      sizes="(min-width: 1024px) 42vw, 100vw"
-                      className="object-cover opacity-60"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/90 via-white/55 to-transparent" />
-                  </div>
+
+                {/* Hover wash for non-featured cards */}
+                {!isFeatured && (
+                  <div
+                    aria-hidden
+                    className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  />
                 )}
 
                 <div
                   className={cn(
                     'relative z-10 flex flex-col h-full',
-                    isKrnl ? 'p-7 sm:p-9' : 'p-6 sm:p-7',
+                    isFeatured ? 'p-8 sm:p-10' : 'p-6 sm:p-7',
                   )}
                 >
-                  <header className="flex items-start justify-between gap-3 mb-4">
+                  <header className="flex items-start justify-between gap-3 mb-5">
                     <div
                       className={cn(
-                        'w-10 h-10 rounded-xl grid place-items-center ring-1',
-                        isDark
-                          ? 'bg-white/10 ring-white/15 text-coral'
-                          : isPoH
-                            ? 'bg-coral/15 ring-coral/30 text-coral'
-                            : 'bg-coral/10 ring-coral/20 text-coral',
+                        'rounded-xl grid place-items-center ring-1',
+                        isFeatured
+                          ? 'w-12 h-12 bg-white/12 ring-white/25 text-white'
+                          : 'w-11 h-11 bg-coral/10 ring-coral/20 text-coral',
                       )}
                     >
-                      <Icon size={isKrnl ? 20 : 16} />
+                      <Icon size={isFeatured ? 22 : 18} />
                     </div>
                     <span
                       className={cn(
-                        'text-[10px] font-mono font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full tabular ring-1',
-                        isDark
-                          ? 'text-coral bg-coral/15 ring-coral/30'
+                        'text-[10px] font-mono font-bold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full tabular ring-1',
+                        isFeatured
+                          ? 'text-white bg-white/12 ring-white/25'
                           : 'text-coral bg-coral/10 ring-coral/15',
                       )}
                     >
@@ -835,78 +968,47 @@ function CreatorHub() {
                   <h3
                     className={cn(
                       'font-black tracking-tight [text-wrap:balance]',
-                      titleSize,
-                      isDark ? 'text-white' : 'text-ink',
+                      isFeatured
+                        ? 'text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.05]'
+                        : 'text-xl text-ink',
                     )}
                   >
-                    {isKrnl ? (
-                      <>
-                        Building{' '}
-                        <span className="serif-italic text-coral">KRNL</span>
-                      </>
-                    ) : (
-                      s.title
-                    )}
+                    {s.title}
                   </h3>
                   <p
                     className={cn(
-                      'mt-2 leading-[1.55] [text-wrap:pretty]',
-                      isKrnl
-                        ? 'text-white/70 text-base sm:text-lg max-w-md'
-                        : isDark
-                          ? 'text-white/65 text-[14px]'
-                          : 'text-ink-muted text-[14px]',
+                      'mt-3 leading-[1.55] [text-wrap:pretty]',
+                      isFeatured
+                        ? 'text-white/80 text-base sm:text-lg max-w-md'
+                        : 'text-ink-muted text-[14px]',
                     )}
                   >
                     {s.subtitle}
                   </p>
 
-                  {isKrnl && (
-                    <div className="mt-auto pt-8">
-                      <div className="flex items-end justify-between gap-4">
-                        <div>
-                          <p
-                            className={cn(
-                              'font-black text-coral tabular tracking-tight leading-none',
-                              viewsSize,
-                            )}
-                          >
-                            {s.views}
-                          </p>
-                          <p className="mt-2 text-[10px] font-mono uppercase tracking-[0.2em] text-white/45">
-                            21 EPISODES · TOTAL VIEWS
-                          </p>
-                        </div>
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.16em] text-white/70 group-hover:text-coral transition-colors">
-                          Watch the docu-series
-                          <ArrowUpRight size={14} />
-                        </span>
+                  {isFeatured && (
+                    <div className="mt-auto pt-8 flex items-end justify-between gap-4 flex-wrap">
+                      <div>
+                        <p className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tabular tracking-[-0.045em] leading-none">
+                          {s.views}
+                        </p>
+                        <p className="mt-2 text-[10px] font-mono uppercase tracking-[0.22em] text-white/55">
+                          21 EPISODES · TOTAL VIEWS
+                        </p>
                       </div>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.18em] text-white/85 group-hover:text-white transition-colors">
+                        Watch the docu-series
+                        <ArrowUpRight size={14} />
+                      </span>
                     </div>
                   )}
 
-                  {!isKrnl && (
-                    <footer
-                      className={cn(
-                        'mt-auto pt-5 border-t flex items-baseline justify-between',
-                        isDark ? 'border-white/10' : 'hairline',
-                      )}
-                    >
-                      <span
-                        className={cn(
-                          'font-black tabular tracking-tight',
-                          viewsSize,
-                          'text-coral',
-                        )}
-                      >
+                  {!isFeatured && (
+                    <footer className="mt-auto pt-5 border-t hairline flex items-baseline justify-between">
+                      <span className="text-2xl sm:text-3xl font-black text-coral tabular tracking-[-0.03em]">
                         {s.views}
                       </span>
-                      <span
-                        className={cn(
-                          'text-[10px] font-mono uppercase tracking-[0.16em]',
-                          isDark ? 'text-white/45' : 'text-ink-faint',
-                        )}
-                      >
+                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-faint">
                         TOTAL VIEWS
                       </span>
                     </footer>
@@ -915,7 +1017,7 @@ function CreatorHub() {
               </motion.article>
             )
           })}
-        </RevealOnScroll>
+        </div>
 
         {/* brand wall, monochrome editorial credit line */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
