@@ -19,6 +19,7 @@ import {
   Gem,
   Sparkles,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { siteConfig } from '@/data/site-config'
 import { cn } from '@/lib/utils'
@@ -105,7 +106,7 @@ const verticalContent: Record<string, VerticalDetail> = {
   },
 }
 
-const verticalIcons: Record<string, React.ElementType> = {
+const verticalIcons: Record<string, LucideIcon> = {
   defi: TrendingUp,
   rwa: Landmark,
   'l1-l2': Layers,
@@ -115,7 +116,7 @@ const verticalIcons: Record<string, React.ElementType> = {
   'nft-fi': Gem,
 }
 
-const serviceIconMap: Record<string, React.ElementType> = {
+const serviceIconMap: Record<string, LucideIcon> = {
   'community-engine': Users,
   'gtm-engine': Radar,
   'content-system': PenTool,
