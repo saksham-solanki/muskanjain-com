@@ -178,38 +178,37 @@ function HeroSection() {
    ═══════════════════════════════════════════════════════════════ */
 function CitiesSection() {
   const events = siteConfig.community.cities
+  const live = events.find((e) => e.status === 'live')
+  const soon = events.find((e) => e.status === 'soon')
+  const shipped = events.filter((e) => e.status === 'shipped')
 
   return (
     <section id="cities" className="relative bg-blush overflow-hidden">
       <div className="container-width section-padding">
-        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
-          <div className="col-span-12 lg:col-span-8">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow">No. 04</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">EVENTS, HOSTED</span>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section mt-6">
-                Eight rooms.{' '}
-                <span className="serif-italic text-coral">Hundreds</span> of
-                founders. <br className="hidden sm:block" />
-                One playbook, shipped every time.
-              </h2>
-            </RevealOnScroll>
-          </div>
-          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
-            <p className="text-ink-muted/85 text-lg leading-snug">
-              DeKoded, strategy, content, outbound, the room itself. Here&apos;s
-              what each one shipped.
+        {/* centered editorial header */}
+        <RevealOnScroll variant="blur">
+          <header className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-px w-10 sm:w-16 bg-coral/40" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-coral tabular">
+                No. 04 · EVENTS HOSTED
+              </span>
+              <span className="h-px w-10 sm:w-16 bg-coral/40" />
+            </div>
+            <h2 className="h-section text-ink tracking-tight mt-7">
+              Eight rooms.{' '}
+              <span className="serif-italic text-coral">Hundreds</span> of
+              founders. One playbook, shipped every time.
+            </h2>
+            <p className="serif-italic text-lg sm:text-xl text-ink-muted/85 leading-[1.45] max-w-2xl mx-auto mt-7 [text-wrap:balance]">
+              DeKoded, end to end. Strategy, content, outbound, the room
+              itself, here&apos;s what each one shipped.
             </p>
-            <p className="mt-3 text-xs text-ink-faint tabular">
+            <p className="mt-5 text-[11px] text-ink-faint tabular font-mono uppercase tracking-[0.22em]">
               No badges · No panels · Just receipts
             </p>
-          </RevealOnScroll>
-        </div>
+          </header>
+        </RevealOnScroll>
 
         {/* 3D city globe, interactive tour visualization */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
@@ -219,15 +218,64 @@ function CitiesSection() {
           </div>
         </RevealOnScroll>
 
-        <RevealOnScroll
-          variant="slideUp"
-          stagger={0.05}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {events.map((event, i) => (
-            <EventCard key={event.name} event={event} index={i} />
-          ))}
-        </RevealOnScroll>
+        {/* Featured row: live event (wide) + coming-soon (narrow) */}
+        {(live || soon) && (
+          <RevealOnScroll variant="slideUp" delay={0.02}>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-coral tabular font-bold">
+                STILL OPEN
+              </span>
+              <span className="h-px flex-1 bg-coral/15" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint tabular">
+                LIVE NOW · COMING UP
+              </span>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
+              {live && (
+                <div className="lg:col-span-2 relative">
+                  <div
+                    aria-hidden
+                    className="absolute -inset-3 rounded-[28px] bg-coral/12 blur-2xl pointer-events-none -z-10"
+                  />
+                  <EventCard event={live} index={events.indexOf(live)} />
+                </div>
+              )}
+              {soon && (
+                <div className="opacity-90">
+                  <EventCard event={soon} index={events.indexOf(soon)} />
+                </div>
+              )}
+            </div>
+          </RevealOnScroll>
+        )}
+
+        {/* Shipped grid */}
+        {shipped.length > 0 && (
+          <>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink tabular font-bold">
+                SHIPPED ROOMS
+              </span>
+              <span className="h-px flex-1 bg-ink/10" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint tabular">
+                {shipped.length} CITIES · INDIA TOUR
+              </span>
+            </div>
+            <RevealOnScroll
+              variant="slideUp"
+              stagger={0.05}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            >
+              {shipped.map((event) => (
+                <EventCard
+                  key={event.name}
+                  event={event}
+                  index={events.indexOf(event)}
+                />
+              ))}
+            </RevealOnScroll>
+          </>
+        )}
       </div>
     </section>
   )
