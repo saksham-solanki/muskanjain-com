@@ -1,5 +1,5 @@
 'use client'
-/** BlurFade — simple blur+fade+rise reveal wrapper. */
+/** BlurFade, simple blur+fade+rise reveal wrapper. */
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'

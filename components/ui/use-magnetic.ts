@@ -4,7 +4,7 @@ import { useRef, useEffect } from 'react'
 import { useMotionValue, useSpring, type MotionValue } from 'framer-motion'
 
 /**
- * useMagnetic — magnetic cursor-pull hook. Cursor gently tugs the element
+ * useMagnetic, magnetic cursor-pull hook. Cursor gently tugs the element
  * toward it when within `radius`, snaps back when outside. Spring-smoothed.
  *
  * Disabled on touch devices by default. Use on CTAs/hero buttons for

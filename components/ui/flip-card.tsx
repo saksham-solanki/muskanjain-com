@@ -1,5 +1,5 @@
 'use client'
-/** FlipCard — 3D card that flips front↔back on hover. */
+/** FlipCard, 3D card that flips front↔back on hover. */
 import { cn } from '@/lib/utils'
 
 export function FlipCard({

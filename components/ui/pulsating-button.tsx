@@ -1,4 +1,4 @@
-/** PulsatingButton — CTA with expanding pulse aura (attention grabber). */
+/** PulsatingButton, CTA with expanding pulse aura (attention grabber). */
 import { cn } from '@/lib/utils'
 
 export function PulsatingButton({ children, className, pulseColor = 'rgba(59, 130, 246, 0.5)', ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement> & { pulseColor?: string }) {

@@ -13,7 +13,7 @@ const timeline = [
     year: '2023',
     title: 'Nakamoto Hub · CryptoFemale',
     location: 'BLR',
-    text: 'First foothold in crypto at 17. Community-first, no playbook. Learned that the room matters as much as the protocol — hosted strangers, made them builders.',
+    text: 'First foothold in crypto at 17. Community-first, no playbook. Learned that the room matters as much as the protocol, hosted strangers, made them builders.',
   },
   {
     year: '2024',
@@ -25,13 +25,13 @@ const timeline = [
     year: '2024–2025',
     title: 'KRNL Labs → DeKoded Tour',
     location: '6 Indian cities',
-    text: 'Ran DeKoded across Bangalore, Delhi, Mumbai, Hyderabad, Pune, and Goa. 600+ builders showed up. One Goa retreat shipped a full token launch — $340K pipeline in 72 hours. The wall idea was born.',
+    text: 'Ran DeKoded across Bangalore, Delhi, Mumbai, Hyderabad, Pune, and Goa. 600+ builders showed up. One Goa retreat shipped a full token launch, $340K pipeline in 72 hours. The wall idea was born.',
   },
   {
     year: '2025–2026',
     title: 'Canton Foundation',
     location: 'DXB / Global',
-    text: 'Marketing the blockchain running $9T/month in institutional flow. Proved that soft-edge, editorial-first positioning works for enterprise infrastructure — if you actually understand the builder.',
+    text: 'Marketing the blockchain running $9T/month in institutional flow. Proved that soft-edge, editorial-first positioning works for enterprise infrastructure, if you actually understand the builder.',
   },
   {
     year: '2026',
@@ -80,7 +80,7 @@ const stats = [
 const cityData = [
   { code: 'BLR', name: 'Bangalore', blurb: 'Web3 GTM teardowns over biryani. 120+ in the room.', status: 'shipped' },
   { code: 'DEL', name: 'Delhi', blurb: 'Pre-Devcon meetup. 8 protocols pitched their GTM live.', status: 'shipped' },
-  { code: 'BOM', name: 'Mumbai', blurb: 'Outbound clinic — built and shipped a cold sequence on stage.', status: 'shipped' },
+  { code: 'BOM', name: 'Mumbai', blurb: 'Outbound clinic, built and shipped a cold sequence on stage.', status: 'shipped' },
   { code: 'HYD', name: 'Hyderabad', blurb: 'Content engine workshop. One founder story, 30 assets.', status: 'shipped' },
   { code: 'PNQ', name: 'Pune', blurb: 'Founder dinner. What GTM gets wrong, in seven slides.', status: 'shipped' },
   { code: 'GOI', name: 'Goa', blurb: 'Three-day retreat. One launch, $340K pipeline shipped.', status: 'shipped' },
@@ -103,7 +103,7 @@ export default function AboutPage() {
         <div className="container-width section-padding relative">
           <div className="grid grid-cols-12 gap-6 lg:gap-10 items-center">
 
-            {/* Left — copy */}
+            {/* Left, copy */}
             <div className="col-span-12 lg:col-span-7">
               <BlurFade delay={0} duration={0.5}>
                 <div className="flex items-center gap-3">
@@ -154,7 +154,7 @@ export default function AboutPage() {
               </BlurFade>
             </div>
 
-            {/* Right — avatar card */}
+            {/* Right, avatar card */}
             <div className="col-span-12 lg:col-span-5">
               <BlurFade delay={0.3} duration={0.6} yOffset={20}>
                 <div className="relative max-w-sm mx-auto">
@@ -295,7 +295,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-4xl">
 
-            {/* Pulse card 1 — @Smallest_AI */}
+            {/* Pulse card 1, @Smallest_AI */}
             <RevealOnScroll variant="scaleIn" delay={0.05}>
               <div className="rounded-[22px] p-6 sm:p-7 bg-ink text-white ring-1 ring-white/8 shadow-[0_12px_40px_-16px_rgba(26,26,46,0.5)] hover:-translate-y-0.5 transition-all duration-300 group relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-40 h-40 bg-coral/8 blur-[60px] pointer-events-none rounded-full" />
@@ -320,7 +320,7 @@ export default function AboutPage() {
                   >
                     @Smallest_AI
                   </a>
-                  . Voice agents that actually sound human — not the robocall version. Deployed in production flows, not demos.
+                  . Voice agents that actually sound human, not the robocall version. Deployed in production flows, not demos.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {['Voice AI', 'Agents', 'Infra'].map((tag) => (
@@ -332,7 +332,7 @@ export default function AboutPage() {
               </div>
             </RevealOnScroll>
 
-            {/* Pulse card 2 — Build Club Singapore */}
+            {/* Pulse card 2, Build Club Singapore */}
             <RevealOnScroll variant="scaleIn" delay={0.15}>
               <div className="rounded-[22px] p-6 sm:p-7 bg-white/80 backdrop-blur-sm ring-1 ring-rose-mist/70 shadow-[0_12px_40px_-16px_rgba(26,26,46,0.12)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
                 <div className="absolute -bottom-8 -left-8 w-36 h-36 bg-coral/8 blur-[50px] pointer-events-none rounded-full" />
@@ -348,7 +348,7 @@ export default function AboutPage() {
                   <span className="serif-italic text-coral">Singapore</span>
                 </h3>
                 <p className="text-[14px] text-ink-secondary leading-[1.65] mb-5">
-                  The room moves to Singapore. First cohort launching Q3 2026. If you&apos;re building at the AI&nbsp;× Web3 edge in SEA — drop your name on the waitlist.
+                  The room moves to Singapore. First cohort launching Q3 2026. If you&apos;re building at the AI&nbsp;× Web3 edge in SEA, drop your name on the waitlist.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {['Singapore', 'SEA', 'IRL', 'Q3 2026'].map((tag) => (
@@ -486,7 +486,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-lead mt-4 max-w-lg mx-auto text-ink-muted [text-wrap:pretty]">
               DXB is live. Singapore loads Q3 2026. If you ship AI or Web3 and want a room
-              where work happens — the door&apos;s open.
+              where work happens, the door&apos;s open.
             </p>
           </RevealOnScroll>
 

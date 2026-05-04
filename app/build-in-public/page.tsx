@@ -10,7 +10,7 @@ import { CountUp } from '@/components/ui/count-up'
 import { cn } from '@/lib/utils'
 
 /* ═══════════════════════════════════════════════════════
-   TIMELINE DATA — real milestones in chronological order
+   TIMELINE DATA, real milestones in chronological order
    ═══════════════════════════════════════════════════════ */
 interface Milestone {
   date: string
@@ -39,25 +39,25 @@ const milestones: Milestone[] = [
   },
   {
     date: 'Q3 2024',
-    headline: 'Joined Symbiote. DeKoded Bangalore — first event.',
+    headline: 'Joined Symbiote. DeKoded Bangalore, first event.',
     detail: '120+ people in a room for Web3 GTM teardowns over biryani. The community got a face.',
     metric: '120+ in the room',
   },
   {
     date: 'Q4 2024',
     headline: 'KRNL Labs + KRNL documentary series launched.',
-    detail: 'Kicked off the Building KRNL docu series — raw footage from inside a protocol launch.',
+    detail: 'Kicked off the Building KRNL docu series, raw footage from inside a protocol launch.',
     metric: '305K views',
   },
   {
     date: 'H1 2025',
-    headline: 'India Tour — 6 cities.',
+    headline: 'India Tour, 6 cities.',
     detail: 'Bangalore → Delhi → Mumbai → Hyderabad → Pune → Goa. One DeKoded event per city.',
     metric: '130K views',
   },
   {
     date: 'H2 2025',
-    headline: 'Canton Foundation — marketing role.',
+    headline: 'Canton Foundation, marketing role.',
     detail: 'Joined the $9T/month blockchain network as a core marketing contributor.',
   },
   {
@@ -69,7 +69,7 @@ const milestones: Milestone[] = [
   {
     date: 'Q1 2026',
     headline: '@Smallest_AI voice agents work.',
-    detail: 'Deep in the voice agent stack — building and shipping inside the Smallest AI ecosystem.',
+    detail: 'Deep in the voice agent stack, building and shipping inside the Smallest AI ecosystem.',
   },
   {
     date: 'Q3 2026',
@@ -161,7 +161,7 @@ export default function BuildInPublicPage() {
       <section className="bg-ink text-white relative overflow-hidden">
         <div className="container-width py-10 lg:py-12">
           <BlurFade delay={0.05}>
-            <p className="section-label text-white/40 mb-8">LIVE LEDGER — CURRENT NUMBERS</p>
+            <p className="section-label text-white/40 mb-8">LIVE LEDGER, CURRENT NUMBERS</p>
           </BlurFade>
           <RevealOnScroll variant="slideUp" stagger={0.1} className="grid grid-cols-2 sm:grid-cols-4 gap-8">
             {ledger.map((stat) => (

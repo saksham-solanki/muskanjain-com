@@ -1,4 +1,4 @@
-/** AnimatedLines — SVG lines that draw themselves on in-view (decorative divider). */
+/** AnimatedLines, SVG lines that draw themselves on in-view (decorative divider). */
 'use client'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'

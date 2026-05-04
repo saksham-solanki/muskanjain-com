@@ -113,7 +113,7 @@ export default function BookPage() {
               </form>
 
               <p className="mt-5 text-xs text-ink-muted tabular">
-                No spam · No Calendly · Just an invite — or a soft no.
+                No spam · No Calendly · Just an invite, or a soft no.
               </p>
             </div>
           </div>

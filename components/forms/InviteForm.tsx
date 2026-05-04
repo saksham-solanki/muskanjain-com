@@ -46,7 +46,7 @@ export function InviteForm() {
         setStatus('error')
       }
     } catch {
-      setErrorMsg('network hiccup — please try again.')
+      setErrorMsg('network hiccup, please try again.')
       setStatus('error')
     }
   }
@@ -59,7 +59,7 @@ export function InviteForm() {
           you're on the list
         </span>
         <p className="text-sm text-ink-muted">
-          check your DMs — a member will reach out within 24 hours.
+          check your DMs, a member will reach out within 24 hours.
         </p>
       </div>
     )
@@ -128,7 +128,7 @@ export function InviteForm() {
 
       {/* Microcopy */}
       <p className="text-xs text-ink-muted text-center tabular">
-        no spam · no newsletter · just the invite — or a soft no.
+        no spam · no newsletter · just the invite, or a soft no.
       </p>
     </form>
   )

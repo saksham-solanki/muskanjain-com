@@ -7,7 +7,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Muskan Jain | The Build Club — AI × Web3 GTM',
+    default: 'Muskan Jain | The Build Club, AI × Web3 GTM',
     template: '%s | Muskan Jain',
   },
   description:
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Muskan Jain — The Build Club',
+    siteName: 'Muskan Jain, The Build Club',
     images: [{ url: '/muskan.jpeg', width: 1200, height: 630 }],
   },
   twitter: {

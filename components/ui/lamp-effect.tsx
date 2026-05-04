@@ -1,4 +1,4 @@
-/** LampEffect — ceiling-lamp spotlight wash. Aceternity-style. */
+/** LampEffect, ceiling-lamp spotlight wash. Aceternity-style. */
 import { cn } from '@/lib/utils'
 
 export function LampEffect({ className, children }: { className?: string; children?: React.ReactNode }) {

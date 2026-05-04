@@ -3,7 +3,7 @@
 import { useId } from 'react'
 
 /**
- * Sparkline — micro-chart for inline metric visuals. SVG, no charting lib.
+ * Sparkline, micro-chart for inline metric visuals. SVG, no charting lib.
  * Fill is a vertical gradient (color → transparent).
  *
  * Source: Revun-Website

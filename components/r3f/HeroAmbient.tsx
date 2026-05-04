@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * HeroAmbient — subtle 3D atmospheric layer that lives BEHIND the hero copy.
+ * HeroAmbient, subtle 3D atmospheric layer that lives BEHIND the hero copy.
  *
  * Design intent: editorial, not sci-fi. A drifting particle dust field with
  * coral-tinted soft motes plus a few floating "lantern" orbs. Mouse parallax

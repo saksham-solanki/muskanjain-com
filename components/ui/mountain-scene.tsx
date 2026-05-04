@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 
 /**
- * MountainScene — pastel illustration echoing Muskan's mood-board reference
+ * MountainScene, pastel illustration echoing Muskan's mood-board reference
  * (snowy peaks, soft peach sky, a tiny sign in the foreground).
  * Pure SVG + framer-motion. No external assets.
  */
@@ -68,14 +68,14 @@ export function MountainScene({
         <circle cx="340" cy="170" r="150" fill="url(#ms-sun)" />
         <circle cx="340" cy="170" r="44" fill="#FFF4EB" opacity="0.95" />
 
-        {/* Far range — purple haze */}
+        {/* Far range, purple haze */}
         <path
           d="M0 320 L70 270 L130 305 L190 260 L260 300 L320 250 L390 290 L480 265 L480 360 L0 360 Z"
           fill="url(#ms-far)"
           opacity="0.55"
         />
 
-        {/* Mid range — soft blue */}
+        {/* Mid range, soft blue */}
         <path
           d="M0 360 L40 320 L100 350 L170 295 L240 335 L310 305 L380 335 L440 315 L480 320 L480 430 L0 430 Z"
           fill="url(#ms-mid)"
@@ -92,7 +92,7 @@ export function MountainScene({
           opacity="0.92"
         />
 
-        {/* Hero peak — coral/pink double */}
+        {/* Hero peak, coral/pink double */}
         <path
           d="M150 430 L240 200 L335 430 Z"
           fill="url(#ms-peak)"
@@ -102,7 +102,7 @@ export function MountainScene({
           fill="url(#ms-peak-side)"
           opacity="0.82"
         />
-        {/* Snow on hero peak — jagged */}
+        {/* Snow on hero peak, jagged */}
         <path
           d="M240 200 L262 248 L250 256 L236 244 L222 268 L210 252 L218 234 Z"
           fill="url(#ms-snow)"

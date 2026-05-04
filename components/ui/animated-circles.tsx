@@ -1,5 +1,5 @@
 'use client'
-/** AnimatedCircles — concentric SVG circles that draw/pulse on in-view. */
+/** AnimatedCircles, concentric SVG circles that draw/pulse on in-view. */
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'

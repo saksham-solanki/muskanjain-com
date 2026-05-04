@@ -8,11 +8,11 @@
  * or statement copy that should hold the viewport while revealing.
  *
  * Props:
- *   children       — content to reveal (direct children are staggered)
- *   className      — forwarded to the outer wrapper
- *   pinDuration    — extra scroll space held during pin:
+ *   children      , content to reveal (direct children are staggered)
+ *   className     , forwarded to the outer wrapper
+ *   pinDuration   , extra scroll space held during pin:
  *                    '50%' | '100%' | '150%' of viewport height (default '100%')
- *   id             — optional id on the outer wrapper (useful for anchor links)
+ *   id            , optional id on the outer wrapper (useful for anchor links)
  *
  * Respects prefers-reduced-motion: skips GSAP, renders children visible.
  *
@@ -104,7 +104,7 @@ export function PinReveal({
         stagger: 0.12,
       })
 
-      // Start paused — ScrollTrigger's onEnter drives playback
+      // Start paused, ScrollTrigger's onEnter drives playback
       tl.pause()
     },
     { scope: containerRef, dependencies: [pinDuration] },

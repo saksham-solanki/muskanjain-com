@@ -5,7 +5,7 @@ import { useMagnetic } from './use-magnetic'
 import { cn } from '@/lib/utils'
 
 /**
- * MagneticButton — button/link with magnetic cursor pull + spotlight hover.
+ * MagneticButton, button/link with magnetic cursor pull + spotlight hover.
  * Drop-in for any primary CTA to get that "premium" feel.
  *
  * Source: MoveSmart-Rentals

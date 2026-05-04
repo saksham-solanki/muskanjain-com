@@ -7,10 +7,10 @@
 import type { Variants } from 'framer-motion'
 
 // ─── Easing constants ─────────────────────────────────
-/** Smooth deceleration — default for fade-ups, section reveals */
+/** Smooth deceleration, default for fade-ups, section reveals */
 export const ease = [0.22, 1, 0.36, 1] as const
 
-/** Tighter deceleration — cinematic/GSAP heroes, snappy UI */
+/** Tighter deceleration, cinematic/GSAP heroes, snappy UI */
 export const easeSnap = [0.16, 1, 0.3, 1] as const
 
 /** Dropdown / popover cubic-bezier */

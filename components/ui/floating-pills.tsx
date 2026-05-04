@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 
 /**
- * FloatingPills — pink 3D capsule cluster echoing the Pink Motion / pill mood-board.
+ * FloatingPills, pink 3D capsule cluster echoing the Pink Motion / pill mood-board.
  * Pure CSS gradients + framer-motion. No textures, no Three.js.
  *
  * `size` controls the pill scale; `density` controls how many pills.

@@ -2,7 +2,7 @@
  * POST /api/invite
  *
  * Accepts invite and newsletter submissions.
- * v1: validates, rate-limits, logs. No persistence — easy to add later.
+ * v1: validates, rate-limits, logs. No persistence, easy to add later.
  *
  * TODO: swap in real persistence by replacing the console.log block below with:
  *
@@ -48,7 +48,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-// ── In-memory rate limiter (resets on cold start — best-effort) ─────────────
+// ── In-memory rate limiter (resets on cold start, best-effort) ─────────────
 const rateMap = new Map<string, { count: number; windowStart: number }>()
 const RATE_LIMIT = 5
 const WINDOW_MS = 60 * 60 * 1000 // 1 hour

@@ -8,7 +8,7 @@
  *
  * - Color: `bg-coral` (Tailwind token from the design system)
  * - Subtle inner glow via inline box-shadow to avoid purge issues
- * - z-index 60 — sits above the Nav (assumed z-50)
+ * - z-index 60, sits above the Nav (assumed z-50)
  * - No props needed; drop in once at the layout level.
  */
 

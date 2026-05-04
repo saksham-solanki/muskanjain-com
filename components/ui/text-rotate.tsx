@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 /**
- * TextRotate — rotate through an array of phrases (a "slideshow" for words).
+ * TextRotate, rotate through an array of phrases (a "slideshow" for words).
  * Spring-animated enter/exit, great for hero headlines like "Build X for {rotating}".
  *
  * Source: MoveSmart-Rentals / Revun-Saas

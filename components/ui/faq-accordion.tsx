@@ -1,5 +1,5 @@
 'use client'
-/** FAQAccordion — animated expand/collapse FAQ list. */
+/** FAQAccordion, animated expand/collapse FAQ list. */
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'

@@ -1,4 +1,4 @@
-/** BentoGrid — responsive bento layout (Apple-style asymmetric feature grid). */
+/** BentoGrid, responsive bento layout (Apple-style asymmetric feature grid). */
 import { cn } from '@/lib/utils'
 
 export function BentoGrid({ children, className }: { children: React.ReactNode; className?: string }) {

@@ -1,5 +1,5 @@
 'use client'
-/** Card3D — 3D perspective tilt on mouse hover + layered depth children. */
+/** Card3D, 3D perspective tilt on mouse hover + layered depth children. */
 import { createContext, useContext, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 

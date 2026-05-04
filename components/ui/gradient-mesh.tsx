@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useAnimationConfig } from './use-animation-config'
 
 /**
- * GradientMesh — animated radial-gradient blobs for hero backgrounds.
+ * GradientMesh, animated radial-gradient blobs for hero backgrounds.
  * Supports 3 pre-mixed color schemes. Responsive: fewer blobs on mobile.
  * Respects prefers-reduced-motion (blobs stay static).
  *

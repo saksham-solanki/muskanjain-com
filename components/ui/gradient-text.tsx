@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 /**
- * GradientText — helper for gradient-filled text. Uses utility classes
+ * GradientText, helper for gradient-filled text. Uses utility classes
  * from keyframes.css (`.text-gradient-brand`, `.text-gradient-animated`).
  * Define actual gradient colors in your `.text-gradient-*` rules.
  *
@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 interface GradientTextProps {
   children: React.ReactNode
   className?: string
-  /** Gradient variant — match CSS class name */
+  /** Gradient variant, match CSS class name */
   variant?: 'brand' | 'emerald' | 'navy' | 'animated'
 }
 

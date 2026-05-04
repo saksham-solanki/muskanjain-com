@@ -1,4 +1,4 @@
-/** BorderBeam — animated beam traveling around the border of the parent. */
+/** BorderBeam, animated beam traveling around the border of the parent. */
 import { cn } from '@/lib/utils'
 
 export function BorderBeam({

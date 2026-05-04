@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 /**
- * useAnimationConfig — centralized accessibility-aware animation gate.
+ * useAnimationConfig, centralized accessibility-aware animation gate.
  *
  * Returns device- and preference-aware flags every animated component should
  * respect. Gives one source of truth for:

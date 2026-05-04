@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * TextScramble — resolves each character from random glyphs.
+ * TextScramble, resolves each character from random glyphs.
  * Cyberpunk / AI / hacker-movie vibe. Use sparingly on hero keywords
  * or when content loads.
  *

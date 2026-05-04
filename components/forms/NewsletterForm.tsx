@@ -48,7 +48,7 @@ export function NewsletterForm({ handleFallback = 'subscriber' }: NewsletterForm
         setStatus('error')
       }
     } catch {
-      setErrorMsg('network hiccup — please try again.')
+      setErrorMsg('network hiccup, please try again.')
       setStatus('error')
     }
   }

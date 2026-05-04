@@ -17,7 +17,7 @@ const featuredPost = {
   slug: 'reddit-ai-answers-web3-gtm',
   title: 'Why Reddit Now Owns 68% of AI-Generated Answers (And What That Means For Web3 GTM)',
   description:
-    'AI citation patterns have shifted dramatically in 12 months. Reddit threads and community-driven content now dominate LLM training sets — and most Web3 marketing stacks are completely unprepared for it. Here is the breakdown, the data, and the playbook.',
+    'AI citation patterns have shifted dramatically in 12 months. Reddit threads and community-driven content now dominate LLM training sets, and most Web3 marketing stacks are completely unprepared for it. Here is the breakdown, the data, and the playbook.',
   category: 'AI x Web3',
   date: 'May 4, 2026',
   readingTime: '14 min read',
@@ -64,7 +64,7 @@ const secondaryPosts = [
     slug: 'why-web3-marketing-fails',
     title: 'Why Most Web3 Marketing Fails (And It Is Not the Team)',
     description:
-      'The structural problems — attribution gaps, incentive misalignment, bot noise — that make standard GTM playbooks useless in Web3.',
+      'The structural problems, attribution gaps, incentive misalignment, bot noise, that make standard GTM playbooks useless in Web3.',
     category: 'Real Talk',
     date: 'Apr 21, 2026',
     readingTime: '7 min',
@@ -291,7 +291,7 @@ export default function BlogPage() {
           <BlurFade delay={0.05}>
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
               <Sparkles size={11} />
-              THE JOURNAL — SUBSCRIBE
+              THE JOURNAL, SUBSCRIBE
             </span>
 
             <h2 className="h-section mt-6 max-w-3xl mx-auto">
@@ -300,7 +300,7 @@ export default function BlogPage() {
             </h2>
 
             <p className="mt-6 max-w-md mx-auto serif-italic text-ink-muted/85 text-lg leading-snug [text-wrap:pretty]">
-              longer pieces, teardowns, and receipts — straight to your inbox. no noise.
+              longer pieces, teardowns, and receipts, straight to your inbox. no noise.
             </p>
 
             <div className="mt-10 max-w-md mx-auto">

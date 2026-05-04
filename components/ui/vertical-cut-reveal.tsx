@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 /**
- * VerticalCutReveal — splits a phrase into words and reveals each by
+ * VerticalCutReveal, splits a phrase into words and reveals each by
  * sliding from below a clipped line. Great for hero headlines:
  *   <h1><VerticalCutReveal>Build trust at scale</VerticalCutReveal></h1>
  *

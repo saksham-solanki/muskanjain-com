@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { PenTool, Send, BarChart3 } from 'lucide-react'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
+import { BorderBeam } from '@/components/ui/border-beam'
 
 type Service = {
   number: string
@@ -60,20 +61,42 @@ function WhatIDo() {
             {services.map(({ number, title, body, Icon }) => (
               <motion.article
                 key={number}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -6 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative rounded-[20px] p-6 sm:p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/90 transition-all overflow-hidden"
               >
-                <span className="text-xs font-mono text-ink-faint">{number}</span>
-                <div className="mt-3 w-11 h-11 rounded-xl bg-coral/10 ring-1 ring-coral/20 grid place-items-center">
-                  <Icon size={18} className="text-coral" />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 z-0 bg-gradient-to-br from-coral/0 via-coral/0 to-coral/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                />
+                <BorderBeam
+                  size={120}
+                  duration={6}
+                  colorFrom="#FF6B6B"
+                  colorTo="#FFD0C4"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
+
+                <div className="relative z-10">
+                  <span className="absolute top-0 right-0 font-mono text-xs sm:text-sm font-bold text-coral/40 tabular tracking-[0.2em]">
+                    {number}
+                  </span>
+
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-coral/15 to-coral/5 ring-1 ring-coral/25 shadow-[0_8px_24px_-8px_rgba(255,107,107,0.3)] grid place-items-center">
+                    <Icon size={18} className="text-coral" />
+                  </div>
+
+                  <div className="mt-5 flex items-baseline gap-2.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-coral shrink-0 mb-1" />
+                    <h3 className="text-xl font-black text-ink tracking-tight">
+                      {title}
+                    </h3>
+                  </div>
+
+                  <p className="mt-2 text-[15px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
+                    {body}
+                  </p>
                 </div>
-                <h3 className="mt-5 text-xl font-black text-ink tracking-tight">
-                  {title}
-                </h3>
-                <p className="mt-2 text-[15px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
-                  {body}
-                </p>
               </motion.article>
             ))}
           </div>

@@ -1,4 +1,4 @@
-/** AuroraBackground — animated aurora gradient layer. Requires gradient-shift keyframe. */
+/** AuroraBackground, animated aurora gradient layer. Requires gradient-shift keyframe. */
 import { cn } from '@/lib/utils'
 
 export function AuroraBackground({ className }: { className?: string }) {

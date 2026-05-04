@@ -57,7 +57,7 @@ export function Footer() {
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-coral/10 blur-[120px] pointer-events-none" />
 
       <div className="container-width section-padding relative">
-        {/* Top — wordmark + manifesto */}
+        {/* Top, wordmark + manifesto */}
         <div className="grid grid-cols-12 gap-8 mb-16">
           <div className="col-span-12 md:col-span-6">
             <Link

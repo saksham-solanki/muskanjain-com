@@ -1,5 +1,5 @@
 'use client'
-/** Particles — canvas floating particles background. Respects reduced motion. */
+/** Particles, canvas floating particles background. Respects reduced motion. */
 import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 

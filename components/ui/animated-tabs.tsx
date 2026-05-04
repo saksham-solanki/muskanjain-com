@@ -1,5 +1,5 @@
 'use client'
-/** AnimatedTabs — tabs with sliding underline highlight. */
+/** AnimatedTabs, tabs with sliding underline highlight. */
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'

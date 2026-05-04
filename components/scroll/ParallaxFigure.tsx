@@ -4,15 +4,15 @@
  * ParallaxFigure
  *
  * Wraps children in a div or figure that shifts vertically as the user
- * scrolls past it. Uses GSAP ScrollTrigger scrubbing — smoother than
+ * scrolls past it. Uses GSAP ScrollTrigger scrubbing, smoother than
  * CSS transforms tied to IntersectionObserver.
  *
  * Props:
- *   children     — content to parallax
- *   className    — forwarded to the wrapper element
- *   speed        — fraction of trigger height to shift (default 0.3).
+ *   children    , content to parallax
+ *   className   , forwarded to the wrapper element
+ *   speed       , fraction of trigger height to shift (default 0.3).
  *                  Positive = moves up relative to scroll direction.
- *   as           — 'div' | 'figure' (default 'div')
+ *   as          , 'div' | 'figure' (default 'div')
  *
  * Respects prefers-reduced-motion: skips GSAP entirely, renders plain.
  */
@@ -72,7 +72,7 @@ export function ParallaxFigure({
   )
 
   return (
-    // @ts-expect-error — dynamic tag ref is typed as ElementRef<typeof Tag> above
+    // @ts-expect-error, dynamic tag ref is typed as ElementRef<typeof Tag> above
     <Tag ref={containerRef} className={className}>
       {children}
     </Tag>

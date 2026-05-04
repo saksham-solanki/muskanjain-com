@@ -1,4 +1,4 @@
-/** AnimatedShinyText — subtle traveling shine. Requires shimmer keyframe. */
+/** AnimatedShinyText, subtle traveling shine. Requires shimmer keyframe. */
 import { cn } from '@/lib/utils'
 
 export function AnimatedShinyText({

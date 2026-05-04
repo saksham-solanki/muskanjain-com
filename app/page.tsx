@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  PenTool,
   ArrowRight,
   ArrowUpRight,
   ChevronDown,
@@ -14,14 +13,11 @@ import {
   MapPin,
   Video,
   MessageSquare,
-  Mail,
   Mic,
-  Send,
   Star,
 } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
 import { BlurFade } from '@/components/ui/blur-fade'
-import { CountUp } from '@/components/ui/count-up'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 import { InviteForm } from '@/components/forms/InviteForm'
 import { cn } from '@/lib/utils'
@@ -30,8 +26,9 @@ import StatsStrip from '@/components/sections/StatsStrip'
 import WhatIDo from '@/components/sections/WhatIDo'
 import HowItWorks from '@/components/sections/HowItWorks'
 import Testimonials from '@/components/sections/Testimonials'
+import BrandMarquee from '@/components/sections/BrandMarquee'
 
-/* Three.js scenes — dynamically imported (client only, no SSR) */
+/* Three.js scenes, dynamically imported (client only, no SSR) */
 const HeroAmbient = dynamic(
   () => import('@/components/r3f/HeroAmbient').then((m) => m.HeroAmbient),
   { ssr: false, loading: () => null },
@@ -67,11 +64,9 @@ function PixelPortrait() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   1. HERO  — asymmetric editorial composition
+   1. HERO , asymmetric editorial composition
    ═══════════════════════════════════════════════════════════════ */
 function HeroSection() {
-  const community = siteConfig.community
-
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Pastel sky gradient */}
@@ -82,7 +77,7 @@ function HeroSection() {
             'linear-gradient(170deg, #B6CCE5 0%, #E5C5BC 25%, #FFD0C4 50%, #FFE0DA 78%, #FFEFEB 100%)',
         }}
       />
-      {/* Three.js ambient particle field — soft coral dust + lanterns */}
+      {/* Three.js ambient particle field, soft coral dust + lanterns */}
       <HeroAmbient className="absolute inset-0 -z-10 opacity-90" />
       {/* Sun */}
       <div className="absolute top-[14%] right-[12%] w-[360px] h-[360px] rounded-full bg-[#FFE6D2]/80 blur-[110px] -z-10 pointer-events-none" />
@@ -92,7 +87,7 @@ function HeroSection() {
       <div className="container-width relative z-10 py-20 sm:py-28">
         {/* 12-col asymmetric grid */}
         <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
-          {/* Center — main headline */}
+          {/* Center, main headline */}
           <motion.div
             variants={heroStagger}
             initial="hidden"
@@ -119,7 +114,7 @@ function HeroSection() {
               <span className="serif-italic font-normal text-coral">
                 outbound flows
               </span>
-              , and the boring middle of the funnel —{' '}
+              , and the boring middle of the funnel,{' '}
               <span className="relative inline-block">
                 using AI.
               </span>
@@ -130,7 +125,7 @@ function HeroSection() {
               variants={fadeUp}
               className="text-lead mt-7 max-w-lg [text-wrap:pretty]"
             >
-              Now I help you do the same — without burning a year figuring it
+              Now I help you do the same, without burning a year figuring it
               out.
             </motion.p>
 
@@ -158,19 +153,9 @@ function HeroSection() {
                 <ArrowUpRight size={14} />
               </Link>
             </motion.div>
-
-            {/* mini-pulse */}
-            <motion.div
-              variants={fadeUp}
-              className="mt-10 grid grid-cols-3 gap-x-6 max-w-md border-t hairline pt-5 tabular"
-            >
-              <Pulse label="Cities" value={community.pulse.cities} />
-              <Pulse label="Events" value={community.pulse.events} />
-              <Pulse label="Ships Together" value={community.pulse.ships} />
-            </motion.div>
           </motion.div>
 
-          {/* Right column — pixelated portrait */}
+          {/* Right column, pixelated portrait */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -188,22 +173,8 @@ function HeroSection() {
   )
 }
 
-function Pulse({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="flex flex-col">
-      <span className="text-[11px] uppercase tracking-[0.14em] text-ink-faint font-semibold">
-        {label}
-      </span>
-      <span className="text-2xl font-black text-ink mt-0.5 tabular">
-        <CountUp value={value} />
-      </span>
-    </div>
-  )
-}
-
-
 /* ═══════════════════════════════════════════════════════════════
-   5. EVENTS — DeKoded series, hosted end-to-end
+   5. EVENTS, DeKoded series, hosted end-to-end
    ═══════════════════════════════════════════════════════════════ */
 function CitiesSection() {
   const events = siteConfig.community.cities
@@ -231,7 +202,7 @@ function CitiesSection() {
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
             <p className="text-ink-muted/85 text-lg leading-snug">
-              DeKoded — strategy, content, outbound, the room itself. Here&apos;s
+              DeKoded, strategy, content, outbound, the room itself. Here&apos;s
               what each one shipped.
             </p>
             <p className="mt-3 text-xs text-ink-faint tabular">
@@ -240,7 +211,7 @@ function CitiesSection() {
           </RevealOnScroll>
         </div>
 
-        {/* 3D city globe — interactive tour visualization */}
+        {/* 3D city globe, interactive tour visualization */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
           <div className="mb-16 -mt-2 relative">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cream-pink/40 to-transparent rounded-[32px] -z-10" />
@@ -263,7 +234,7 @@ function CitiesSection() {
 }
 
 function EventPoster({ code, status }: { code: string; status?: string }) {
-  // Per-city accent gradient — keeps each card visually distinct without photos
+  // Per-city accent gradient, keeps each card visually distinct without photos
   const gradients: Record<string, string> = {
     BLR: 'from-[#FFD0C4] via-coral/30 to-[#E5C5BC]',
     DEL: 'from-[#E5C5BC] via-rose-mist/50 to-[#FFD0C4]',
@@ -277,7 +248,7 @@ function EventPoster({ code, status }: { code: string; status?: string }) {
   const grad = gradients[code] ?? 'from-coral/15 via-rose-mist/40 to-blush'
   return (
     <div className={`absolute inset-0 grid place-items-center bg-gradient-to-br ${grad}`}>
-      {/* Corner crops — editorial poster framing */}
+      {/* Corner crops, editorial poster framing */}
       <span className="absolute top-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
       <span className="absolute top-2.5 right-2.5 font-mono text-xs text-coral/50 select-none">+</span>
       <span className="absolute bottom-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
@@ -408,7 +379,7 @@ function EventCard({
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   6. CREATOR HUB — videos, podcasts, brand work
+   6. CREATOR HUB, videos, podcasts, brand work
    ═══════════════════════════════════════════════════════════════ */
 function CreatorHub() {
   const brands = [
@@ -438,7 +409,7 @@ function CreatorHub() {
     },
     {
       title: 'Proof of Hustle',
-      subtitle: 'Founder podcast — long-form, no fluff.',
+      subtitle: 'Founder podcast, long-form, no fluff.',
       views: '125k',
       tag: 'PODCAST',
       icon: Mic,
@@ -481,7 +452,7 @@ function CreatorHub() {
     ],
   }
 
-  // Selected brand work — real outcomes, not placeholder quotes.
+  // Selected brand work, real outcomes, not placeholder quotes.
   const selectedWork = [
     {
       brand: 'KRNL Labs',
@@ -517,7 +488,7 @@ function CreatorHub() {
 
   const videoIndex = [
     {
-      title: 'Building KRNL — Phase 1',
+      title: 'Building KRNL, Phase 1',
       total: '167k',
       videos: [
         { label: 'Intro', views: '14k', url: 'https://x.com/muskanjain0401/status/1882436229188448267' },
@@ -535,7 +506,7 @@ function CreatorHub() {
       ],
     },
     {
-      title: 'Building KRNL — Phase 2',
+      title: 'Building KRNL, Phase 2',
       total: '138k',
       videos: [
         { label: 'Episode 1', views: '15k', url: 'https://x.com/muskanjain0401/status/1912074558238298515' },
@@ -611,11 +582,11 @@ function CreatorHub() {
       title: 'Videos for Base',
       total: '5 videos',
       videos: [
-        { label: 'Video 1', views: '—', url: 'https://x.com/Based_UAE/status/1990741412447445347' },
-        { label: 'Video 2', views: '—', url: 'https://x.com/Muskanjain0401/status/1965333893047091383' },
-        { label: 'Video 3', views: '—', url: 'https://x.com/Based_UAE/status/1993982948916515192' },
-        { label: 'Video 4', views: '—', url: 'https://x.com/Based_UAE/status/2002383780242391045' },
-        { label: 'Video 5', views: '—', url: 'https://x.com/Based_UAE/status/1997985861414301982' },
+        { label: 'Video 1', views: '-', url: 'https://x.com/Based_UAE/status/1990741412447445347' },
+        { label: 'Video 2', views: '-', url: 'https://x.com/Muskanjain0401/status/1965333893047091383' },
+        { label: 'Video 3', views: '-', url: 'https://x.com/Based_UAE/status/1993982948916515192' },
+        { label: 'Video 4', views: '-', url: 'https://x.com/Based_UAE/status/2002383780242391045' },
+        { label: 'Video 5', views: '-', url: 'https://x.com/Based_UAE/status/1997985861414301982' },
       ],
     },
   ]
@@ -943,15 +914,15 @@ function FAQSection() {
   const faqs = [
     {
       q: 'Is this free?',
-      a: 'Yes — invite-only but free. Members get cohort access, the wall, weekly rituals, and city events. Premium tracks for protocols come separately.',
+      a: 'Yes, invite-only but free. Members get cohort access, the wall, weekly rituals, and city events. Premium tracks for protocols come separately.',
     },
     {
       q: 'Who fits?',
-      a: "People building at the seam of AI and Web3. Founders, researchers, marketers, ops folks, vibe coders. You don't have to be senior — you have to be shipping.",
+      a: "People building at the seam of AI and Web3. Founders, researchers, marketers, ops folks, vibe coders. You don't have to be senior, you have to be shipping.",
     },
     {
       q: 'How do invites work?',
-      a: "Every member gets one invite a month. We also open the doors on Fridays — drop your work in the open application and a member will pick it up.",
+      a: "Every member gets one invite a month. We also open the doors on Fridays, drop your work in the open application and a member will pick it up.",
     },
     {
       q: 'Do you record sessions?',
@@ -1038,7 +1009,7 @@ function FAQSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   11. JOIN — final glassy CTA with avatar collage
+   11. JOIN, final glassy CTA with avatar collage
    ═══════════════════════════════════════════════════════════════ */
 function JoinSection() {
   const avatars = [
@@ -1119,12 +1090,13 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <CommunityWall />
+      <BrandMarquee />
+      <StatsStrip />
+      <WhatIDo />
+      <HowItWorks />
       <CitiesSection />
       <CreatorHub />
-      <RitualsSection />
-      <VoicesSection />
-      <PulseSection />
+      <Testimonials />
       <FAQSection />
       <JoinSection />
     </>

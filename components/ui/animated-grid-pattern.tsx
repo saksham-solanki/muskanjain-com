@@ -1,5 +1,5 @@
 'use client'
-/** AnimatedGridPattern — grid cells randomly appear + fade. */
+/** AnimatedGridPattern, grid cells randomly appear + fade. */
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 

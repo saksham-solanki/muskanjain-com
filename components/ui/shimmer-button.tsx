@@ -1,4 +1,4 @@
-/** ShimmerButton — button with a traveling shimmer highlight (Magic UI-style). */
+/** ShimmerButton, button with a traveling shimmer highlight (Magic UI-style). */
 import { cn } from '@/lib/utils'
 
 export function ShimmerButton({

@@ -29,7 +29,7 @@ const sparklineData: Record<string, number[]> = {
   'nft-fi':[15, 18, 16, 20, 22, 25, 23, 28, 30, 33, 36, 40],
 }
 
-// ─── Bar chart data — sorted by numeric value for comparison strip ────────────────────────
+// ─── Bar chart data, sorted by numeric value for comparison strip ────────────────────────
 const barData: { slug: string; label: string; rawValue: number; display: string }[] = [
   { slug: 'defi',    label: 'DeFi',    rawValue: 129,    display: '$129B TVL' },
   { slug: 'rwa',     label: 'RWA',     rawValue: 29.2,   display: '$29.2B' },
@@ -101,8 +101,8 @@ export default function VerticalsPage() {
               <BlurFade delay={0.14}>
                 <p className="text-lead mt-9 max-w-xl [text-wrap:pretty]">
                   every web3 vertical has its own pain points, audiences, and
-                  growth dynamics. the gtm playbook adapts — community, content,
-                  outbound, attribution — to the specific market you&apos;re in.
+                  growth dynamics. the gtm playbook adapts, community, content,
+                  outbound, attribution, to the specific market you&apos;re in.
                 </p>
               </BlurFade>
               <BlurFade delay={0.2}>
@@ -186,12 +186,12 @@ export default function VerticalsPage() {
                       {vertical.fullTitle}
                     </p>
 
-                    {/* Market size — big coral tabular number */}
+                    {/* Market size, big coral tabular number */}
                     <p className="mt-4 text-[22px] font-black tabular text-coral leading-none">
                       {vertical.marketSize}
                     </p>
 
-                    {/* Growth — italic */}
+                    {/* Growth, italic */}
                     <p className="mt-1.5 text-[13px] serif-italic text-ink-muted">
                       {vertical.growth}
                     </p>
@@ -201,7 +201,7 @@ export default function VerticalsPage() {
                       {verticalDescriptions[vertical.slug]}
                     </p>
 
-                    {/* CTA — revealed on hover */}
+                    {/* CTA, revealed on hover */}
                     <div className="mt-5 pt-4 border-t hairline flex items-center justify-between">
                       <span className="text-[12px] font-semibold text-ink-faint group-hover:text-coral transition-colors">
                         See the GTM playbook →

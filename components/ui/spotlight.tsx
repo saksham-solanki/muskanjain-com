@@ -1,4 +1,4 @@
-/** Spotlight — fixed radial spotlight beam (Aceternity). */
+/** Spotlight, fixed radial spotlight beam (Aceternity). */
 import { cn } from '@/lib/utils'
 
 export function Spotlight({ className, fill = 'white' }: { className?: string; fill?: string }) {

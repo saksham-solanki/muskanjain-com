@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * AnimateIn — IntersectionObserver-based reveal (alt to RevealOnScroll).
+ * AnimateIn, IntersectionObserver-based reveal (alt to RevealOnScroll).
  * Use this when you don't want framer-motion's runtime cost, or when you
  * need very fine-grained threshold control.
  *

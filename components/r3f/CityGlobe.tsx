@@ -1,9 +1,9 @@
 'use client'
 
 /**
- * CityGlobe — interactive 3D globe rendering Muskan's DeKoded city tour.
+ * CityGlobe, interactive 3D globe rendering Muskan's DeKoded city tour.
  *
- * - Soft cream/blush sphere base with a subtle latitude/longitude wireframe.
+ * - Soft cream/blush sphere base with a subtle backside glow halo.
  * - Coral pins for each city, sized by event scale (members).
  * - Animated arcs between cities, drawn sequentially in tour order.
  * - Auto-rotates; pauses on hover.
@@ -113,14 +113,8 @@ function GlobeCore({
 
       {/* Soft inner glow */}
       <mesh>
-        <sphereGeometry args={[RADIUS * 1.04, 32, 32]} />
+        <sphereGeometry args={[RADIUS * 1.04, 64, 64]} />
         <meshBasicMaterial color="#FFD6D1" transparent opacity={0.18} side={THREE.BackSide} />
-      </mesh>
-
-      {/* Latitude / longitude wireframe overlay */}
-      <mesh>
-        <sphereGeometry args={[RADIUS * 1.001, 24, 16]} />
-        <meshBasicMaterial color="#1A1A2E" wireframe transparent opacity={0.06} />
       </mesh>
 
       {/* Tour arcs */}

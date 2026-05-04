@@ -1,6 +1,6 @@
 /**
  * lib/gsap-scroll.ts
- * GSAP ScrollTrigger primitives — SSR-safe helpers and hooks.
+ * GSAP ScrollTrigger primitives, SSR-safe helpers and hooks.
  */
 
 import { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ let _registered = false
 
 /**
  * Idempotent: registers the ScrollTrigger plugin with GSAP exactly once.
- * Safe to call on every render — short-circuits after the first call.
+ * Safe to call on every render, short-circuits after the first call.
  * No-ops on the server (guards typeof window).
  */
 export function registerGsap(): void {
@@ -35,7 +35,7 @@ export function registerGsap(): void {
  * Returns a number in [0, 1] representing how far the user has scrolled
  * through the document. 0 = top, 1 = bottom.
  *
- * Pure browser — no GSAP dependency. SSR-safe: returns 0 until mounted.
+ * Pure browser, no GSAP dependency. SSR-safe: returns 0 until mounted.
  */
 export function useScrollProgress(): number {
   const [progress, setProgress] = useState<number>(0)

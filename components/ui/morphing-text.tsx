@@ -1,5 +1,5 @@
 'use client'
-/** MorphingText — morphs between texts with blur transition. */
+/** MorphingText, morphs between texts with blur transition. */
 import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 

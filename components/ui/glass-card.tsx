@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 /**
- * GlassCard — wrapper applying glassmorphism utility classes.
+ * GlassCard, wrapper applying glassmorphism utility classes.
  * Requires `.glass`, `.glass-light`, `.glass-dark` in globals.css
  * (from keyframes.css).
  *

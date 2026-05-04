@@ -1,5 +1,5 @@
 /**
- * ScoreRing — animated SVG circular progress (PageSpeed-style).
+ * ScoreRing, animated SVG circular progress (PageSpeed-style).
  * Use for metric callouts: "98% uptime", "94 performance score".
  * CSS-only animation (stroke-dashoffset transition).
  *

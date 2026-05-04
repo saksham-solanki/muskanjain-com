@@ -56,9 +56,9 @@ const verticalContent: Record<string, VerticalDetail> = {
     headline: 'Chains compete on developer acquisition, ecosystem visibility, and "why build here" comparisons. Growth is existential.',
     marketContext: 'Multi-trillion aggregate market. Every chain fights for developers, dapps, TVL, and mindshare.',
     buildersAsk: [
-      { title: 'How do I win developers?', detail: 'When a developer asks "which chain should I build on?" — your chain needs to be the answer. AI search is the new discovery layer.' },
+      { title: 'How do I win developers?', detail: 'When a developer asks "which chain should I build on?", your chain needs to be the answer. AI search is the new discovery layer.' },
       { title: 'How do I grow the ecosystem?', detail: 'Ecosystem visibility drives TVL, dapp deployment, partnerships. Most chains are invisible outside crypto Twitter.' },
-      { title: 'Who ranks for chain comparisons?', detail: '"Solana vs Avalanche", "Base vs Arbitrum" — thousands of monthly searches. Nobody ranks for these.' },
+      { title: 'Who ranks for chain comparisons?', detail: '"Solana vs Avalanche", "Base vs Arbitrum", thousands of monthly searches. Nobody ranks for these.' },
       { title: 'How do I support 24/7 community?', detail: 'Developer communities need round-the-clock support across Discord and Telegram. Humans can\'t scale.' },
     ],
     serviceSlugs: ['community-engine', 'gtm-engine', 'content-system', 'growth-intelligence', 'launch-engine'],
@@ -89,7 +89,7 @@ const verticalContent: Record<string, VerticalDetail> = {
     buildersAsk: [
       { title: 'How do I talk to non-crypto buyers?', detail: 'Your ICP includes IoT buyers, enterprise, hardware operators. They use completely different search patterns.' },
       { title: 'How do I bridge technical + business?', detail: 'Content needs to be accurate enough for engineers but accessible enough for business buyers. Most projects can\'t do both.' },
-      { title: 'How do I build dev relations?', detail: 'Developer ecosystem requires docs, tutorials, community support — at scale.' },
+      { title: 'How do I build dev relations?', detail: 'Developer ecosystem requires docs, tutorials, community support, at scale.' },
     ],
     serviceSlugs: ['content-system', 'gtm-engine'],
   },

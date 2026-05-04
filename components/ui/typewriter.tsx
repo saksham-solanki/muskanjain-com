@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * Typewriter — types text out character-by-character, with optional
+ * Typewriter, types text out character-by-character, with optional
  * blinking cursor. Pair with TextRotate for "typing then rotating"
  * hero effects.
  *

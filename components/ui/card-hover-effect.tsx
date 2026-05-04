@@ -1,5 +1,5 @@
 'use client'
-/** CardHoverEffect — grid of cards with hovered-one highlight behind (Aceternity). */
+/** CardHoverEffect, grid of cards with hovered-one highlight behind (Aceternity). */
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'

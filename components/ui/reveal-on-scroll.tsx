@@ -4,12 +4,12 @@ import { useRef, Children } from 'react'
 import { REVEAL_VARIANTS } from '@/lib/motion'
 
 /**
- * RevealOnScroll — the universal scroll-triggered reveal wrapper.
+ * RevealOnScroll, the universal scroll-triggered reveal wrapper.
  *
  * Two modes:
- *   1. Variant mode (variant={...}) — wraps children in motion.div with the
+ *   1. Variant mode (variant={...}), wraps children in motion.div with the
  *      given variant. Each child staggers by `stagger` seconds.
- *   2. Legacy stagger mode (no variant) — treats children as motion.div
+ *   2. Legacy stagger mode (no variant), treats children as motion.div
  *      with their own variants (e.g., revealItem).
  *
  * ALWAYS uses { once: true, margin: '-60px' }.

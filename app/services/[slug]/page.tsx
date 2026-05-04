@@ -44,9 +44,9 @@ interface ServiceDetail {
 const serviceContent: Record<string, ServiceDetail> = {
   'community-engine': {
     roomNumber: '01',
-    oneLiner: 'an ai-powered discord and telegram that handles 80% of queries, mods scams, and onboards members — 24/7, for ~$500/month.',
+    oneLiner: 'an ai-powered discord and telegram that handles 80% of queries, mods scams, and onboards members, 24/7, for ~$500/month.',
     painPoint: 'community managers burn $5K–$15K/mo answering the same 50 questions. spam slips through. three timezones, five humans, zero sleep.',
-    solutionRole: 'muskan builds and trains bots on your protocol docs, ships moderation flows, and deploys onboarding sequences — so no human has to stay up for singapore.',
+    solutionRole: 'muskan builds and trains bots on your protocol docs, ships moderation flows, and deploys onboarding sequences, so no human has to stay up for singapore.',
     stackTools: ['Discord', 'Telegram', 'n8n', 'Claude API'],
     deliverables: [
       { title: 'Discord bot, doc-trained', desc: 'answers FAQs, routes edge cases to humans, never guesses.' },
@@ -61,7 +61,7 @@ const serviceContent: Record<string, ServiceDetail> = {
     process: [
       { title: 'call & audit', week: 'Week 1', detail: 'we map your community structure, top 50 questions, and existing mod coverage. outputs: a bot spec and a priority list.' },
       { title: 'build & train', week: 'Week 2–3', detail: 'we ingest your docs, configure discord.js / Telegram-bot-api, write the prompt layers, and wire n8n workflows end-to-end.' },
-      { title: 'review & tune', week: 'Week 4', detail: 'shadow mode for 7 days — bot replies quietly while you review. you flag anything off-brand, we retrain and sharpen.' },
+      { title: 'review & tune', week: 'Week 4', detail: 'shadow mode for 7 days, bot replies quietly while you review. you flag anything off-brand, we retrain and sharpen.' },
       { title: 'deploy & hand off', week: 'Week 4+', detail: 'flip the switch. moderators move to exception handling. we leave you with the full codebase and a maintenance runbook.' },
     ],
     whyExists: 'community managers burn $5K–$15K/mo answering the same 50 questions. spam slips through. mod coverage requires 3–5 people across timezones. nobody should have to do this manually anymore.',
@@ -76,7 +76,7 @@ const serviceContent: Record<string, ServiceDetail> = {
   },
   'gtm-engine': {
     roomNumber: '02',
-    oneLiner: 'ai agents that detect funding signals, enrich leads with on-chain data, and send personalized multi-channel outreach — no cold list required.',
+    oneLiner: 'ai agents that detect funding signals, enrich leads with on-chain data, and send personalized multi-channel outreach, no cold list required.',
     painPoint: 'BD in web3 still happens through Telegram DMs and event networking. no pipeline. no CRM. no follow-up. $50K+ on events with zero tracking.',
     solutionRole: 'muskan deploys signal-detection agents, builds clay enrichment flows with on-chain data, writes personalized outreach with claude, and wires sequences in Instantly and Smartlead.',
     stackTools: ['Clay', 'n8n', 'Claude', 'Instantly', 'Smartlead'],
@@ -84,7 +84,7 @@ const serviceContent: Record<string, ServiceDetail> = {
       { title: 'Signal detection agents', desc: 'monitors funding rounds, new listings, and key hires in real time.' },
       { title: 'Clay enrichment flow', desc: 'appends on-chain activity, token holdings, and protocol role to every lead.' },
       { title: 'AI outreach copy', desc: 'Claude writes personalized first lines based on wallet data and recent announcements.' },
-      { title: 'Email sequences', desc: 'multi-step campaigns sent through Instantly — tested subject lines, optimal send windows.' },
+      { title: 'Email sequences', desc: 'multi-step campaigns sent through Instantly, tested subject lines, optimal send windows.' },
       { title: 'LinkedIn + Telegram layer', desc: 'channel-specific variants for the three places web3 deals actually happen.' },
       { title: 'CRM pipeline', desc: 'HubSpot stages mapped to signal type so you know where every lead came from.' },
       { title: 'Lead scoring model', desc: 'prioritizes contacts by on-chain behavior, not just job title.' },
@@ -96,7 +96,7 @@ const serviceContent: Record<string, ServiceDetail> = {
       { title: 'write + wire sequences', week: 'Week 4', detail: 'Claude generates variant copy per signal type. Instantly and Smartlead sequences wired. first batch of 50 sends reviewed together.' },
       { title: 'deploy & optimize', week: 'Week 4+', detail: 'campaigns live. weekly signal review call. we iterate subject lines, timing, and copy based on reply rate data.' },
     ],
-    whyExists: "BD in web3 still happens through Telegram DMs and event networking. no pipeline. no CRM. no follow-up. $50K+ on events with zero tracking. there's a better way — and it's mostly automated.",
+    whyExists: "BD in web3 still happens through Telegram DMs and event networking. no pipeline. no CRM. no follow-up. $50K+ on events with zero tracking. there's a better way, and it's mostly automated.",
     howItWorks: 'we share signal-detection agents that monitor funding rounds, listings, and hiring signals. Clay enriches with on-chain data. Claude writes personalized outreach. Instantly sends multi-channel sequences. HubSpot routes responses.',
     stats: [
       { label: 'Pipeline', value: 'Signal-based' },
@@ -108,9 +108,9 @@ const serviceContent: Record<string, ServiceDetail> = {
   },
   'content-system': {
     roomNumber: '03',
-    oneLiner: 'a 15-agent pipeline that turns one brief into 52+ posts per month — AEO-optimized, YMYL-compliant, distributed across X, LinkedIn, and Discord.',
+    oneLiner: 'a 15-agent pipeline that turns one brief into 52+ posts per month, AEO-optimized, YMYL-compliant, distributed across X, LinkedIn, and Discord.',
     painPoint: "most web3 projects publish 2–5 posts a month when they need 15–20+. google classifies crypto as YMYL. AI search doesn't cite brands that don't publish consistently.",
-    solutionRole: 'muskan designs the multi-agent pipeline — research, strategy, writing, editing, publishing — so content compounds rather than clogs a backlog.',
+    solutionRole: 'muskan designs the multi-agent pipeline, research, strategy, writing, editing, publishing, so content compounds rather than clogs a backlog.',
     stackTools: ['Claude', 'Perplexity', 'HeyGen', 'Descript', 'ElevenLabs'],
     deliverables: [
       { title: 'Multi-agent pipeline', desc: '15+ agents covering research, draft, edit, SEO-review, and schedule in one automated flow.' },
@@ -140,9 +140,9 @@ const serviceContent: Record<string, ServiceDetail> = {
   },
   'growth-intelligence': {
     roomNumber: '04',
-    oneLiner: 'full-stack attribution connecting ad spend to wallet transactions — on-chain and off-chain, in one unified dashboard.',
+    oneLiner: 'full-stack attribution connecting ad spend to wallet transactions, on-chain and off-chain, in one unified dashboard.',
     painPoint: "web analytics can't see on-chain behavior. blockchain explorers can't attribute acquisition. 70–80% of marketing budget is a guess.",
-    solutionRole: 'muskan builds the attribution layer — connecting spindl and formo for web-to-wallet tracking, dune for on-chain cohorts, and XMTP triggers for retention loops.',
+    solutionRole: 'muskan builds the attribution layer, connecting spindl and formo for web-to-wallet tracking, dune for on-chain cohorts, and XMTP triggers for retention loops.',
     stackTools: ['Dune', 'Nansen', 'Spindl', 'Cookie3', 'Formo'],
     deliverables: [
       { title: 'Formo / Spindl attribution', desc: 'web-to-wallet identity resolution so every acquisition source is named.' },
@@ -161,7 +161,7 @@ const serviceContent: Record<string, ServiceDetail> = {
       { title: 'run monthly read', week: 'Week 4+', detail: 'thursday analytics sessions: we review cohort data together, surface surprises, and update the dashboards. you leave with answers, not more questions.' },
     ],
     whyExists: "web analytics can't see on-chain behavior. blockchain explorers can't attribute acquisition. zero unified view. 70–80% of marketing budget is a guess. that's not okay anymore.",
-    howItWorks: 'a slow book club for dune dashboards, retention curves, and the cohort math nobody else does. we share queries, segments, and triggers — together connecting web traffic to wallet activity.',
+    howItWorks: 'a slow book club for dune dashboards, retention curves, and the cohort math nobody else does. we share queries, segments, and triggers, together connecting web traffic to wallet activity.',
     stats: [
       { label: 'Attribution', value: 'Full-stack' },
       { label: 'Data', value: 'On + off chain' },
@@ -172,7 +172,7 @@ const serviceContent: Record<string, ServiceDetail> = {
   },
   'launch-engine': {
     roomNumber: '05',
-    oneLiner: "sybil-resistant token distribution, quest-based eligibility, and post-TGE on-chain retention — so your launch doesn't crash on day three.",
+    oneLiner: "sybil-resistant token distribution, quest-based eligibility, and post-TGE on-chain retention, so your launch doesn't crash on day three.",
     painPoint: '88% of airdrop tokens crash. 70% of rewards go to sybils. 93% of Uniswap airdrop recipients dumped within 7 days. launching without a sybil filter is burning capital.',
     solutionRole: 'muskan runs pre-TGE sanity checks, deploys sybil detection before distribution, sets up quest campaigns, automates KOL outreach, and wires post-TGE retention triggers.',
     stackTools: ['Galxe', 'Zealy', 'Layer3', 'XMTP', 'Push'],

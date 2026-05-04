@@ -214,7 +214,7 @@ body {
   border-color: rgba(26, 26, 46, 0.08);
 }
 
-/* Subtle paper-grain noise — applied via ::before on hero/CTA backgrounds */
+/* Subtle paper-grain noise, applied via ::before on hero/CTA backgrounds */
 .grain::before {
   content: "";
   position: absolute;

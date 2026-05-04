@@ -1,5 +1,5 @@
 'use client'
-/** FloatingDock — macOS-style dock with magnification on hover (desktop). */
+/** FloatingDock, macOS-style dock with magnification on hover (desktop). */
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { cn } from '@/lib/utils'

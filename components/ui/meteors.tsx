@@ -1,5 +1,5 @@
 'use client'
-/** Meteors — streaking meteor trails for dark-section ambiance. */
+/** Meteors, streaking meteor trails for dark-section ambiance. */
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 

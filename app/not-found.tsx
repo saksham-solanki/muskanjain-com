@@ -38,7 +38,7 @@ export default function NotFound() {
         </h1>
 
         <p className="text-lead mt-7 max-w-md mx-auto [text-wrap:pretty]">
-          The room you&apos;re looking for hasn&apos;t opened yet — or you took a
+          The room you&apos;re looking for hasn&apos;t opened yet, or you took a
           wrong turn. Either way, the Wall is still warm.
         </p>
 

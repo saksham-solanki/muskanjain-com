@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils'
 
 /**
- * Marquee — infinite-scrolling logo strip. Pauses on hover.
+ * Marquee, infinite-scrolling logo strip. Pauses on hover.
  * Requires the `.animate-marquee-scroll` keyframe (from keyframes.css)
  * or the `.animate-marquee` class.
  *
@@ -18,7 +18,7 @@ interface MarqueeItem {
   name: string
   /** Optional min-width in px for spacing. Default 100 */
   width?: number
-  /** Optional logo node — if omitted, renders a text placeholder */
+  /** Optional logo node, if omitted, renders a text placeholder */
   logo?: React.ReactNode
 }
 

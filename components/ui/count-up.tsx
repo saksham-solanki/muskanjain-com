@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 /**
- * CountUp — spring-animated number counter that fires when in view.
+ * CountUp, spring-animated number counter that fires when in view.
  * 1800ms feel that looks great on stats ("2,000+ users", "$50M raised").
  *
  * Source: MoveSmart-Rentals

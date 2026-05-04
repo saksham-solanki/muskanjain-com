@@ -1,4 +1,4 @@
-/** NeonButton — outline button with neon glow on hover. */
+/** NeonButton, outline button with neon glow on hover. */
 import { cn } from '@/lib/utils'
 
 export function NeonButton({ children, className, glowColor = '#7c3aed', ...rest }: React.ButtonHTMLAttributes<HTMLButtonElement> & { glowColor?: string }) {

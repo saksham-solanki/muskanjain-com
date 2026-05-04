@@ -206,7 +206,7 @@ export const siteConfig = {
   community: {
     name: 'The Build Club',
     tagline: 'Where AI × Web3 builders gather',
-    description: 'A soft-edged corner of the internet for builders shipping at the edge of AI and Web3. Founders, researchers, marketers, vibe coders — all in one room.',
+    description: 'A soft-edged corner of the internet for builders shipping at the edge of AI and Web3. Founders, researchers, marketers, vibe coders, all in one room.',
     pulse: {
       members: 1247,
       cities: 6,
@@ -219,43 +219,43 @@ export const siteConfig = {
     cities: [
       {
         name: 'Bangalore', members: 312, status: 'shipped', emoji: 'BLR',
-        blurb: 'Hosted the kickoff — Web3 GTM teardowns over biryani.',
+        blurb: 'Hosted the kickoff, Web3 GTM teardowns over biryani.',
         metrics: ['120+ in the room', '23 GTM teardowns', '47 follow-up calls'],
         image: '',
       },
       {
         name: 'Delhi', members: 224, status: 'shipped', emoji: 'DEL',
-        blurb: 'Pre-Devcon meetup — 8 protocols pitched their GTM live.',
+        blurb: 'Pre-Devcon meetup, 8 protocols pitched their GTM live.',
         metrics: ['95+ founders', '8 live teardowns', '12 partner intros'],
         image: '',
       },
       {
         name: 'Mumbai', members: 198, status: 'shipped', emoji: 'BOM',
-        blurb: 'Outbound clinic — built and shipped a sequence on stage.',
+        blurb: 'Outbound clinic, built and shipped a sequence on stage.',
         metrics: ['80+ marketers', 'Live cold-email build', '210 leads sourced'],
         image: '',
       },
       {
         name: 'Hyderabad', members: 156, status: 'shipped', emoji: 'HYD',
-        blurb: 'Content engine workshop — one founder story, 30 assets.',
+        blurb: 'Content engine workshop, one founder story, 30 assets.',
         metrics: ['65+ in the room', '1.2M reach in 30 days', '9 case studies'],
         image: '',
       },
       {
         name: 'Pune', members: 121, status: 'shipped', emoji: 'PNQ',
-        blurb: 'Founder dinner — what GTM gets wrong, in seven slides.',
+        blurb: 'Founder dinner, what GTM gets wrong, in seven slides.',
         metrics: ['50+ founders', '7-slide deck', 'Most-shared deck of Q1'],
         image: '',
       },
       {
         name: 'Goa', members: 89, status: 'shipped', emoji: 'GOI',
-        blurb: 'Three-day builder retreat — shipped a full launch end-to-end.',
+        blurb: 'Three-day builder retreat, shipped a full launch end-to-end.',
         metrics: ['30 builders', '1 launch shipped', '$340k pipeline'],
         image: '',
       },
       {
         name: 'Dubai', members: 147, status: 'live', emoji: 'DXB',
-        blurb: 'First international room — outbound playbook for the GCC.',
+        blurb: 'First international room, outbound playbook for the GCC.',
         metrics: ['140+ founders', 'GCC market entry', 'Cohort 02 live'],
         image: '',
       },
@@ -278,7 +278,7 @@ export const siteConfig = {
         author: 'Aarav K.',
         handle: '@aarav_builds',
         time: '5h',
-        body: 'First wallet conversion on my pSEO pages overnight. Canton thesis was right — long-tail Web3 queries are wide open.',
+        body: 'First wallet conversion on my pSEO pages overnight. Canton thesis was right, long-tail Web3 queries are wide open.',
         tag: 'Win',
       },
       {
@@ -314,7 +314,7 @@ export const siteConfig = {
       {
         title: 'Community Ops Jam',
         keyword: 'jam',
-        clientFacing: 'We build and open-source AI bots for Discord and Telegram together. 80% of mod work, automated — by people who actually use them.',
+        clientFacing: 'We build and open-source AI bots for Discord and Telegram together. 80% of mod work, automated, by people who actually use them.',
         metric: 'Monthly cohort',
         icon: 'Users',
       },
@@ -365,11 +365,11 @@ export const siteConfig = {
       },
     ],
     rituals: [
-      { day: 'Mon', label: 'Show & Tell — what shipped this week' },
-      { day: 'Tue', label: 'Signal Labs — receipts and reverse-engineering' },
+      { day: 'Mon', label: 'Show & Tell, what shipped this week' },
+      { day: 'Tue', label: 'Signal Labs, receipts and reverse-engineering' },
       { day: 'Wed', label: 'Office hours with Muskan' },
       { day: 'Thu', label: 'On-chain Reads (Dune, Nansen, vibes)' },
-      { day: 'Fri', label: 'Open the doors — invite a friend' },
+      { day: 'Fri', label: 'Open the doors, invite a friend' },
     ],
   },
   footer: {

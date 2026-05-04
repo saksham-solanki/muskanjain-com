@@ -3,7 +3,7 @@
 import React from 'react'
 
 /**
- * ChronicleButton — premium button with a vertical text flip on hover.
+ * ChronicleButton, premium button with a vertical text flip on hover.
  * Hidden second text rotates in from below, outgoing text rotates out
  * upward. High-polish interaction for hero CTAs or bauhaus cards.
  *
