@@ -20,14 +20,16 @@ import {
   Star,
 } from 'lucide-react'
 import { siteConfig } from '@/data/site-config'
-import { CountUp } from '@/components/ui/count-up'
 import { BlurFade } from '@/components/ui/blur-fade'
+import { CountUp } from '@/components/ui/count-up'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
-import { MountainScene } from '@/components/ui/mountain-scene'
-import { FloatingPills } from '@/components/ui/floating-pills'
 import { InviteForm } from '@/components/forms/InviteForm'
 import { cn } from '@/lib/utils'
 import { heroStagger, fadeUp } from '@/lib/motion'
+import StatsStrip from '@/components/sections/StatsStrip'
+import WhatIDo from '@/components/sections/WhatIDo'
+import HowItWorks from '@/components/sections/HowItWorks'
+import Testimonials from '@/components/sections/Testimonials'
 
 /* Three.js scenes — dynamically imported (client only, no SSR) */
 const HeroAmbient = dynamic(
@@ -39,102 +41,12 @@ const CityGlobe = dynamic(
   { ssr: false, loading: () => null },
 )
 
-/* ─── Decorative SVG annotations ──────────────────────────── */
-function ScribbleUnderline({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 220 16"
-      className={cn('absolute left-0 -bottom-3 w-full h-3.5', className)}
-      aria-hidden
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M3 10 Q 50 2 105 8 T 217 6"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path
-        d="M5 13 Q 60 6 110 11 T 215 9"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        fill="none"
-        opacity="0.55"
-      />
-    </svg>
-  )
-}
-
-function CurlyArrow({
-  className,
-  flip = false,
-}: {
-  className?: string
-  flip?: boolean
-}) {
-  return (
-    <svg
-      viewBox="0 0 90 70"
-      className={cn(className, flip && '-scale-x-100')}
-      aria-hidden
-    >
-      <path
-        d="M6 10 C 22 8, 56 8, 70 26 C 80 40, 70 54, 50 56"
-        stroke="currentColor"
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-      />
-      <path
-        d="M44 50 L 50 56 L 56 48"
-        stroke="currentColor"
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function Asterisk({
-  size = 12,
-  className,
-}: {
-  size?: number
-  className?: string
-}) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      className={className}
-      aria-hidden
-    >
-      <path
-        d="M12 2 V22 M3 7 L21 17 M3 17 L21 7"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
-}
-
 /* ─── Pixelated AI-robot portrait ─────────────────────────── */
 function PixelPortrait() {
   return (
     <div className="relative">
       {/* coral glow behind the frame */}
       <div className="absolute -inset-8 rounded-[44px] bg-gradient-to-br from-coral/30 via-rose-mist/30 to-[#FFE6D2]/40 blur-3xl -z-10" />
-
-      {/* tiny serif marginalia */}
-      <span className="absolute -top-4 -left-2 serif-italic text-xs text-ink-muted/70 -rotate-3 hidden sm:block">
-        Muskan, ~rendered.
-      </span>
 
       <div
         className="relative w-[260px] sm:w-[320px] lg:w-[380px] aspect-[4/5] rounded-[28px] overflow-hidden ring-1 ring-white/70 shadow-[0_30px_80px_-22px_rgba(255,107,107,0.45)] bg-[#FFE0DA]"
@@ -143,19 +55,12 @@ function PixelPortrait() {
         <Image
           src="/muskan.jpeg"
           alt="Muskan Jain"
-          width={88}
-          height={110}
+          width={760}
+          height={950}
           priority
-          sizes="88px"
+          sizes="(min-width: 1024px) 380px, (min-width: 640px) 320px, 260px"
           className="w-full h-full object-cover"
-          style={{ imageRendering: 'pixelated' }}
         />
-      </div>
-
-      {/* tiny mono caption pill */}
-      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-ink/80 bg-white/85 backdrop-blur rounded-full ring-1 ring-ink/10 shadow-sm tabular">
-        <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
-        RENDERED · V0.4
       </div>
     </div>
   )
@@ -168,7 +73,7 @@ function HeroSection() {
   const community = siteConfig.community
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20 grain">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Pastel sky gradient */}
       <div
         className="absolute inset-0 -z-20"
@@ -217,7 +122,6 @@ function HeroSection() {
               , and the boring middle of the funnel —{' '}
               <span className="relative inline-block">
                 using AI.
-                <ScribbleUnderline className="text-coral/75" />
               </span>
             </motion.h1>
 
@@ -247,15 +151,12 @@ function HeroSection() {
                 />
               </Link>
               <Link
-                href="#wall"
+                href="/services"
                 className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-ink/85 bg-white/55 backdrop-blur-md rounded-full ring-1 ring-ink/10 hover:bg-white/80 hover:ring-coral/30 transition-all duration-300"
               >
-                Peek at the Wall
+                Explore Services
                 <ArrowUpRight size={14} />
               </Link>
-              <span className="serif-italic text-sm text-ink-muted/80 ml-1 hidden sm:inline">
-                — free, by invite.
-              </span>
             </motion.div>
 
             {/* mini-pulse */}
@@ -300,267 +201,6 @@ function Pulse({ label, value }: { label: string; value: number }) {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   3. MOUNTAIN MOMENT — editorial illustration with marginalia
-   ═══════════════════════════════════════════════════════════════ */
-function MountainMoment() {
-  return (
-    <section className="relative bg-blush overflow-hidden">
-      <div className="container-width section-padding">
-        <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
-          {/* Mountain */}
-          <BlurFade delay={0.05} yOffset={20} blur={6} className="col-span-12 lg:col-span-6">
-            <div className="relative">
-              <MountainScene signLabel="Join Us" />
-              {/* tiny note */}
-              <div className="absolute -top-4 -left-2 lg:-left-6 hidden md:flex items-start gap-1.5 max-w-[160px]">
-                <CurlyArrow className="w-12 h-10 text-coral/50 mt-2" />
-                <span className="serif-italic text-sm text-ink-muted/80 leading-snug pt-2">
-                  The room, illustrated.
-                </span>
-              </div>
-            </div>
-          </BlurFade>
-
-          {/* Copy */}
-          <div className="col-span-12 lg:col-span-6">
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section">
-                Most communities online <br className="hidden sm:block" />
-                feel like a <span className="serif-italic text-ink-muted/70">feed.</span>
-                <br />
-                <span className="relative inline-block mt-2">
-                  This one feels like
-                  <span className="ml-2 serif-italic text-coral">a room.</span>
-                </span>
-              </h2>
-            </RevealOnScroll>
-
-            <RevealOnScroll variant="slideUp" delay={0.1}>
-              <p className="text-lead mt-7 max-w-lg [text-wrap:pretty]">
-                No pitch decks. No growth-hacker theatre. Just builders showing
-                their work in progress, asking real questions, and shipping
-                faster because someone&apos;s in the room with them.
-              </p>
-            </RevealOnScroll>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   4. COMMUNITY WALL
-   ═══════════════════════════════════════════════════════════════ */
-type IconComponent = React.ComponentType<{
-  size?: number | string
-  strokeWidth?: number | string
-  className?: string
-}>
-
-type ShipService = {
-  slug: string
-  title: string
-  body: string
-  icon: IconComponent
-  tag: string
-  tagColor: string
-  featured?: boolean
-}
-
-const shipServices: ShipService[] = [
-  {
-    slug: 'content-engines',
-    title: 'ai content engines',
-    body: 'agentic pipelines that research, draft, edit, and publish in your voice. one topic in, twelve platform-ready pieces out. you review for 30 min, the engine ships the rest.',
-    icon: PenTool,
-    tag: 'Content',
-    tagColor: 'bg-[#2D9D78]/10 text-[#2D9D78] ring-[#2D9D78]/20',
-  },
-  {
-    slug: 'ugc-video',
-    title: 'ai ugc + short-form video',
-    body: 'heygen-style avatars, ai-cloned voiceovers, and auto-edited reels. produce a month of native content for instagram, youtube shorts, and x in a weekend.',
-    icon: Video,
-    tag: 'Video',
-    tagColor: 'bg-coral/10 text-coral ring-coral/25',
-  },
-  {
-    slug: 'reddit-traffic',
-    title: 'reddit-led traffic',
-    body: 'reddit shows up in 68% of ai-generated answers across google overviews, chatgpt, and perplexity. i build the playbooks that get your brand cited there, not just ranked.',
-    icon: MessageSquare,
-    tag: 'AI SEO',
-    tagColor: 'bg-[#5B8DEF]/10 text-[#5B8DEF] ring-[#5B8DEF]/20',
-  },
-  {
-    slug: 'email-lifecycle',
-    title: 'email lifecycle, agentic',
-    body: 'i build end to end the email flows your funnel keeps forgetting. signups get welcomed. warm leads get nurtured. the ones who ghosted get pulled back. customers you\'ve been ignoring get expansion plays.',
-    icon: Mail,
-    tag: 'Lifecycle',
-    tagColor: 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
-  },
-  {
-    slug: 'personal-brand',
-    title: 'personal brand, on autopilot',
-    body: 'linkedin + x + newsletter, all from one weekly recording. ai ghostwriter trained on your voice. you talk for 30 minutes. it ships for a week.',
-    icon: Mic,
-    tag: 'Most Aligned',
-    tagColor: 'bg-coral text-white ring-coral/40',
-    featured: true,
-  },
-  {
-    slug: 'outbound-gtm',
-    title: 'ai outbound + gtm engineering',
-    body: 'signal-based prospecting, ai-personalized sequences, autonomous follow-ups. clay + n8n + claude. replace two sdrs with one workflow that never sleeps.',
-    icon: Send,
-    tag: 'Outbound',
-    tagColor: 'bg-ink/[0.08] text-ink ring-ink/15',
-  },
-]
-
-function CommunityWall() {
-  return (
-    <section id="wall" className="relative bg-soft-pink overflow-hidden">
-      <div className="absolute -top-20 right-1/4 w-[420px] h-[420px] rounded-full bg-white/40 blur-[100px] pointer-events-none" />
-      <div className="absolute -bottom-32 -left-20 w-[380px] h-[380px] rounded-full bg-coral/10 blur-[100px] pointer-events-none" />
-
-      <div className="container-width section-padding relative">
-        {/* Header — left aligned with marginalia */}
-        <div className="grid grid-cols-12 gap-6 mb-12">
-          <div className="col-span-12 lg:col-span-7">
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section">
-                what i actually{' '}
-                <span className="relative inline-block serif-italic text-coral">
-                  ship
-                  <ScribbleUnderline className="text-coral/70" />
-                </span>
-                .
-              </h2>
-            </RevealOnScroll>
-          </div>
-          <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:pt-3">
-            <RevealOnScroll variant="slideUp" delay={0.1}>
-              <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
-                the stack i&apos;ve been heads-down on for months. shipped,
-                broken, fixed, shipped again.
-              </p>
-            </RevealOnScroll>
-          </div>
-        </div>
-
-        <RevealOnScroll
-          variant="slideUp"
-          stagger={0.06}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {shipServices.map((service, i) => (
-            <ServiceCard key={service.slug} service={service} index={i} />
-          ))}
-        </RevealOnScroll>
-
-        <RevealOnScroll variant="slideUp" delay={0.15}>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/services"
-              className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-semibold text-white bg-ink rounded-full shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)] hover:shadow-[0_14px_40px_-8px_rgba(26,26,46,0.6)] hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <Sparkles size={15} className="text-coral" />
-              See the full workflows
-              <ArrowRight
-                size={15}
-                className="transition-transform group-hover:translate-x-0.5"
-              />
-            </Link>
-            <span className="serif-italic text-sm text-ink-muted/80">
-              — every stage, every tool, no fluff.
-            </span>
-          </div>
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-function ServiceCard({
-  service,
-  index,
-}: {
-  service: ShipService
-  index: number
-}) {
-  const tilt = [-0.6, 0.4, -0.3, 0.5, -0.4, 0.3][index] ?? 0
-  const lift = [0, -8, -4, -12, -2, -6][index] ?? 0
-  const Icon = service.icon
-
-  return (
-    <Link
-      href={`/services#${service.slug}`}
-      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-soft-pink rounded-[20px]"
-      aria-label={`See the workflow for ${service.title}`}
-    >
-    <motion.article
-      whileHover={{ y: lift - 6, rotate: tilt + 0.4 }}
-      initial={{ rotate: tilt, y: lift }}
-      animate={{ rotate: tilt, y: lift }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(
-        'relative group rounded-[20px] p-6 backdrop-blur-md ring-1 shadow-[0_12px_36px_-14px_rgba(26,26,46,0.16)] hover:shadow-[0_18px_50px_-14px_rgba(255,107,107,0.28)] transition-all',
-        service.featured
-          ? 'bg-gradient-to-br from-coral/[0.12] via-white/85 to-white/72 ring-coral/30 hover:from-coral/[0.18]'
-          : 'bg-white/72 ring-white/85 hover:bg-white/90',
-      )}
-    >
-      {service.featured && (
-        <span className="absolute -top-2.5 -right-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-[0.14em] bg-ink text-white shadow-md tabular">
-          <Star size={9} className="fill-coral text-coral" />
-          For You
-        </span>
-      )}
-      <header className="flex items-start justify-between gap-3 mb-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <div
-            className={cn(
-              'h-10 w-10 rounded-xl grid place-items-center ring-1 shrink-0',
-              service.featured
-                ? 'bg-coral text-white ring-coral/40 shadow-[0_8px_20px_-8px_rgba(255,107,107,0.5)]'
-                : 'bg-coral/10 text-coral ring-coral/20',
-            )}
-          >
-            <Icon size={18} strokeWidth={2.2} />
-          </div>
-          <h3 className="text-[15px] font-bold text-ink leading-snug [text-wrap:balance]">
-            {service.title}
-          </h3>
-        </div>
-        <span
-          className={cn(
-            'text-[10px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ring-1 shrink-0',
-            service.tagColor,
-          )}
-        >
-          {service.tag}
-        </span>
-      </header>
-      <p className="text-[14px] text-ink-secondary leading-[1.6] [text-wrap:pretty]">
-        {service.body}
-      </p>
-      <footer className="mt-5 pt-4 border-t hairline flex items-center text-[11px] text-ink-faint tabular">
-        <span className="inline-flex items-center gap-1.5">
-          <Sparkles size={11} className="text-coral/70" />
-          ai-built · production-grade
-        </span>
-        <span className="ml-auto group-hover:text-coral transition-colors">
-          See workflow →
-        </span>
-      </footer>
-    </motion.article>
-    </Link>
-  )
-}
 
 /* ═══════════════════════════════════════════════════════════════
    5. EVENTS — DeKoded series, hosted end-to-end
@@ -590,7 +230,7 @@ function CitiesSection() {
             </RevealOnScroll>
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
-            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+            <p className="text-ink-muted/85 text-lg leading-snug">
               DeKoded — strategy, content, outbound, the room itself. Here&apos;s
               what each one shipped.
             </p>
@@ -1015,7 +655,7 @@ function CreatorHub() {
             delay={0.1}
             className="col-span-12 lg:col-span-5"
           >
-            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+            <p className="text-ink-muted/85 text-lg leading-snug">
               Series, podcasts, product reviews, brand films. Built and
               shipped, week by week.
             </p>
@@ -1073,7 +713,7 @@ function CreatorHub() {
                 </motion.div>
               ))}
             </div>
-            <p className="mt-4 text-xs serif-italic text-ink-muted/85">
+            <p className="mt-4 text-xs text-ink-muted/85">
               Hands-on collabs across AI, Web3, and the messy middle. Each one
               shipped with metrics, not pitch decks.
             </p>
@@ -1296,193 +936,6 @@ function CreatorHub() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   7. RITUALS — week strip on dark
-   ═══════════════════════════════════════════════════════════════ */
-function RitualsSection() {
-  const rituals = siteConfig.community.rituals
-
-  return (
-    <section className="relative bg-midnight text-white overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-coral/10 blur-[150px] pointer-events-none" />
-      <div className="container-width section-padding relative">
-        <div className="grid grid-cols-12 gap-6 mb-12 items-end">
-          <div className="col-span-12 lg:col-span-7">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow !text-white/50">No. 06</span>
-                <span className="h-px flex-1 max-w-[80px] bg-white/10" />
-                <span className="inline-flex items-center gap-2 px-3 py-1 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/10 rounded-full ring-1 ring-coral/20">
-                  EVERY WEEK
-                </span>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section mt-6 text-white">
-                The <span className="serif-italic text-coral">rhythm</span>{' '}
-                of the room.
-              </h2>
-            </RevealOnScroll>
-          </div>
-          <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
-            <p className="serif-italic text-white/65 text-lg leading-snug">
-              Five days. Five small things. One big habit.
-            </p>
-          </RevealOnScroll>
-        </div>
-
-        <RevealOnScroll
-          variant="slideUp"
-          stagger={0.06}
-          className="grid grid-cols-1 md:grid-cols-5 gap-3"
-        >
-          {rituals.map((r, i) => (
-            <div
-              key={r.day}
-              className="group relative rounded-2xl p-5 bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/[0.08] hover:ring-coral/40 transition-all overflow-hidden"
-            >
-              <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-coral/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="flex items-baseline justify-between">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-coral tabular">
-                  {r.day}
-                </span>
-                <span className="font-mono text-[10px] text-white/30 tabular">
-                  0{i + 1}
-                </span>
-              </div>
-              <p className="mt-4 text-sm text-white/85 leading-[1.55]">{r.label}</p>
-            </div>
-          ))}
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   8. VOICES — testimonial collage
-   ═══════════════════════════════════════════════════════════════ */
-function VoicesSection() {
-  const voices = siteConfig.community.voices
-  const tilts = [-1.4, 1.2, -0.8]
-  const bgs = ['bg-white/80', 'bg-cream-pink/90', 'bg-white/80']
-
-  return (
-    <section className="relative bg-blush overflow-hidden">
-      <div className="container-width section-padding">
-        <div className="grid grid-cols-12 gap-6 mb-14 items-end">
-          <div className="col-span-12 lg:col-span-7">
-            <RevealOnScroll variant="blur">
-              <div className="flex items-center gap-3">
-                <span className="eyebrow">No. 07</span>
-                <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
-                <span className="section-label">VOICES FROM INSIDE</span>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll variant="slideUp" delay={0.05}>
-              <h2 className="h-section mt-6">
-                Members say it{' '}
-                <span className="serif-italic text-coral">better.</span>
-              </h2>
-            </RevealOnScroll>
-          </div>
-        </div>
-
-        <RevealOnScroll
-          variant="slideUp"
-          stagger={0.1}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
-        >
-          {voices.map((v, i) => (
-            <motion.figure
-              key={i}
-              initial={{ rotate: tilts[i] }}
-              whileHover={{ y: -6, rotate: tilts[i] * 0.5 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className={cn(
-                'relative rounded-[22px] p-7 backdrop-blur-md ring-1 ring-rose-mist/50 shadow-[0_14px_36px_-16px_rgba(26,26,46,0.16)]',
-                bgs[i],
-              )}
-            >
-              <span
-                className="absolute -top-4 left-6 text-7xl text-coral/30 leading-none select-none font-serif"
-                aria-hidden
-              >
-                &ldquo;
-              </span>
-              <blockquote className="mt-6 text-[17px] text-ink-secondary leading-[1.55] [text-wrap:pretty]">
-                {v.body}
-              </blockquote>
-              <figcaption className="mt-7 pt-5 border-t hairline flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-coral/30 to-coral/15 ring-2 ring-white grid place-items-center text-sm font-bold text-coral">
-                  {v.name[0].toUpperCase()}
-                </div>
-                <div className="leading-tight">
-                  <p className="text-sm font-semibold text-ink">{v.name}</p>
-                  <p className="text-[11px] text-ink-muted">{v.role}</p>
-                </div>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   9. PULSE — community stats with annotations
-   ═══════════════════════════════════════════════════════════════ */
-function PulseSection() {
-  const stats = [
-    { value: 1247, label: 'Builders inside', note: '↑ +47 this week' },
-    { value: 14, label: 'Events in the wild', note: 'Since 2024' },
-    { value: 312, label: 'Things shipped together', note: 'And counting' },
-    { value: 6, label: 'Cities · soon 8', note: 'DXB live · SIN loading' },
-  ]
-
-  return (
-    <section className="relative bg-soft-pink overflow-hidden">
-      <div className="container-width section-padding">
-        <div className="text-center mb-14 max-w-2xl mx-auto">
-          <RevealOnScroll variant="blur">
-            <span className="eyebrow tabular">
-              <Asterisk size={9} className="inline mr-1.5 text-coral" />
-              MEASURED HONESTLY
-            </span>
-          </RevealOnScroll>
-          <RevealOnScroll variant="slideUp" delay={0.05}>
-            <h2 className="h-section mt-5">
-              The pulse, in{' '}
-              <span className="serif-italic text-coral">numbers.</span>
-            </h2>
-          </RevealOnScroll>
-        </div>
-
-        <RevealOnScroll
-          variant="scaleIn"
-          stagger={0.1}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12"
-        >
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-5xl sm:text-6xl lg:text-7xl font-black text-coral leading-none tracking-[-0.045em] tabular">
-                <CountUp value={s.value} />
-              </p>
-              <p className="mt-3 text-sm text-ink leading-snug font-semibold">
-                {s.label}
-              </p>
-              <p className="mt-1 serif-italic text-xs text-ink-muted/85 tabular">
-                {s.note}
-              </p>
-            </div>
-          ))}
-        </RevealOnScroll>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════════════════════════
    10. FAQ
    ═══════════════════════════════════════════════════════════════ */
 function FAQSection() {
@@ -1530,7 +983,7 @@ function FAQSection() {
             </RevealOnScroll>
           </div>
           <RevealOnScroll variant="slideUp" delay={0.1} className="col-span-12 lg:col-span-4">
-            <p className="serif-italic text-ink-muted/85 text-lg leading-snug">
+            <p className="text-ink-muted/85 text-lg leading-snug">
               Short answers. No marketing speak.
             </p>
           </RevealOnScroll>
@@ -1600,7 +1053,7 @@ function JoinSection() {
   return (
     <section
       id="join"
-      className="relative overflow-hidden grain"
+      className="relative overflow-hidden"
       style={{
         background:
           'linear-gradient(180deg, #FFE4E1 0%, #FFD4C2 45%, #C9D5E8 100%)',
@@ -1612,13 +1065,6 @@ function JoinSection() {
       <div className="container-width section-padding relative">
         <BlurFade yOffset={20} blur={6}>
           <div className="relative max-w-3xl mx-auto rounded-[32px] p-10 sm:p-14 bg-white/55 backdrop-blur-2xl ring-1 ring-white/85 shadow-[0_30px_80px_-20px_rgba(255,107,107,0.35)]">
-            {/* corner pills */}
-            <FloatingPills
-              className="absolute -top-16 -right-12 w-[220px] h-[220px] pointer-events-none hidden sm:block"
-              size="sm"
-              density="sm"
-            />
-
             {/* avatar collage */}
             <div className="flex justify-center -space-x-2.5 mb-8">
               {avatars.map((a, i) => (
@@ -1644,16 +1090,15 @@ function JoinSection() {
             <div className="text-center">
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.16em] uppercase text-coral bg-coral/12 rounded-full ring-1 ring-coral/20 tabular">
                 <Sparkles size={11} />
-                THE DOOR IS OPEN TODAY
+                WORK WITH ME
               </span>
               <h2 className="h-section mt-6">
-                Come build with people who <br className="hidden sm:block" />
-                <span className="serif-italic text-coral">actually finish</span>{' '}
-                things.
+                Let&apos;s Build Your Next{' '}
+                <span className="serif-italic text-coral">Growth System.</span>
               </h2>
               <p className="text-lead mt-7 max-w-xl mx-auto [text-wrap:pretty]">
-                Drop your handle. Tell us what you&apos;re building. A member
-                picks it up within a day.
+                Tell me what you&apos;re building. I&apos;ll reply within a day with the
+                shortest path from where you are to revenue.
               </p>
 
               <div className="mt-9 max-w-md mx-auto">
@@ -1674,7 +1119,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <MountainMoment />
       <CommunityWall />
       <CitiesSection />
       <CreatorHub />
