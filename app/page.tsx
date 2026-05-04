@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -24,8 +25,19 @@ import { BlurFade } from '@/components/ui/blur-fade'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 import { MountainScene } from '@/components/ui/mountain-scene'
 import { FloatingPills } from '@/components/ui/floating-pills'
+import { InviteForm } from '@/components/forms/InviteForm'
 import { cn } from '@/lib/utils'
 import { heroStagger, fadeUp } from '@/lib/motion'
+
+/* Three.js scenes — dynamically imported (client only, no SSR) */
+const HeroAmbient = dynamic(
+  () => import('@/components/r3f/HeroAmbient').then((m) => m.HeroAmbient),
+  { ssr: false, loading: () => null },
+)
+const CityGlobe = dynamic(
+  () => import('@/components/r3f/CityGlobe').then((m) => m.CityGlobe),
+  { ssr: false, loading: () => null },
+)
 
 /* ─── Decorative SVG annotations ──────────────────────────── */
 function ScribbleUnderline({ className }: { className?: string }) {
@@ -159,12 +171,14 @@ function HeroSection() {
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20 grain">
       {/* Pastel sky gradient */}
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-20"
         style={{
           background:
             'linear-gradient(170deg, #B6CCE5 0%, #E5C5BC 25%, #FFD0C4 50%, #FFE0DA 78%, #FFEFEB 100%)',
         }}
       />
+      {/* Three.js ambient particle field — soft coral dust + lanterns */}
+      <HeroAmbient className="absolute inset-0 -z-10 opacity-90" />
       {/* Sun */}
       <div className="absolute top-[14%] right-[12%] w-[360px] h-[360px] rounded-full bg-[#FFE6D2]/80 blur-[110px] -z-10 pointer-events-none" />
       {/* coral haze */}
@@ -339,11 +353,17 @@ function MountainMoment() {
 /* ═══════════════════════════════════════════════════════════════
    4. COMMUNITY WALL
    ═══════════════════════════════════════════════════════════════ */
+type IconComponent = React.ComponentType<{
+  size?: number | string
+  strokeWidth?: number | string
+  className?: string
+}>
+
 type ShipService = {
   slug: string
   title: string
   body: string
-  icon: React.ElementType
+  icon: IconComponent
   tag: string
   tagColor: string
   featured?: boolean
@@ -377,7 +397,7 @@ const shipServices: ShipService[] = [
   {
     slug: 'email-lifecycle',
     title: 'email lifecycle, agentic',
-    body: 'i build end to end the email flows your funnel keeps forgetting. signups get welcomed. warm leads get nurtured. the ones who ghosted get pulled back. customers you’ve been ignoring get expansion plays.',
+    body: 'i build end to end the email flows your funnel keeps forgetting. signups get welcomed. warm leads get nurtured. the ones who ghosted get pulled back. customers you\'ve been ignoring get expansion plays.',
     icon: Mail,
     tag: 'Lifecycle',
     tagColor: 'bg-[#F0A500]/15 text-[#A87000] ring-[#F0A500]/25',
@@ -549,7 +569,7 @@ function CitiesSection() {
   const events = siteConfig.community.cities
 
   return (
-    <section className="relative bg-blush overflow-hidden">
+    <section id="cities" className="relative bg-blush overflow-hidden">
       <div className="container-width section-padding">
         <div className="grid grid-cols-12 gap-6 mb-12 items-end">
           <div className="col-span-12 lg:col-span-8">
@@ -580,6 +600,14 @@ function CitiesSection() {
           </RevealOnScroll>
         </div>
 
+        {/* 3D city globe — interactive tour visualization */}
+        <RevealOnScroll variant="slideUp" delay={0.05}>
+          <div className="mb-16 -mt-2 relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cream-pink/40 to-transparent rounded-[32px] -z-10" />
+            <CityGlobe />
+          </div>
+        </RevealOnScroll>
+
         <RevealOnScroll
           variant="slideUp"
           stagger={0.05}
@@ -594,23 +622,50 @@ function CitiesSection() {
   )
 }
 
-function EventPoster({ code }: { code: string }) {
+function EventPoster({ code, status }: { code: string; status?: string }) {
+  // Per-city accent gradient — keeps each card visually distinct without photos
+  const gradients: Record<string, string> = {
+    BLR: 'from-[#FFD0C4] via-coral/30 to-[#E5C5BC]',
+    DEL: 'from-[#E5C5BC] via-rose-mist/50 to-[#FFD0C4]',
+    BOM: 'from-[#FFD0C4] via-[#FFE6D2] to-coral/20',
+    HYD: 'from-rose-mist/60 via-coral/20 to-[#FFD0C4]',
+    PNQ: 'from-[#FFE0DA] via-rose-mist/45 to-coral/15',
+    GOI: 'from-[#FFD0C4] via-coral/25 to-[#FFE0DA]',
+    DXB: 'from-coral/30 via-[#FFD0C4] to-[#FFE6D2]',
+    SIN: 'from-[#B6CCE5] via-[#E5C5BC] to-[#FFE0DA]',
+  }
+  const grad = gradients[code] ?? 'from-coral/15 via-rose-mist/40 to-blush'
   return (
-    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-coral/15 via-rose-mist/40 to-blush">
-      <span className="absolute top-2.5 left-2.5 font-mono text-xs text-coral/40 select-none">+</span>
-      <span className="absolute top-2.5 right-2.5 font-mono text-xs text-coral/40 select-none">+</span>
-      <span className="absolute bottom-2.5 left-2.5 font-mono text-xs text-coral/40 select-none">+</span>
-      <span className="absolute bottom-2.5 right-2.5 font-mono text-xs text-coral/40 select-none">+</span>
-      <div className="text-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-ink-faint mb-2">
-          DEKODED
+    <div className={`absolute inset-0 grid place-items-center bg-gradient-to-br ${grad}`}>
+      {/* Corner crops — editorial poster framing */}
+      <span className="absolute top-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
+      <span className="absolute top-2.5 right-2.5 font-mono text-xs text-coral/50 select-none">+</span>
+      <span className="absolute bottom-2.5 left-2.5 font-mono text-xs text-coral/50 select-none">+</span>
+      <span className="absolute bottom-2.5 right-2.5 font-mono text-xs text-coral/50 select-none">+</span>
+
+      {/* Subtle grain overlay for poster texture */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-30 mix-blend-multiply"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.18 0 0 0 0 0.22 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+        }}
+      />
+
+      <div className="relative text-center">
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-ink/70 mb-2">
+          DEKODED ROOM
         </p>
-        <p className="font-black text-5xl tracking-tight text-ink/85 tabular">
+        <p className="font-black text-6xl tracking-[-0.04em] text-ink tabular leading-none">
           {code}
         </p>
-        <p className="font-mono text-[9px] uppercase tracking-[0.26em] text-ink-faint/70 mt-3">
-          PHOTO COMING
-        </p>
+        <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 backdrop-blur ring-1 ring-white/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
+          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink/70 tabular">
+            {status === 'live' ? 'COHORT LIVE' : status === 'soon' ? 'OPENING SOON' : 'SHIPPED'}
+          </span>
+        </div>
       </div>
     </div>
   )
@@ -654,7 +709,7 @@ function EventCard({
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
-          <EventPoster code={event.emoji} />
+          <EventPoster code={event.emoji} status={event.status} />
         )}
         {/* event code chip */}
         <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-mono font-bold tracking-[0.2em] text-ink shadow-sm tabular">
@@ -786,25 +841,37 @@ function CreatorHub() {
     ],
   }
 
-  // Placeholders — edit with real quotes from collaborators.
-  const testimonials = [
+  // Selected brand work — real outcomes, not placeholder quotes.
+  const selectedWork = [
     {
-      quote: '[Add a one-liner from your Base collaborator about working with you.]',
-      author: '[Name]',
-      role: '[Title]',
-      brand: 'Base',
+      brand: 'KRNL Labs',
+      project: 'Building KRNL · Phase 1 + 2',
+      blurb:
+        'Founder docu-series filmed day-by-day. Ran the GTM, the camera, and the edit. 21 episodes shipped, organic distribution only.',
+      headline: '305K',
+      headlineLabel: 'TOTAL VIEWS',
+      detail: '21 EPISODES',
+      tag: 'DOCU-SERIES',
     },
     {
-      quote: '[Add a one-liner from a KRNL teammate about what you shipped together.]',
-      author: '[Name]',
-      role: '[Title]',
-      brand: 'KRNL',
+      brand: 'Base · UAE',
+      project: 'Base Fellowship & Based UAE',
+      blurb:
+        'Day-by-day cohort coverage and on-the-ground city activations. Sponsored series + open-publication video work for the Base ecosystem.',
+      headline: '94K',
+      headlineLabel: 'TOTAL VIEWS',
+      detail: '5 SPONSORED VIDEOS',
+      tag: 'BASE FELLOWSHIP',
     },
     {
-      quote: '[Add a one-liner from a Proof of Hustle podcast guest.]',
-      author: '[Name]',
-      role: '[Title]',
-      brand: 'Proof of Hustle',
+      brand: 'Avici · Bhindi AI · Canton',
+      project: 'Brand films + product reviews',
+      blurb:
+        'Long-form product reviews and brand storytelling for AI × Web3 launches. From the brief to the post in under a week, every time.',
+      headline: '110K',
+      headlineLabel: 'TOTAL VIEWS',
+      detail: '6+ BRANDS',
+      tag: 'BRAND WORK',
     },
   ]
 
@@ -977,28 +1044,38 @@ function CreatorHub() {
         {/* brand wall */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
           <div className="mb-14">
-            <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-ink-faint mb-4">
-              BRANDS WORKED WITH
-            </p>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-ink-faint">
+                BRANDS WORKED WITH
+              </span>
+              <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+              <span className="text-[10px] font-mono tabular text-ink-muted">
+                Paid · Sponsored · Owned
+              </span>
+            </div>
             <div className="flex flex-wrap gap-2.5">
               {brands.map((b) => (
-                <div
+                <motion.div
                   key={b.name}
-                  className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/80 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white rounded-full transition-all"
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
+                  className="group inline-flex items-center gap-3 pl-3 pr-5 py-3 bg-white/85 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 hover:bg-white rounded-full transition-all shadow-[0_4px_14px_-8px_rgba(26,26,46,0.1)]"
                 >
                   <span
-                    className="h-2 w-2 rounded-full shrink-0"
+                    className="grid place-items-center h-7 w-7 rounded-full text-white font-black text-[11px] shrink-0 ring-1 ring-white/30 shadow-sm tabular"
                     style={{ backgroundColor: b.hex }}
-                  />
+                  >
+                    {b.name[0].toUpperCase()}
+                  </span>
                   <span className="text-sm font-bold text-ink tracking-tight">
                     {b.name}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
-            <p className="mt-3 text-xs text-ink-faint">
-              Drop logo SVGs in <span className="font-mono">/public/brands/</span>{' '}
-              to swap the dot for the real mark.
+            <p className="mt-4 text-xs serif-italic text-ink-muted/85">
+              Hands-on collabs across AI, Web3, and the messy middle. Each one
+              shipped with metrics, not pitch decks.
             </p>
           </div>
         </RevealOnScroll>
@@ -1108,40 +1185,58 @@ function CreatorHub() {
           </div>
         </RevealOnScroll>
 
-        {/* testimonials */}
+        {/* selected brand work */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-8">
               <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-ink-faint">
-                WORDS FROM COLLABORATORS
+                SELECTED BRAND WORK
               </span>
               <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
+              <span className="font-mono text-[10px] tabular text-ink-muted">
+                Real numbers · Not vanity
+              </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {testimonials.map((t, i) => (
-                <figure
+              {selectedWork.map((w, i) => (
+                <motion.article
                   key={i}
-                  className="relative rounded-[22px] p-7 bg-white/72 backdrop-blur-md ring-1 ring-rose-mist/60 hover:ring-coral/40 transition-all"
+                  whileHover={{ y: -6 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative rounded-[22px] p-7 bg-white/78 backdrop-blur-md ring-1 ring-rose-mist/55 hover:ring-coral/40 transition-all overflow-hidden"
                 >
-                  <span
-                    className="absolute -top-3 left-6 text-7xl text-coral/30 leading-none select-none font-serif"
-                    aria-hidden
-                  >
-                    &ldquo;
-                  </span>
-                  <blockquote className="mt-4 text-[15px] text-ink-secondary leading-[1.6] [text-wrap:pretty] serif-italic">
-                    {t.quote}
-                  </blockquote>
-                  <figcaption className="mt-6 pt-5 border-t hairline">
-                    <p className="text-sm font-bold text-ink">{t.author}</p>
-                    <p className="mt-0.5 text-[11px] text-ink-muted">
-                      {t.role} ·{' '}
-                      <span className="text-coral font-semibold">
-                        {t.brand}
-                      </span>
-                    </p>
-                  </figcaption>
-                </figure>
+                  <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/8 blur-3xl pointer-events-none" />
+                  <header className="relative flex items-center gap-2 mb-5">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-coral bg-coral/10 ring-1 ring-coral/20 px-2.5 py-1 rounded-full tabular">
+                      {w.tag}
+                    </span>
+                    <span className="font-mono text-[10px] text-ink-faint tabular">
+                      No.{String(i + 1).padStart(2, '0')}
+                    </span>
+                  </header>
+                  <p className="text-xs font-mono uppercase tracking-[0.2em] text-ink-faint">
+                    {w.brand}
+                  </p>
+                  <h4 className="relative mt-1 text-lg font-black text-ink tracking-tight leading-tight">
+                    {w.project}
+                  </h4>
+                  <p className="relative mt-3 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
+                    {w.blurb}
+                  </p>
+                  <footer className="relative mt-6 pt-5 border-t hairline flex items-baseline justify-between">
+                    <div>
+                      <p className="text-3xl font-black text-coral tabular leading-none tracking-tight">
+                        {w.headline}
+                      </p>
+                      <p className="mt-1.5 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
+                        {w.headlineLabel}
+                      </p>
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-muted tabular">
+                      {w.detail}
+                    </span>
+                  </footer>
+                </motion.article>
               ))}
             </div>
           </div>
@@ -1399,19 +1494,19 @@ function FAQSection() {
     },
     {
       q: 'Who fits?',
-      a: 'People building at the seam of AI and Web3. Founders, researchers, marketers, ops folks, vibe coders. You don\'t have to be senior — you have to be shipping.',
+      a: "People building at the seam of AI and Web3. Founders, researchers, marketers, ops folks, vibe coders. You don't have to be senior — you have to be shipping.",
     },
     {
       q: 'How do invites work?',
-      a: 'Every member gets one invite a month. We also open the doors on Fridays — drop your work in the open application and a member will pick it up.',
+      a: "Every member gets one invite a month. We also open the doors on Fridays — drop your work in the open application and a member will pick it up.",
     },
     {
       q: 'Do you record sessions?',
-      a: 'No. The deal is: nothing leaves the room. That\'s why people show their actual work here.',
+      a: "No. The deal is: nothing leaves the room. That's why people show their actual work here.",
     },
     {
       q: 'Where does this live?',
-      a: 'The wall lives in a private Discord-meets-Substack space. Events are IRL and on-cam. You\'ll get the link the day you\'re in.',
+      a: "The wall lives in a private Discord-meets-Substack space. Events are IRL and on-cam. You'll get the link the day you're in.",
     },
   ]
 
@@ -1561,27 +1656,9 @@ function JoinSection() {
                 picks it up within a day.
               </p>
 
-              <form className="mt-9 flex flex-col sm:flex-row items-stretch gap-3 max-w-md mx-auto">
-                <input
-                  type="text"
-                  placeholder="@yourhandle"
-                  className="flex-1 px-5 py-3.5 rounded-full bg-white/90 ring-1 ring-rose-mist/60 focus:ring-coral focus:outline-none text-sm text-ink placeholder:text-ink-faint transition-all"
-                />
-                <button
-                  type="button"
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-ink rounded-full hover:bg-ink/85 transition-colors"
-                >
-                  Request Invite
-                  <ArrowRight
-                    size={15}
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </button>
-              </form>
-
-              <p className="mt-5 text-xs text-ink-muted tabular">
-                No spam · No newsletter · Just the invite — or a soft no.
-              </p>
+              <div className="mt-9 max-w-md mx-auto">
+                <InviteForm />
+              </div>
             </div>
           </div>
         </BlurFade>

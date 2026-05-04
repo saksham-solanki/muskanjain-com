@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
+import { SmoothScroll } from '@/lib/smooth-scroll'
+import { ScrollProgressBar } from '@/components/scroll/ScrollProgressBar'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Muskan Jain | AI Growth for Web3 Companies',
+    default: 'Muskan Jain | The Build Club — AI × Web3 GTM',
     template: '%s | Muskan Jain',
   },
   description:
@@ -14,17 +16,27 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Muskan Jain',
+    siteName: 'Muskan Jain — The Build Club',
+    images: [{ url: '/muskan.jpeg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     creator: '@Muskanjain0401',
+    images: ['/muskan.jpeg'],
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  icons: {
+    icon: '/favicon.ico',
+  },
+}
+
+export const viewport = {
+  themeColor: '#FFF0F0',
+  colorScheme: 'light' as const,
 }
 
 export default function RootLayout({
@@ -43,9 +55,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <ScrollProgressBar />
+          <Nav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   )
