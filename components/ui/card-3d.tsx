@@ -76,9 +76,11 @@ export function CardItem({
       : `translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0)`
   }
 
+  // Cast Tag to a permissive component type to avoid TS narrowing children to never
+  const Component = Tag as React.ComponentType<React.HTMLAttributes<HTMLElement> & { ref?: React.Ref<HTMLElement> }>
   return (
-    <Tag ref={ref} className={cn('w-fit transition duration-200 ease-linear', className)}>
+    <Component ref={ref} className={cn('w-fit transition duration-200 ease-linear', className)}>
       {children}
-    </Tag>
+    </Component>
   )
 }
