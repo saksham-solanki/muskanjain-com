@@ -23,52 +23,133 @@ import { InviteForm } from '@/components/forms/InviteForm'
 import { cn } from '@/lib/utils'
 import { heroStagger, fadeUp } from '@/lib/motion'
 import StatsStrip from '@/components/sections/StatsStrip'
-import WhatIDo from '@/components/sections/WhatIDo'
+import WorkflowsSection from '@/components/sections/WorkflowsSection'
 import HowItWorks from '@/components/sections/HowItWorks'
 import Testimonials from '@/components/sections/Testimonials'
 import BrandMarquee from '@/components/sections/BrandMarquee'
+import WhyMe from '@/components/sections/WhyMe'
+import ComparisonTable from '@/components/sections/ComparisonTable'
 
 /* Three.js scenes, dynamically imported (client only, no SSR) */
 const HeroAmbient = dynamic(
   () => import('@/components/r3f/HeroAmbient').then((m) => m.HeroAmbient),
   { ssr: false, loading: () => null },
 )
-const CityGlobe = dynamic(
-  () => import('@/components/r3f/CityGlobe').then((m) => m.CityGlobe),
-  { ssr: false, loading: () => null },
-)
 
-/* ─── Pixelated AI-robot portrait ─────────────────────────── */
-function PixelPortrait() {
+/* ─── Editorial portrait, conic frame + floating metric chips ── */
+function HeroPortrait() {
   return (
-    <div className="relative">
-      {/* coral glow behind the frame */}
-      <div className="absolute -inset-8 rounded-[44px] bg-gradient-to-br from-coral/30 via-rose-mist/30 to-[#FFE6D2]/40 blur-3xl -z-10" />
+    <div className="relative w-[280px] sm:w-[340px] lg:w-[400px] mx-auto lg:ml-auto lg:mr-0">
+      {/* Coral glow halo */}
+      <div className="absolute -inset-10 rounded-[44px] bg-gradient-to-br from-coral/35 via-rose-mist/40 to-[#FFE6D2]/45 blur-3xl -z-10" />
 
+      {/* Rotating conic gradient frame */}
       <div
-        className="relative w-[260px] sm:w-[320px] lg:w-[380px] aspect-[4/5] rounded-[28px] overflow-hidden ring-1 ring-white/70 shadow-[0_30px_80px_-22px_rgba(255,107,107,0.45)] bg-[#FFE0DA]"
-        style={{ filter: 'saturate(1.15) contrast(1.08)' }}
+        className="absolute -inset-[3px] rounded-[31px] opacity-80 -z-[1]"
+        style={{
+          background:
+            'conic-gradient(from 0deg, transparent 0deg, rgba(255,107,107,0.55) 90deg, transparent 180deg, rgba(255,107,107,0.3) 270deg, transparent 360deg)',
+          animation: 'spin 14s linear infinite',
+        }}
+      />
+
+      {/* Photo card */}
+      <div
+        className="relative aspect-[4/5] rounded-[28px] overflow-hidden ring-1 ring-white/70 shadow-[0_30px_80px_-22px_rgba(255,107,107,0.45)] bg-[#FFE0DA]"
+        style={{ filter: 'saturate(1.05) contrast(1.02)' }}
       >
         <Image
           src="/muskan.jpeg"
-          alt="Muskan Jain"
+          alt="Muskan Jain, GTM operator and founder of The Build Club"
           width={760}
           height={950}
           priority
-          sizes="(min-width: 1024px) 380px, (min-width: 640px) 320px, 260px"
+          sizes="(min-width: 1024px) 400px, (min-width: 640px) 340px, 280px"
           className="w-full h-full object-cover"
         />
+
+        {/* Bottom gradient overlay for caption legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-ink/65 via-ink/25 to-transparent pointer-events-none" />
+
+        {/* In-photo caption row */}
+        <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/70">
+              Operator
+            </p>
+            <p className="text-[15px] font-bold text-white tracking-tight mt-0.5">
+              Muskan Jain
+            </p>
+            <p className="text-[11px] text-white/65 tracking-wide">
+              Dubai · GTM × AI × Web3
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md rounded-full px-2.5 py-1 ring-1 ring-white/25">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-positive opacity-75 animate-ping" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-positive" />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/85">
+              Available
+            </span>
+          </span>
+        </div>
       </div>
+
+      {/* Floating chip — pipeline (top right, light) */}
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.95, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute -top-4 -right-3 sm:-right-5 lg:-right-7"
+      >
+        <div className="bg-white rounded-2xl px-4 py-2.5 shadow-[0_18px_40px_-12px_rgba(26,26,46,0.25)] ring-1 ring-rose-mist/70">
+          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-ink-faint">
+            Pipeline Driven
+          </p>
+          <p className="text-[22px] font-black text-coral tabular leading-none mt-1">
+            $340K
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Floating chip — events (bottom left, dark) */}
+      <motion.div
+        initial={{ opacity: 0, y: 16, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 1.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute -bottom-5 -left-3 sm:-left-5 lg:-left-7"
+      >
+        <div className="bg-ink text-white rounded-2xl px-4 py-2.5 shadow-[0_18px_40px_-12px_rgba(26,26,46,0.4)]">
+          <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/50">
+            DeKoded · Cities
+          </p>
+          <p className="text-[20px] font-black tabular leading-none mt-1 flex items-baseline gap-1.5">
+            8
+            <span className="text-coral text-[11px] font-mono uppercase tracking-wider">
+              shipped
+            </span>
+          </p>
+        </div>
+      </motion.div>
     </div>
   )
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   1. HERO , asymmetric editorial composition
+   1. HERO , editorial composition with trust strip + scroll cue
    ═══════════════════════════════════════════════════════════════ */
 function HeroSection() {
+  const trustBrands = [
+    { name: 'Canton', dot: '#10B981' },
+    { name: 'KRNL', dot: '#FF6B6B' },
+    { name: 'Smallest AI', dot: '#8B5CF6' },
+    { name: 'Symbiote', dot: '#06B6D4' },
+    { name: 'Bhindi AI', dot: '#F59E0B' },
+  ]
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-20">
       {/* Pastel sky gradient */}
       <div
         className="absolute inset-0 -z-20"
@@ -77,62 +158,69 @@ function HeroSection() {
             'linear-gradient(170deg, #B6CCE5 0%, #E5C5BC 25%, #FFD0C4 50%, #FFE0DA 78%, #FFEFEB 100%)',
         }}
       />
-      {/* Three.js ambient particle field, soft coral dust + lanterns */}
+      {/* Three.js ambient particle field */}
       <HeroAmbient className="absolute inset-0 -z-10 opacity-90" />
-      {/* Sun */}
-      <div className="absolute top-[14%] right-[12%] w-[360px] h-[360px] rounded-full bg-[#FFE6D2]/80 blur-[110px] -z-10 pointer-events-none" />
-      {/* coral haze */}
+      {/* Sun glow */}
+      <div className="absolute top-[12%] right-[8%] w-[420px] h-[420px] rounded-full bg-[#FFE6D2]/85 blur-[120px] -z-10 pointer-events-none" />
+      {/* Coral haze, bottom-left */}
       <div className="absolute bottom-[-6rem] left-[-10rem] w-[520px] h-[520px] rounded-full bg-coral/15 blur-[150px] -z-10 pointer-events-none" />
 
-      <div className="container-width relative z-10 py-20 sm:py-28">
-        {/* 12-col asymmetric grid */}
-        <div className="grid grid-cols-12 gap-6 lg:gap-12 items-center">
-          {/* Center, main headline */}
+      <div className="container-width relative z-10 py-12 sm:py-16 w-full">
+        <div className="grid grid-cols-12 gap-8 lg:gap-14 items-center">
+          {/* LEFT — copy column */}
           <motion.div
             variants={heroStagger}
             initial="hidden"
             animate="visible"
             className="col-span-12 lg:col-span-7"
           >
+            {/* Eyebrow row */}
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
+              <span className="h-px w-10 bg-coral/50" />
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-coral tabular">
+                Hi, I&apos;m Muskan · GTM × AI × Web3
+              </span>
+            </motion.div>
+
             {/* Headline */}
             <motion.h1
               variants={fadeUp}
               className="font-black text-ink [text-wrap:balance]"
               style={{
                 fontFamily: 'var(--font-satoshi)',
-                fontSize: 'clamp(1.875rem, 3.4vw, 2.875rem)',
-                lineHeight: 1.08,
+                fontSize: 'clamp(2rem, 4vw, 3.25rem)',
+                lineHeight: 1.06,
                 letterSpacing: '-0.035em',
                 fontFeatureSettings: "'ss01', 'salt', 'case'",
               }}
             >
               4 Years in GTM. Now I build{' '}
-              <span className="serif-italic font-normal text-coral">
-                content engines
+              <span className="serif-italic font-normal text-coral">content engines</span>,{' '}
+              <span className="serif-italic font-normal text-coral">outbound flows</span>, and the boring middle of the funnel,{' '}
+              <span className="relative inline-block whitespace-nowrap">
+                using&#160;AI
+                <span
+                  aria-hidden
+                  className="absolute left-0 right-0 -bottom-1 h-[6px] bg-coral/25 rounded-full -z-[1]"
+                />
               </span>
-              ,{' '}
-              <span className="serif-italic font-normal text-coral">
-                outbound flows
-              </span>
-              , and the boring middle of the funnel,{' '}
-              <span className="relative inline-block">
-                using AI.
-              </span>
+              .
             </motion.h1>
 
-            {/* Subhead */}
+            {/* Subhead — editorial serif italic, quoted */}
             <motion.p
               variants={fadeUp}
-              className="text-lead mt-7 max-w-lg [text-wrap:pretty]"
+              className="mt-7 max-w-xl text-ink-secondary serif-italic [text-wrap:pretty]"
+              style={{ fontSize: 'clamp(1.125rem, 1.6vw, 1.375rem)', lineHeight: 1.5 }}
             >
-              Now I help you do the same, without burning a year figuring it
-              out.
+              &ldquo;Now I help you do the same — without burning a year figuring
+              it out.&rdquo;
             </motion.p>
 
             {/* CTAs */}
             <motion.div
               variants={fadeUp}
-              className="mt-7 flex flex-wrap items-center gap-3"
+              className="mt-8 flex flex-wrap items-center gap-3"
             >
               <Link
                 href="#join"
@@ -153,36 +241,82 @@ function HeroSection() {
                 <ArrowUpRight size={14} />
               </Link>
             </motion.div>
+
+            {/* Trust strip — currently building with */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-10 pt-6 border-t hairline"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="h-px w-6 bg-ink/15" />
+                <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink-faint">
+                  Currently Building With
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {trustBrands.map((b) => (
+                  <span
+                    key={b.name}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/65 backdrop-blur-sm ring-1 ring-rose-mist/60 text-xs font-semibold text-ink"
+                  >
+                    <span
+                      aria-hidden
+                      className="inline-block h-1.5 w-1.5 rounded-full"
+                      style={{ backgroundColor: b.dot }}
+                    />
+                    {b.name}
+                  </span>
+                ))}
+                <span className="font-mono text-[11px] tracking-wide text-ink-faint pl-1">
+                  + more
+                </span>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right column, pixelated portrait */}
+          {/* RIGHT — portrait with floating chips */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.92, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="col-span-12 lg:col-span-5 relative mt-4 lg:mt-0 flex justify-center lg:justify-end"
+            className="col-span-12 lg:col-span-5 mt-6 lg:mt-0"
           >
-            <PixelPortrait />
+            <HeroPortrait />
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-blush -z-[5]" />
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center gap-1.5 text-ink-muted"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em]">
+          Scroll
+        </span>
+        <motion.span
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown size={16} className="text-coral" />
+        </motion.span>
+      </motion.div>
+
+      {/* Bottom fade into next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-blush -z-[5]" />
     </section>
   )
 }
 
 /* ═══════════════════════════════════════════════════════════════
    5. EVENTS, DeKoded series, hosted end-to-end
+   (CityGlobe r3f scene removed — all 8 cities now ship a real photo)
    ═══════════════════════════════════════════════════════════════ */
 function CitiesSection() {
   const events = siteConfig.community.cities
-  const live = events.find((e) => e.status === 'live')
-  const soon = events.find((e) => e.status === 'soon')
   const shipped = events.filter((e) => e.status === 'shipped')
-  const goa = shipped.find((e) => e.emoji === 'GOI')
-  const restShipped = shipped.filter((e) => e.emoji !== 'GOI')
 
   return (
     <section id="cities" className="relative bg-blush overflow-hidden">
@@ -212,46 +346,7 @@ function CitiesSection() {
           </header>
         </RevealOnScroll>
 
-        {/* 3D city globe, interactive tour visualization */}
-        <RevealOnScroll variant="slideUp" delay={0.05}>
-          <div className="mb-16 -mt-2 relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cream-pink/40 to-transparent rounded-[32px] -z-10" />
-            <CityGlobe />
-          </div>
-        </RevealOnScroll>
-
-        {/* Featured row: live event (wide) + coming-soon (narrow) */}
-        {(live || soon) && (
-          <RevealOnScroll variant="slideUp" delay={0.02}>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-coral tabular font-bold">
-                STILL OPEN
-              </span>
-              <span className="h-px flex-1 bg-coral/15" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint tabular">
-                LIVE NOW · COMING UP
-              </span>
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
-              {live && (
-                <div className="lg:col-span-2 relative">
-                  <div
-                    aria-hidden
-                    className="absolute -inset-3 rounded-[28px] bg-coral/12 blur-2xl pointer-events-none -z-10"
-                  />
-                  <EventCard event={live} index={events.indexOf(live)} />
-                </div>
-              )}
-              {soon && (
-                <div className="opacity-90">
-                  <EventCard event={soon} index={events.indexOf(soon)} />
-                </div>
-              )}
-            </div>
-          </RevealOnScroll>
-        )}
-
-        {/* Shipped grid: GOI hero (col-span-2) above a 3-col row of the rest */}
+        {/* Shipped rooms — uniform 3×2 grid, every card same size + treatment */}
         {shipped.length > 0 && (
           <>
             <div className="mb-5 flex items-center gap-3">
@@ -264,59 +359,55 @@ function CitiesSection() {
               </span>
             </div>
 
-            {goa && (
-              <RevealOnScroll variant="slideUp" delay={0.02}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-                  <div className="sm:col-span-2 lg:col-span-2 relative">
-                    <div
-                      aria-hidden
-                      className="absolute -inset-3 rounded-[28px] bg-coral/10 blur-2xl pointer-events-none -z-10"
-                    />
-                    <EventCard
-                      event={goa}
-                      index={events.indexOf(goa)}
-                      featured
-                    />
-                  </div>
-                  {/* Ghost CTA tile filling the remaining slot on lg */}
-                  <div className="hidden lg:flex flex-col justify-between rounded-[20px] ring-1 ring-dashed ring-coral/30 bg-white/40 backdrop-blur-md p-6 text-ink-muted">
-                    <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-coral tabular">
-                        NEXT ROOM
-                      </p>
-                      <p className="mt-3 text-2xl font-black text-ink tracking-tight leading-tight">
-                        Your city,{' '}
-                        <span className="serif-italic text-coral">next</span>?
-                      </p>
-                      <p className="mt-3 text-small text-ink-muted/85 leading-[1.55]">
-                        Drop a note if you want DeKoded in your town. We pick
-                        one new city every quarter.
-                      </p>
-                    </div>
-                    <Link
-                      href="#join"
-                      className="mt-6 inline-flex items-center gap-1.5 self-start text-[11px] font-mono uppercase tracking-[0.18em] text-coral hover:text-coral-deep transition-colors tabular"
-                    >
-                      Pitch your city
-                      <ArrowUpRight size={12} />
-                    </Link>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            )}
-
             <RevealOnScroll
               variant="slideUp"
               stagger={0.05}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12"
             >
-              {restShipped.map((event) => (
+              {shipped.map((event) => (
                 <EventCard
                   key={event.name}
                   event={event}
                   index={events.indexOf(event)}
                 />
               ))}
+            </RevealOnScroll>
+
+            {/* Footer CTA banner — separate from the events grid, full width */}
+            <RevealOnScroll variant="slideUp" delay={0.05}>
+              <div className="relative rounded-[24px] overflow-hidden bg-gradient-to-br from-white/85 to-cream-pink/85 ring-1 ring-coral/25 backdrop-blur-md p-7 sm:p-9 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
+                <div
+                  aria-hidden
+                  className="absolute -top-24 -right-24 w-[360px] h-[360px] rounded-full bg-coral/15 blur-[100px] pointer-events-none"
+                />
+                <div className="relative flex-1">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-coral tabular font-bold">
+                    NEXT ROOM
+                  </p>
+                  <p className="mt-3 text-2xl sm:text-3xl font-black text-ink tracking-tight leading-tight [text-wrap:balance]">
+                    Your city,{' '}
+                    <span className="serif-italic font-normal text-coral">
+                      next
+                    </span>
+                    ?
+                  </p>
+                  <p className="mt-3 text-[14px] sm:text-[15px] text-ink-muted leading-[1.55] max-w-md [text-wrap:pretty]">
+                    Drop a note if you want DeKoded in your town. I pick one
+                    new city a quarter — early notes get the front of the
+                    line.
+                  </p>
+                </div>
+                <Link
+                  href="#join"
+                  className="relative shrink-0 group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-ink text-white text-sm font-bold hover:bg-ink/85 transition-colors shadow-[0_10px_30px_-8px_rgba(26,26,46,0.45)]"
+                >
+                  Pitch your city
+                  <ArrowUpRight
+                    size={14}
+                    className="text-coral transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </Link>
+              </div>
             </RevealOnScroll>
           </>
         )}
@@ -325,16 +416,16 @@ function CitiesSection() {
   )
 }
 
+/* Fallback poster when a city has no image. All 8 cities currently
+   carry a real Unsplash URL, so this should never render — kept as
+   a safety net so a missing image never breaks layout. */
 function EventPoster({
   code,
   status,
-  headline,
 }: {
   code: string
   status?: string
-  headline?: string
 }) {
-  // Per-city accent gradient, kept as a quiet color swatch (not a poster)
   const gradients: Record<string, string> = {
     BLR: 'from-[#FFD0C4] via-coral/30 to-[#E5C5BC]',
     DEL: 'from-[#E5C5BC] via-rose-mist/50 to-[#FFD0C4]',
@@ -357,31 +448,11 @@ function EventPoster({
     <div
       className={`absolute inset-0 flex flex-col justify-between bg-gradient-to-br ${grad} p-5`}
     >
-      {/* Quieter corner crop marks */}
-      <span className="absolute top-2 left-2 font-mono text-[9px] text-coral/30 select-none">
-        +
-      </span>
-      <span className="absolute top-2 right-2 font-mono text-[9px] text-coral/30 select-none">
-        +
-      </span>
-      <span className="absolute bottom-2 left-2 font-mono text-[9px] text-coral/30 select-none">
-        +
-      </span>
-      <span className="absolute bottom-2 right-2 font-mono text-[9px] text-coral/30 select-none">
-        +
-      </span>
+      <span className="absolute top-2 left-2 font-mono text-[9px] text-coral/30 select-none">+</span>
+      <span className="absolute top-2 right-2 font-mono text-[9px] text-coral/30 select-none">+</span>
+      <span className="absolute bottom-2 left-2 font-mono text-[9px] text-coral/30 select-none">+</span>
+      <span className="absolute bottom-2 right-2 font-mono text-[9px] text-coral/30 select-none">+</span>
 
-      {/* Subtle grain overlay */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-25 mix-blend-multiply"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.18 0 0 0 0 0.22 0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-        }}
-      />
-
-      {/* Top: small mono city code + status, demoted from text-6xl to text-2xl */}
       <div className="relative flex items-center justify-between">
         <p className="font-mono text-2xl font-black tracking-[-0.02em] text-ink/85 tabular leading-none">
           {code}
@@ -394,23 +465,12 @@ function EventPoster({
         </span>
       </div>
 
-      {/* Center: headline metric becomes the visual anchor */}
       <div className="relative text-center px-2">
-        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink/55 mb-2">
+        <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-ink/55">
           DEKODED ROOM
         </p>
-        {headline ? (
-          <p className="font-black text-2xl sm:text-3xl tracking-[-0.02em] text-ink tabular leading-tight [text-wrap:balance]">
-            {headline}
-          </p>
-        ) : (
-          <p className="font-black text-2xl tracking-[-0.02em] text-ink tabular leading-tight">
-            Receipts shipped.
-          </p>
-        )}
       </div>
 
-      {/* Bottom: minimal spacer line */}
       <div className="relative h-px w-12 bg-coral/40" />
     </div>
   )
@@ -437,9 +497,11 @@ function EventCard({
   }
   const blurb = event.blurb ?? ''
   const metrics = event.metrics ?? []
-  const image = event.image
+  // Widen to allow future cities that haven't been photographed yet — keeps the
+  // EventPoster fallback reachable per the type system.
+  const image: string | undefined = event.image || undefined
   const headline = metrics[0]
-  const restMetrics = metrics.slice(1, 3) // cap at 2 to avoid crowding
+  const restMetrics = metrics.slice(1, 3)
 
   return (
     <motion.article
@@ -470,35 +532,29 @@ function EventCard({
               }
               className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             />
-            {/* Legibility wash for the small city-code chip on top-left */}
             <div
               aria-hidden
               className="absolute inset-0 bg-gradient-to-tr from-ink/40 via-transparent to-transparent pointer-events-none"
             />
           </>
         ) : (
-          <EventPoster
-            code={event.emoji}
-            status={event.status}
-            headline={headline}
-          />
+          <EventPoster code={event.emoji} status={event.status} />
         )}
 
-        {/* Quiet city-code chip, top-left only (status moves into body) */}
+        {/* Quiet city-code chip, top-left */}
         <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/85 backdrop-blur text-[10px] font-mono font-bold tracking-[0.2em] text-ink shadow-sm tabular">
           <MapPin size={10} className="text-coral" />
           {event.emoji}
         </div>
       </div>
 
-      {/* body, new hierarchy: code+dot, big headline metric, h-card, blurb, small metric pills */}
+      {/* body */}
       <div
         className={cn(
           'flex flex-col flex-1',
           featured ? 'p-6 sm:p-8' : 'p-5 sm:p-6',
         )}
       >
-        {/* Top: small mono city code + status dot */}
         <div className="flex items-center gap-2">
           <span className="font-mono text-[10px] tracking-[0.2em] text-ink-faint tabular font-bold">
             {event.emoji}
@@ -520,7 +576,6 @@ function EventCard({
           </span>
         </div>
 
-        {/* Big: headline outcome, the visual anchor */}
         {headline && (
           <p
             className={cn(
@@ -532,7 +587,6 @@ function EventCard({
           </p>
         )}
 
-        {/* h-card: city name + DeKoded prefix */}
         <h3
           className={cn(
             'h-card mt-3 text-ink tracking-tight',
@@ -546,14 +600,12 @@ function EventCard({
           </span>
         </h3>
 
-        {/* Subtitle blurb */}
         {blurb && (
           <p className="mt-2 text-small text-ink-muted leading-[1.55] [text-wrap:pretty]">
             {blurb}
           </p>
         )}
 
-        {/* Bottom: remaining 1-2 metrics as small mono pills */}
         {restMetrics.length > 0 && (
           <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
             {restMetrics.map((m) => (
@@ -857,22 +909,11 @@ function CreatorHub() {
           </RevealOnScroll>
         </div>
 
-        {/* Series bento — one unified card design, hierarchy from size only.
-            Plain <div> grid (NOT RevealOnScroll) so col-span classes survive. */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 auto-rows-[minmax(200px,auto)] gap-4 lg:gap-5 mb-16">
+        {/* Series bento — UNIFORM 3×2 grid. Every card same size, same skin.
+            Hierarchy lives in the view-count number, not in card sizing. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {series.map((s, i) => {
             const Icon = s.icon
-            const isFeatured = s.title === 'Building KRNL'
-
-            // Size — featured spans 7×2, large secondaries span 5, rest span 4
-            const isLarge =
-              s.title === 'India Tour' || s.title === 'Proof of Hustle'
-            const span = isFeatured
-              ? 'md:col-span-2 lg:col-span-7 lg:row-span-2 min-h-[380px] lg:min-h-0'
-              : isLarge
-                ? 'lg:col-span-5'
-                : 'lg:col-span-4'
-
             return (
               <motion.article
                 key={s.title}
@@ -891,128 +932,39 @@ function CreatorHub() {
                   y: -4,
                   transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
                 }}
-                className={cn(
-                  'group relative rounded-[22px] overflow-hidden ring-1 transition-all flex flex-col',
-                  span,
-                  isFeatured
-                    ? 'text-white ring-coral/30 hover:ring-coral/50 shadow-[0_24px_60px_-24px_rgba(255,107,107,0.45)]'
-                    : 'bg-white/78 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/92',
-                )}
+                className="group relative rounded-[22px] overflow-hidden ring-1 transition-all flex flex-col bg-white/78 backdrop-blur-md ring-rose-mist/60 hover:ring-coral/40 hover:bg-white/92"
               >
-                {/* Featured tile — coral gradient + soft dot pattern (no image) */}
-                {isFeatured && (
-                  <>
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 -z-10"
-                      style={{
-                        background:
-                          'linear-gradient(135deg, #FF6B6B 0%, #E84545 55%, #1A1A2E 130%)',
-                      }}
-                    />
-                    {/* Subtle dot pattern */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 -z-10 opacity-[0.18] mix-blend-overlay"
-                      style={{
-                        backgroundImage:
-                          'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.7) 1px, transparent 0)',
-                        backgroundSize: '14px 14px',
-                      }}
-                    />
-                    {/* Corner glow */}
-                    <div
-                      aria-hidden
-                      className="absolute -top-32 -right-32 w-[460px] h-[460px] rounded-full bg-coral/40 blur-[140px] -z-10 pointer-events-none"
-                    />
-                  </>
-                )}
-
-                {/* Hover wash for non-featured cards */}
-                {!isFeatured && (
-                  <div
-                    aria-hidden
-                    className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                )}
-
+                {/* Hover coral wash */}
                 <div
-                  className={cn(
-                    'relative z-10 flex flex-col h-full',
-                    isFeatured ? 'p-8 sm:p-10' : 'p-6 sm:p-7',
-                  )}
-                >
+                  aria-hidden
+                  className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                />
+
+                <div className="relative z-10 flex flex-col h-full p-6 sm:p-7">
                   <header className="flex items-start justify-between gap-3 mb-5">
-                    <div
-                      className={cn(
-                        'rounded-xl grid place-items-center ring-1',
-                        isFeatured
-                          ? 'w-12 h-12 bg-white/12 ring-white/25 text-white'
-                          : 'w-11 h-11 bg-coral/10 ring-coral/20 text-coral',
-                      )}
-                    >
-                      <Icon size={isFeatured ? 22 : 18} />
+                    <div className="w-11 h-11 rounded-xl grid place-items-center ring-1 bg-coral/10 ring-coral/20 text-coral">
+                      <Icon size={18} />
                     </div>
-                    <span
-                      className={cn(
-                        'text-[10px] font-mono font-bold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full tabular ring-1',
-                        isFeatured
-                          ? 'text-white bg-white/12 ring-white/25'
-                          : 'text-coral bg-coral/10 ring-coral/15',
-                      )}
-                    >
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] px-2.5 py-1 rounded-full tabular ring-1 text-coral bg-coral/10 ring-coral/15">
                       {s.tag}
                     </span>
                   </header>
 
-                  <h3
-                    className={cn(
-                      'font-black tracking-tight [text-wrap:balance]',
-                      isFeatured
-                        ? 'text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.05]'
-                        : 'text-xl text-ink',
-                    )}
-                  >
+                  <h3 className="font-black tracking-tight [text-wrap:balance] text-xl text-ink">
                     {s.title}
                   </h3>
-                  <p
-                    className={cn(
-                      'mt-3 leading-[1.55] [text-wrap:pretty]',
-                      isFeatured
-                        ? 'text-white/80 text-base sm:text-lg max-w-md'
-                        : 'text-ink-muted text-[14px]',
-                    )}
-                  >
+                  <p className="mt-3 leading-[1.55] [text-wrap:pretty] text-ink-muted text-[14px]">
                     {s.subtitle}
                   </p>
 
-                  {isFeatured && (
-                    <div className="mt-auto pt-8 flex items-end justify-between gap-4 flex-wrap">
-                      <div>
-                        <p className="text-5xl sm:text-6xl lg:text-7xl font-black text-white tabular tracking-[-0.045em] leading-none">
-                          {s.views}
-                        </p>
-                        <p className="mt-2 text-[10px] font-mono uppercase tracking-[0.22em] text-white/55">
-                          21 EPISODES · TOTAL VIEWS
-                        </p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.18em] text-white/85 group-hover:text-white transition-colors">
-                        Watch the docu-series
-                        <ArrowUpRight size={14} />
-                      </span>
-                    </div>
-                  )}
-
-                  {!isFeatured && (
-                    <footer className="mt-auto pt-5 border-t hairline flex items-baseline justify-between">
-                      <span className="text-2xl sm:text-3xl font-black text-coral tabular tracking-[-0.03em]">
-                        {s.views}
-                      </span>
-                      <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-faint">
-                        TOTAL VIEWS
-                      </span>
-                    </footer>
-                  )}
+                  <footer className="mt-auto pt-5 border-t hairline flex items-baseline justify-between">
+                    <span className="text-2xl sm:text-3xl font-black text-coral tabular tracking-[-0.03em]">
+                      {s.views}
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-faint">
+                      TOTAL VIEWS
+                    </span>
+                  </footer>
                 </div>
               </motion.article>
             )
@@ -1122,7 +1074,9 @@ function CreatorHub() {
           </div>
         </RevealOnScroll>
 
-        {/* selected brand work */}
+        {/* selected brand work — numbered editorial list (NOT a card grid).
+            Each row is one selected case study, magazine-style. Reads as a
+            curated portfolio, visually distinct from the bento above. */}
         <RevealOnScroll variant="slideUp" delay={0.05}>
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-8">
@@ -1134,48 +1088,55 @@ function CreatorHub() {
                 Real numbers · Not vanity
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <ol className="rounded-[22px] bg-white/65 backdrop-blur-md ring-1 ring-rose-mist/55 overflow-hidden divide-y divide-ink/8">
               {selectedWork.map((w, i) => (
-                <motion.article
+                <motion.li
                   key={i}
-                  whileHover={{ y: -6 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative rounded-[22px] p-7 bg-white/78 backdrop-blur-md ring-1 ring-rose-mist/55 hover:ring-coral/40 transition-all overflow-hidden"
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative grid grid-cols-12 gap-4 sm:gap-6 px-5 sm:px-7 lg:px-9 py-7 sm:py-8 hover:bg-coral/[0.04] transition-colors"
                 >
-                  <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-coral/8 blur-3xl pointer-events-none" />
-                  <header className="relative flex items-center gap-2 mb-5">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-coral bg-coral/10 ring-1 ring-coral/20 px-2.5 py-1 rounded-full tabular">
-                      {w.tag}
+                  {/* Left rail: big mono number */}
+                  <div className="col-span-2 sm:col-span-1 flex items-start">
+                    <span className="font-mono text-3xl sm:text-4xl font-black text-coral tabular tracking-[-0.04em] leading-none">
+                      {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className="font-mono text-[10px] text-ink-faint tabular">
-                      No.{String(i + 1).padStart(2, '0')}
-                    </span>
-                  </header>
-                  <p className="text-xs font-mono uppercase tracking-[0.2em] text-ink-faint">
-                    {w.brand}
-                  </p>
-                  <h4 className="relative mt-1 text-lg font-black text-ink tracking-tight leading-tight">
-                    {w.project}
-                  </h4>
-                  <p className="relative mt-3 text-[14px] text-ink-muted leading-[1.55] [text-wrap:pretty]">
-                    {w.blurb}
-                  </p>
-                  <footer className="relative mt-6 pt-5 border-t hairline flex items-baseline justify-between">
-                    <div>
-                      <p className="text-3xl font-black text-coral tabular leading-none tracking-tight">
-                        {w.headline}
+                  </div>
+
+                  {/* Middle: brand + tag + project + blurb */}
+                  <div className="col-span-10 sm:col-span-7 lg:col-span-8 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                      <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-ink-faint tabular">
+                        {w.brand}
                       </p>
-                      <p className="mt-1.5 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-faint">
-                        {w.headlineLabel}
-                      </p>
+                      <span className="text-ink-faint/40">·</span>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-coral bg-coral/10 ring-1 ring-coral/15 px-2 py-0.5 rounded-full tabular">
+                        {w.tag}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-[0.16em] text-ink-muted tabular">
+                    <h4 className="text-xl sm:text-2xl font-black text-ink tracking-tight leading-tight [text-wrap:balance]">
+                      {w.project}
+                    </h4>
+                    <p className="mt-2 text-[14px] sm:text-[15px] text-ink-muted leading-[1.55] [text-wrap:pretty] max-w-2xl">
+                      {w.blurb}
+                    </p>
+                  </div>
+
+                  {/* Right rail: big metric + detail */}
+                  <div className="col-span-12 sm:col-span-4 lg:col-span-3 flex flex-col items-start sm:items-end justify-start sm:text-right gap-1">
+                    <p className="text-3xl sm:text-4xl font-black text-coral tabular leading-none tracking-[-0.03em]">
+                      {w.headline}
+                    </p>
+                    <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-ink-faint">
+                      {w.headlineLabel}
+                    </p>
+                    <span className="mt-2 text-[10px] font-mono uppercase tracking-[0.16em] text-ink-muted tabular">
                       {w.detail}
                     </span>
-                  </footer>
-                </motion.article>
+                  </div>
+                </motion.li>
               ))}
-            </div>
+            </ol>
           </div>
         </RevealOnScroll>
 
@@ -1267,7 +1228,7 @@ function FAQSection() {
           <div className="col-span-12 lg:col-span-7">
             <RevealOnScroll variant="blur">
               <div className="flex items-center gap-3">
-                <span className="eyebrow">No. 08</span>
+                <span className="eyebrow">No. 10</span>
                 <span className="h-px flex-1 max-w-[80px] bg-ink/15" />
                 <span className="section-label">SOFTBALL QUESTIONS</span>
               </div>
@@ -1418,10 +1379,12 @@ export default function Home() {
       <HeroSection />
       <BrandMarquee />
       <StatsStrip />
-      <WhatIDo />
+      <WorkflowsSection />
       <HowItWorks />
       <CitiesSection />
       <CreatorHub />
+      <WhyMe />
+      <ComparisonTable />
       <Testimonials />
       <FAQSection />
       <JoinSection />

@@ -239,19 +239,19 @@ export const siteConfig = {
         name: 'Hyderabad', members: 156, status: 'shipped', emoji: 'HYD',
         blurb: 'Content engine workshop, one founder story, 30 assets.',
         metrics: ['65+ in the room', '1.2M reach in 30 days', '9 case studies'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1696941515998-d83f24967aca?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Pune', members: 121, status: 'shipped', emoji: 'PNQ',
         blurb: 'Founder dinner, what GTM gets wrong, in seven slides.',
         metrics: ['50+ founders', '7-slide deck', 'Most-shared deck of Q1'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1553064483-f10fe837615f?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Goa', members: 89, status: 'shipped', emoji: 'GOI',
         blurb: 'Three-day builder retreat, shipped a full launch end-to-end.',
         metrics: ['30 builders', '1 launch shipped', '$340k pipeline'],
-        image: '',
+        image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1600&q=80&auto=format&fit=crop',
       },
       {
         name: 'Dubai', members: 147, status: 'live', emoji: 'DXB',
